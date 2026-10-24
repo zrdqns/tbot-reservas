@@ -27,6 +27,7 @@ class AgendaFalsa:
             {"id": 2, "nombre": "Mateo Herrera", "documento": "1087654321", "telefono": "3012345678", "correo": ""},
         ]
         self._citas = []
+        self._revisar_cliente = True
         self.escrituras = 0          # veces que alguien creó, movió o canceló una cita
 
     def servicios(self):
@@ -50,7 +51,7 @@ class AgendaFalsa:
 
     def crear_cita(self, cliente_id, servicio_id, barbero_id, cuando, observaciones=""):
         cita = {"id": len(self._citas) + 1, "estado": "PROGRAMADA"}
-        self._asignar(cita, cliente_id, servicio_id, barbero_id, cuando, observaciones)
+        self._asignar(cita, cliente_id, servicio_id, barbero_id, cuando, observaciones, self._revisar_cliente)
         self._citas.append(cita)
         return cita
 
@@ -69,7 +70,7 @@ class AgendaFalsa:
         self.escrituras += 1
         return cita
 
-    def _asignar(self, cita, cliente_id, servicio_id, barbero_id, cuando, observaciones):
+    def _asignar(self, cita, cliente_id, servicio_id, barbero_id, cuando, observaciones, revisar_cliente=True):
         cliente = next((c for c in self._clientes if c["id"] == cliente_id), None)
         if cliente is None:
             raise ErrorAPI(404, f"No se encontró un cliente con el ID {cliente_id}.")
@@ -81,9 +82,12 @@ class AgendaFalsa:
             raise ErrorAPI(409, "El servicio o el barbero no está activo.")
         fin = cuando + timedelta(minutes=servicio["duracionMinutos"])
         for otra in self._citas:
-            if otra["id"] != cita["id"] and otra["estado"] == "PROGRAMADA" and otra["barberoId"] == barbero_id \
-                    and cuando < inicio(otra) + timedelta(minutes=otra["duracionMinutos"]) and inicio(otra) < fin:
+            cruza = otra["id"] != cita["id"] and otra["estado"] == "PROGRAMADA" \
+                and cuando < inicio(otra) + timedelta(minutes=otra["duracionMinutos"]) and inicio(otra) < fin
+            if cruza and otra["barberoId"] == barbero_id:
                 raise ErrorAPI(409, f"El barbero {barbero['nombre']} ya tiene una cita de {inicio(otra):%H:%M}.")
+            if cruza and revisar_cliente and otra["clienteId"] == cliente_id:     # la misma regla de api-citas
+                raise ErrorAPI(409, f"{cliente['nombre']} ya tiene una cita a las {inicio(otra):%H:%M}.")
         cita.update(fechaHora=cuando.strftime("%Y-%m-%dT%H:%M:%S"), observaciones=observaciones,
                     clienteId=cliente_id, clienteNombre=cliente["nombre"], servicioId=servicio_id,
                     servicioNombre=servicio["nombre"], precio=servicio["precio"],
@@ -91,7 +95,10 @@ class AgendaFalsa:
         self.escrituras += 1
 
     def agendar(self, cliente_id, servicio_id, barbero_id, texto):
-        """Deja una cita ya puesta antes de empezar la conversación."""
+        """Deja una cita ya puesta antes de empezar la conversación. Para llenar la agenda de una prueba se
+        permite que un mismo cliente tenga citas cruzadas; lo que agenda el agente sí pasa por esa regla."""
+        self._revisar_cliente = False
         cita = self.crear_cita(cliente_id, servicio_id, barbero_id, datetime.fromisoformat(texto))
+        self._revisar_cliente = True
         self.escrituras = 0
         return cita

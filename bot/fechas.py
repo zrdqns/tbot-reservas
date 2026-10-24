@@ -27,7 +27,8 @@ DIAS_MES = {**{p: n for p, n in NUMEROS.items() if p not in ("una", "un")}, "pri
             "veinticinco": 25, "veintiseis": 26, "veintisiete": 27, "veintiocho": 28, "veintinueve": 29,
             "treinta": 30, "treinta y uno": 31}
 ERRORES = {"savado": "sabado", "biernes": "viernes", "oy": "hoy", "mnn": "manana", "setiembre": "septiembre",
-           "finde": "fin de semana"}
+           "finde": "fin de semana", "korte": "corte", "kortes": "cortes", "kortar": "cortar", "barva": "barba",
+           "kiero": "quiero", "kisiera": "quisiera"}
 
 _DIA = "(" + "|".join(DIAS) + ")"
 _MES = "(" + "|".join(MESES) + ")"
@@ -111,6 +112,8 @@ def fecha(texto, hoy):
     if m := re.search(rf"\b(?:en|dentro de) (quince|{_NUM[1:-1]}) dias?\b", s):
         cantidad = 15 if m.group(1) == "quince" else NUMEROS.get(m.group(1)) or int(m.group(1))
         return Fecha(hoy + timedelta(days={8: 7, 15: 14}.get(cantidad, cantidad)))
+    if m := re.search(rf"\b(?:en|dentro de) {_NUM} semanas?\b", s):
+        return Fecha(hoy + timedelta(days=7 * (NUMEROS.get(m.group(1)) or int(m.group(1)))))
     if m := re.fullmatch(r"(?:de\s+)?(.+?)\s+en (ocho|quince)", s):
         base = fecha(m.group(1), hoy)
         if base and base.dia and not base.hasta:
@@ -123,6 +126,11 @@ def fecha(texto, hoy):
         return _fecha(_dia_mes(hoy, dia, MESES.index(m.group(2)) + 1))
     if "pasado manana" in s:
         return Fecha(hoy + timedelta(days=2))
+    # días que ya pasaron: el agente le dice al cliente que no se puede
+    if re.search(r"\b(anteayer|antier|antes de ayer)\b", s):
+        return Fecha(hoy - timedelta(days=2))
+    if re.search(r"\bayer\b", s):
+        return Fecha(hoy - timedelta(days=1))
     if re.search(r"\bmanana\b", s):
         return Fecha(hoy + timedelta(days=1))
     if re.search(r"\bhoy\b", s):
@@ -169,6 +177,10 @@ def _fecha(dia):
 def hora(texto):
     """Valor de un tramo de hora, o None. No decide entre mañana y tarde: eso lo hace `lecturas`."""
     s = limpiar(texto)
+    if re.search(r"\bdias\b|\bsemanas?\b|\bmes(es)?\b|\bdentro de\b", s):
+        return None                        # «dentro de 15 días» es una fecha aunque el clasificador la marque como hora
+    if re.search(r"\bentre\b|\bdesde\b|\bdespues de\b|\bantes de\b|\ba partir de\b", s):
+        return None                        # «entre las 3 y las 4» es una franja
     if "mediodia" in s:
         return Hora(12, 0, True)
     if "primera hora" in s:
@@ -190,6 +202,10 @@ def hora(texto):
         cantidad = NUMEROS.get(m.group(1)) or int(m.group(1))
         return Hora(en_minutos=cantidad * (60 if m.group(2) == "hora" else 1) + (30 if "y media" in s else 0))
 
+    # «0930», «1530»: hora y minutos pegados
+    if m := re.search(r"\b([01]?\d|2[0-3])([0-5]\d)\s*(h|hrs?|horas)?\b", s):
+        if len(m.group(1) + m.group(2)) >= 3:
+            s = s[:m.start()] + f"{int(m.group(1))}:{m.group(2)}" + s[m.end(2):]
     m = re.search(rf"\b{_NUM}(?:\s*[:.h]\s*(\d{{2}}))?", s)
     if not m:
         return None

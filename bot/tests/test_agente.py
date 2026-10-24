@@ -380,3 +380,186 @@ def test_reprogramar_sin_citas_ofrece_agendar():
     assert "viernes 16 de octubre, 4:00 p. m." in chat.toco("bar:0")
     assert chat.agenda.escrituras == 0
 
+
+
+# ----------------------------------------------------------------------------- ronda de pruebas del 24 de octubre
+
+PIDE_HORAS = "quiero una cita para el lunes no se que horas tengas disponible para ese dia me puedes decir?"
+
+
+def test_cancelar_y_agendar_en_el_mismo_mensaje():
+    """Lo que salió en Telegram: «cancélala, quiero una cita para el lunes» cancelaba y se olvidaba de la nueva."""
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-11-16T10:00")
+    chat.digo("cancelala " + PIDE_HORAS)
+    assert chat.botones == ["ok", "no"]
+    texto = chat.toco("ok")
+    assert "cancelé tu cita del lunes 16 de noviembre" in texto and "El lunes 19 de octubre tengo libre" in texto
+    assert chat.citas == [(1, 1, 1, "2026-11-16T10:00", "CANCELADA")]
+    chat.toco("hor:11:30")
+    assert "lunes 19 de octubre, 11:30 a. m." in chat.digo("cualquiera")
+
+
+def test_pregunta_que_horas_hay_antes_del_servicio():
+    chat = Chat(cliente_id=1)
+    assert "te digo qué horas tengo el lunes 19 de octubre" in chat.digo(PIDE_HORAS)
+    assert "El lunes 19 de octubre tengo libre" in chat.toco("srv:1")
+
+
+def test_lo_mas_pronto_posible():
+    chat = Chat(cliente_id=1)
+    assert "Lo más pronto que tengo es el martes 13 de octubre" in chat.digo("quiero un corte lo más pronto posible")
+    assert chat.botones == ["hor:10:30", "hor:11:00", "hor:11:30", "hor:12:00"]
+
+
+@pytest.mark.parametrize("respuesta, hora", [("la que tengas", "9:00 a. m."), ("a cualquier hora", "9:00 a. m."),
+                                             ("la más temprano", "9:00 a. m."), ("la más tarde que tengas", "6:30 p. m.")])
+def test_deja_que_el_agente_escoja_la_hora(respuesta, hora):
+    chat = Chat(cliente_id=1)
+    chat.digo("corte mañana con andres")
+    texto = chat.digo(respuesta)
+    assert f"hora que tengo con Andrés es a las {hora}" in texto and f"miércoles 14 de octubre, {hora}" in texto
+
+
+def test_cualquier_dia_es_el_mas_pronto():
+    chat = Chat(cliente_id=1)
+    chat.digo("quiero un corte")
+    assert "Lo más pronto que tengo es el martes 13 de octubre" in chat.digo("cualquier día")
+
+
+def test_no_se_no_cancela_la_cita():
+    chat = Chat(cliente_id=1)
+    chat.digo("quiero un corte")
+    texto = chat.digo("no sé")
+    assert ("Tranqui" in texto or "Fresco" in texto) and chat.botones[0].startswith("dia:")
+
+
+def test_un_cliente_no_tiene_dos_citas_a_la_vez():
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-16T10:00")
+    assert "A esa hora ya tienes una cita: corte clásico con Andrés" in chat.digo("corte el viernes a las 10 con julian")
+    assert "hor:10:00" not in chat.botones
+
+
+def test_mover_la_cita_una_hora_mas_tarde():
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-16T10:00")
+    assert "viernes 16 de octubre, 11:00 a. m." in chat.digo("muéveme la cita una hora más tarde")
+    chat.toco("ok")
+    assert chat.citas == [(1, 1, 1, "2026-10-16T11:00", "PROGRAMADA")]
+
+
+@pytest.mark.parametrize("mensaje, respuesta", [
+    ("quiero hablar con el barbero", "310 456 7890"), ("me dejaron mal el corte la vez pasada", "qué pena"),
+    ("jajaja", "😄"), ("dónde quedan?", "Eso no lo manejo por aquí"), ("aceptan nequi?", "310 456 7890"),
+])
+def test_lo_que_no_es_de_citas_tiene_respuesta(mensaje, respuesta):
+    chat = Chat(cliente_id=1)
+    texto = chat.digo(mensaje)
+    assert respuesta in texto and "no te entendí" not in texto
+
+
+def test_escrito_con_errores():
+    chat = Chat(cliente_id=1)
+    assert "sábado 17 de octubre, 10:00 a. m." in chat.digo("kiero un korte el savado a las 10 con andres")
+
+
+def test_fin_de_semana_es_el_sabado():
+    chat = Chat(cliente_id=1)
+    assert "El sábado 17 de octubre tengo libre" in chat.digo("un corte el fin de semana")
+
+
+def test_dia_que_ya_paso():
+    chat = Chat(cliente_id=1)
+    assert "Ese día ya pasó" in chat.digo("un corte ayer")
+
+
+def test_pulgar_arriba_confirma():
+    chat = Chat(cliente_id=1)
+    chat.digo("corte mañana a las 3 con julian")
+    assert "quedó agendada" in chat.digo("👍")
+    assert chat.citas == [(1, 1, 2, "2026-10-14T15:00", "PROGRAMADA")]
+
+
+def test_lo_de_siempre_es_con_el_barbero_de_siempre():
+    chat = Chat(cliente_id=1)
+    chat.digo("corte mañana a las 3 con julian")
+    chat.toco("ok")
+    assert "Corte clásico con Julián" in chat.digo("lo de siempre el viernes a las 4")
+
+
+def test_una_consulta_en_medio_no_pierde_la_cita():
+    chat = Chat(cliente_id=1)
+    chat.digo("corte mañana a las 3 con julian")
+    assert "vale $25.000" in chat.digo("¿cuánto vale?") and chat.botones == ["ok", "cambiar"]
+    chat.digo("gracias")
+    assert chat.botones == ["ok", "cambiar"]
+    chat.digo("ok")
+    assert chat.citas == [(1, 1, 2, "2026-10-14T15:00", "PROGRAMADA")]
+
+
+def test_hola_en_medio_sigue_con_la_cita():
+    chat = Chat(cliente_id=1)
+    chat.digo("corte mañana")
+    assert "¡Qué más, Carlos!" in chat.digo("hola") and chat.botones[0] == "hor:09:00"
+
+
+def test_espera_no_escoge_nada():
+    chat = Chat(cliente_id=1)
+    chat.digo("corte mañana")
+    assert "te espero" in chat.digo("espera un momento").lower()
+    chat.toco("hor:10:30")
+    assert "miércoles 14 de octubre, 10:30 a. m." in chat.digo("con andres")
+
+
+def test_mejor_mas_tarde_ofrece_los_siguientes():
+    chat = Chat(cliente_id=1)
+    chat.digo("corte mañana a las 3 con andres")
+    chat.digo("mejor más tarde")
+    assert chat.botones[0] == "hor:15:30" and "hor:15:00" not in chat.botones
+
+
+def test_cancelar_todas_las_citas():
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-16T10:00")
+    chat.agenda.agendar(1, 3, 2, "2026-10-17T15:00")
+    assert "estas 2 citas" in chat.digo("cancela todas mis citas")
+    assert "cancelé tus 2 citas" in chat.toco("ok")
+    assert [c[4] for c in chat.citas] == ["CANCELADA", "CANCELADA"]
+
+
+def test_cancelar_sin_citas_sigue_con_la_nueva():
+    chat = Chat(cliente_id=1)
+    texto = chat.digo("cancela mi cita y agéndame una para el viernes")
+    assert "vamos con la nueva" in texto and chat.botones[0].startswith("srv:")
+    assert "El viernes 16 de octubre tengo libre" in chat.toco("srv:1")
+
+
+@pytest.mark.parametrize("mensaje, respuesta", [
+    ("eres una persona o un robot?", "Soy TBot"), ("cómo te llamas?", "Soy TBot"),
+    ("tienen descuento para estudiantes?", "promociones"), ("hacen cortes a domicilio?", "solo atendemos en la barbería"),
+])
+def test_preguntas_con_respuesta_fija(mensaje, respuesta):
+    assert respuesta in Chat(cliente_id=1).digo(mensaje)
+
+
+@pytest.mark.parametrize("mensaje, esperado", [
+    ("un corte y de una vez la barba mañana a las 4 con andres", "Corte y barba con Andrés"),
+    ("corte mañana 0930 con julian", "miércoles 14 de octubre, 9:30 a. m."),
+    ("corte en ocho días con andres a las 10", "martes 20 de octubre, 10:00 a. m."),
+])
+def test_mensajes_que_antes_se_leian_mal(mensaje, esperado):
+    assert esperado in Chat(cliente_id=1).digo(mensaje)
+
+
+def test_entre_dos_horas_es_una_franja():
+    chat = Chat(cliente_id=1)
+    chat.digo("corte mañana entre las 3 y las 4")
+    assert chat.botones == ["hor:15:00", "hor:15:30"]
+
+
+def test_recuerdame():
+    chat = Chat(cliente_id=1)
+    chat.digo("corte el viernes a las 3 con julian")
+    chat.toco("ok")
+    assert "El jueves te escribo para recordarte tu cita del viernes 16 de octubre" in chat.digo("recuérdame porfa")

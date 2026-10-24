@@ -27,7 +27,8 @@ def d(mes, dia, anio=2026):
     ("15/10", d(10, 15)), ("el 28/11", d(11, 28)), ("el sábado 17", d(10, 17)), ("el jueves 22", d(10, 22)),
     ("el martes 20 de octubre", d(10, 20)), ("el 15 de este mes", d(10, 15)), ("el 2 de enero", d(1, 2, 2027)),
     ("el dieciséis", d(10, 16)), ("el quince", d(10, 15)), ("el día 16", d(10, 16)), ("el veinte", d(10, 20)),
-    ("16", d(10, 16)),
+    ("16", d(10, 16)), ("dentro de 15 días", d(10, 27)), ("en 8 días", d(10, 20)), ("ayer", d(10, 12)),
+    ("antier", d(10, 11)),
 ])
 def test_dias(texto, dia):
     assert fecha(texto, HOY).dia == dia
@@ -79,10 +80,16 @@ def test_fin_de_anio():
     ("12 del día", Hora(12, 0, True)), ("a primera hora", Hora(especial="primera")),
     ("a última hora", Hora(especial="ultima")), ("ahorita", Hora(en_minutos=0)), ("ahora mismo", Hora(en_minutos=0)),
     ("en media hora", Hora(en_minutos=30)), ("en una hora", Hora(en_minutos=60)),
-    ("en 20 minutos", Hora(en_minutos=20)), ("en dos horas", Hora(en_minutos=120)),
+    ("en 20 minutos", Hora(en_minutos=20)), ("en dos horas", Hora(en_minutos=120)), ("0930", Hora(9, 30)),
+    ("1530", Hora(15, 30, True)),
 ])
 def test_horas(texto, esperada):
     assert hora(texto) == esperada
+
+
+@pytest.mark.parametrize("texto", ["dentro de 15 días", "en 8 días", "la otra semana"])
+def test_lo_que_parece_hora_pero_es_fecha(texto):
+    assert hora(texto) is None              # el clasificador a veces lo marca como hora: se lee como fecha
 
 
 @pytest.mark.parametrize("texto, lecturas", [

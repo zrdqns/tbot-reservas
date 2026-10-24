@@ -99,6 +99,28 @@ versión, a partir de lo que falló al probarlo en Telegram:
   son las 4:00 a. m., antes de abrir, y lo dice una sola vez.
 - **«Cualquiera» se mantiene.** El barbero que le tocó al cliente que no tenía preferencia no lo amarra:
   si después cambia la hora, el agente busca a quien esté libre a esa hora.
+
+Después revisé a mano 185 conversaciones más (reservar, consultar, cambiar, cancelar, mensajes combinados,
+jerga y errores de escritura) y corregí lo que fallaba:
+
+- **Dos cosas en un mensaje.** «Cancélala, quiero una cita para el lunes» cancela y sigue con la nueva, con
+  el mismo servicio; «cancela todas mis citas» las muestra todas para confirmar.
+- **Dejar que el agente escoja.** «La que tengas», «a cualquier hora», «la más tarde que tengas», «cualquier
+  día» y «lo más pronto posible» llevan a la primera (o la última) hora libre y el agente dice cuál escogió.
+  «No sé» vuelve a mostrar las opciones en vez de cancelar.
+- **«¿Qué horas tienes?»** sin decir el servicio: el agente lo pide explicando que de él depende cuánto tiempo
+  apartar, y luego muestra las horas de ese día.
+- **Preguntas en medio de la reserva.** «¿Cuánto vale?», «¿hasta qué hora abren?», «hola» o «gracias» se
+  contestan y la reserva sigue donde iba, con sus botones.
+- **Mover la hora.** «Mejor más tarde» muestra los turnos siguientes; «una hora más tarde» corre la hora, y
+  al cambiar una cita la corre desde la que tenía.
+- **Un cliente, una cita a la vez.** El agente no ofrece horas que se crucen con otra cita del mismo cliente,
+  aunque sea con otro barbero (la API tampoco lo deja).
+- **Respuestas fijas.** Quién es el bot, hablar con alguien de la barbería, quejas, descuentos y domicilios
+  remiten al teléfono de la barbería; «jajaja» o un pulgar arriba no se toman como errores (el pulgar
+  confirma si hay algo por confirmar).
+- **Lecturas nuevas.** «Korte», «0930», «en ocho días», «dentro de 15 días», «entre las 3 y las 4», «un corte y
+  de una vez la barba», «ayer» (ya pasó) y «recuérdame» (el recordatorio sale el día anterior).
 - **¿Qué barberos hay?** Responde con los barberos que están atendiendo y un botón para agendar con cada uno.
 - **Una cita que no existe.** Si pide cambiar una cita y no tiene ninguna, le ofrece agendar una nueva con lo
   que dijo.

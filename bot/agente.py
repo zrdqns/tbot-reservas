@@ -54,6 +54,44 @@ SERVICIO_IMPLICITO = [
 PEDIR_NUMERO = ("Toca el botón «📱 Compartir mi número» que te aparece abajo 👇\n"
                 "(En el computador se abre con el ícono de los cuadritos, al lado del emoji.)")
 CAMBIOS = [[("📅 Día", "cam:dia"), ("🕘 Hora", "cam:hora")], [("💈 Barbero", "cam:barbero"), ("✂️ Servicio", "cam:servicio")]]
+# «La que tengas», «cualquier día», «la más tarde que tengas»: el cliente deja que el agente escoja el día o la hora
+LA_QUE_SEA = (r"\bcualquier(a| hora| dia)?\b|\b(la|el) que (tengas|tenga|haya|sea|quieras|este libre|te quede|me des)\b|"
+              r"\bme da igual\b|\bno importa\b|\bda lo mismo\b|\b(la|el|lo) (mas )?(pronto|temprano)\b|\b(la|el) primer[oa]?\b|"
+              r"\bcuando (tengas|haya|puedas)\b")
+LA_ULTIMA = r"\b(la|lo) (mas )?tarde (que|posible)\b|\bla ultima\b"
+NO_SE = r"(no se|ni idea|no estoy seguro|no tengo idea|todavia no se|aun no se)( todavia| la verdad| bien)?"
+PRONTO = (r"\blo (mas )?pronto( posible)?\b|\bcuanto antes\b|\blo antes posible\b|\bapenas (puedas|pueda|se pueda|haya)\b|"
+          r"\bel primer (turno|espacio|cupo)\b|\blo primero que (tengas|haya)\b")
+# «¿qué horas tienes?» mientras pide la cita: quiere ver los turnos libres
+VER_HORAS = (r"\bque horas?\b|\bhoras? (libres|disponibles)\b|\bdisponib|\bturnos? (libres|disponibles)\b|"
+             r"\bque (cupos|turnos|espacios)\b|\bcupo\b")
+# «cancélala, quiero una cita para el lunes»: lo que sigue es una cita nueva
+NUEVA = (r"\b(agend\w*|reserv\w*|apart[ae]me|separ[ae]me|pideme|(quiero|quisiera|necesito|dame|me (das|da|puedes dar|regalas)) "
+         r"(una |otra |un |otro )?(cita|turno|corte|motilada|espacio|cupo))\b")
+ANULA = r"\bcancel|\banul|\bborr|\bquit|\bya no (puedo|voy)|\bno (puedo|voy a poder)"
+# «una hora más tarde», «media hora antes»: mover la cita sin decir la hora nueva
+DESPLAZA = r"\b(media|una|un|dos|tres|\d) (hora|horas|horita)s? (mas )?(tarde|despues|antes|temprano)\b"
+HUMANO = (r"\bhablar con\b|\b(llamar|escribir(le)?) a (la barberia|alguien|el barbero)\b|\btelefono\b|\bwhatsapp\b|"
+          r"\bnumero de (la barberia|ustedes|contacto)\b|\bcontacto\b")
+QUEJA = (r"\bme (dejaron|dejo|quedo) mal\b|\bmal (corte|motilado|hecho)\b|\bqueja\b|\breclamo\b|\bno me gusto\b|"
+         r"\bme (cortaron|motilaron) mal\b")
+RISA = r"(j[aeiou]){2,}j?|(ha){2,}h?|x+d+|lol|jsjs\w*"
+RECUERDA = r"\brecuerd[ae](me|melo|mela|nos)\b|\bme (avisas|avisa|recuerdas|recuerda)\b"
+# «espera un momento», «déjame pensar»: no hay nada que hacer todavía
+ESPERA = (r"(ok |bueno |listo |dale )?(espera(me)?|un (momento|momentico|segundo|minuto)|dejame (pensar|ver|mirar|revisar)|"
+          r"ya te (digo|confirmo|aviso)|ahorita te (digo|confirmo|aviso)|lo (pienso|consulto))\b.{0,25}")
+# «mejor más tarde» con una hora ya escogida: los turnos siguientes (o los anteriores)
+CORRIDA = (r"(mejor |un poco |algo |un poquito |y )*(mas (tarde|tardecito|temprano|tempranito)|despuesito)"
+           r"( porfa| por favor| si se puede| si hay)?")
+IDENTIDAD = (r"\b(eres|sos|es) (un |una )?(bot|robot|persona|humano|maquina|programa|ia|inteligencia artificial)\b|"
+             r"\bcomo te llamas\b|\bquien eres\b|\bcon quien (hablo|estoy hablando)\b|\btu nombre\b")
+DESCUENTO = r"\bdescuentos?\b|\bpromo(cion|ciones)?\b|\bofertas?\b|\bcupon\b|\b2x1\b|\bprecio especial\b"
+DOMICILIO = r"\bdomicilio\b|\ba (la |mi )?casa\b|\bvan a (la casa|domicilio)\b"
+VARIAS = r"\b(dos|2|tres|3) citas\b|\buna para mi y otra\b|\bpara mi y (para )?(mi|el|la)\b"
+COMBO = (r"(\b[ck]ort|\bmotil|\bpelo\b|\bcabello\b).{0,40}\by\b.{0,30}\bbar[bv]|"
+         r"\bbar[bv].{0,40}\by\b.{0,30}(\b[ck]ort|\bmotil|\bpelo\b|\bcabello\b)")
+FUERA = ("Eso no lo manejo por aquí 😅 Yo te ayudo con tus citas, los precios y el horario. Para lo demás, escríbele "
+         f"o llama a la barbería al {config.TELEFONO}.")
 
 
 @dataclass
@@ -86,6 +124,12 @@ class Estado:
     pendiente: dict | None = None       # datos del mensaje mientras escoge de cuál cita habla
     telefono: str = ""
     aviso: str = ""                     # algo que hay que decirle antes de seguir
+    pronto: bool = False                # «lo más pronto posible»: el primer día y los primeros turnos libres
+    ver_horas: bool = False             # preguntó qué horas hay: se le muestran apenas se sepa el servicio
+    desplazar: int | None = None        # «una hora más tarde»: minutos que se mueve la cita
+    siguiente: str = ""                 # «cancélala y agéndame el lunes»: la cita nueva, para después de cancelar
+    todas: bool = False                 # «cancela todas mis citas»
+    varias: list | None = None          # las citas que se cancelan juntas
     fallos: int = 0
     visto: datetime | None = None
 
@@ -176,10 +220,39 @@ class Agente:
     # ----------------------------------------------------------------------- comprensión
 
     def _decidir(self, uid, nombre, e, perfil, texto, resultado, ahora):
+        s = fechas.limpiar(texto)
+        if not s and e.espera == "confirmar" and set(texto) & set("👍👌✅🙌💯🤝"):
+            return self._confirmar(uid, nombre, e, perfil, ahora)      # el pulgar arriba también confirma
+        if re.fullmatch(ESPERA, s):
+            return [Respuesta(self._una("Dale, tranqui, aquí te espero 👍", "Listo, sin afán. Aquí te espero 👍"))]
+        if e.intencion in ("reservar", "reprogramar") and e.dia and e.hora and len(s.split()) <= 8:
+            # con una hora ya escogida: «mejor una hora más tarde» la corre; «mejor más tarde» busca las siguientes
+            if m := re.search(DESPLAZA, s):
+                e.hora = (datetime.combine(e.dia, e.hora) + timedelta(minutes=_minutos(m))).time()
+                e.espera = e.quiso = None
+                return self._avanzar(uid, nombre, e, perfil, ahora)
+            if re.fullmatch(CORRIDA, s):
+                despues = (datetime.combine(e.dia, e.hora) + timedelta(minutes=config.PASO)).time()
+                e.franja = fechas.Franja(desde=despues) if re.search(r"tard|despues", s) else fechas.Franja(hasta=e.hora)
+                e.hora = e.espera = e.quiso = None
+                return self._avanzar(uid, nombre, e, perfil, ahora)
+        elegido = self._sin_preferencia(uid, nombre, e, perfil, s, ahora)
+        if elegido:
+            return elegido
+        # «recuérdame mañana» pide un recordatorio; «me recuerdas mi cita» pregunta cuándo es (eso sigue de largo)
+        if re.search(RECUERDA, s) and not re.search(r"\bmis? citas?\b|\bcuando\b|\bque (dia|hora)\b|\ba que hora\b", s):
+            return self._y_seguimos(uid, nombre, e, perfil, [Respuesta(self._recuerdo(perfil, ahora))], ahora)
         intencion = resultado["intencion"]
         datos = self._leer(resultado["ranuras"], ahora)
+        if not datos["fecha"] and (m := re.search(r"\b(en|dentro de) \w+ (dias?|semanas?)\b", s)) \
+                and (rescatada := fechas.fecha(m.group(0), ahora.date())):
+            datos["fecha"].append(rescatada)        # «corte en ocho días»: el clasificador lo dejó dentro del servicio
         con_datos = any(datos.values())
         dudoso = resultado["confianza"] < config.UMBRAL or intencion == "fuera_de_alcance"
+        # hablar con alguien, una queja, descuentos, domicilios o quién es el bot: tiene respuesta fija
+        aparte = self._aparte(s) if (dudoso and not con_datos) or intencion.startswith("consultar") else None
+        if aparte:
+            return self._y_seguimos(uid, nombre, e, perfil, aparte, ahora)
         solo_numero = e.pregunta and re.fullmatch(r"\d{1,2}([:.]\d{2})?", texto.strip())
         # «cualquiera» después de «¿con quién?»: si el mensaje contesta lo que se acaba de preguntar, esa lectura
         # gana sobre la del clasificador cuando este duda o no ve una tarea distinta
@@ -204,7 +277,10 @@ class Agente:
                 return [Respuesta("No te entendí del todo 😅 ¿Quieres que te agende una cita?",
                                   [[("Sí, agendar", "duda:reservar"), ("Ver precios", "duda:precios")], [("Otra cosa", "duda:menu")]])]
             if directa is None:
-                return self._no_entendi(uid, nombre, e, perfil, texto, ahora)
+                # entendido pero fuera de lo que atiende el agente (lo confirmó el LLM, o no hay LLM y el clasificador
+                # está seguro): se le dice qué sí hace; si no, se le pide que lo diga de otra forma
+                fuera = descartado or (not self.respaldo and resultado["intencion"] == "fuera_de_alcance")
+                return self._no_entendi(uid, nombre, e, perfil, texto, ahora, fuera)
             datos, intencion = directa, "reservar"
         elif e.intencion and con_datos and (dudoso or intencion in ("afirmar", "negar")):
             intencion = "reservar"      # «no, pasado mañana» trae un dato: es parte de la tarea en curso
@@ -223,11 +299,19 @@ class Agente:
         if intencion == "negar":
             return self._dejar(uid, e)
         if intencion == "consultar_servicios":
-            return self._servicios(datos)
+            if not datos["servicio"] and e.servicio and e.intencion in ("reservar", "reprogramar"):
+                datos["servicio"] = [e.servicio["nombre"]]      # «¿cuánto vale?» mientras agenda: el que lleva
+            return self._y_seguimos(uid, nombre, e, perfil, self._servicios(datos), ahora)
         if intencion == "consultar_citas":
-            return self._mis_citas(e, perfil, ahora)
+            return self._y_seguimos(uid, nombre, e, perfil, self._mis_citas(e, perfil, ahora), ahora)
         if intencion == "consultar_disponibilidad":
-            return self._disponibilidad(e, datos, texto, ahora)
+            return self._y_seguimos(uid, nombre, e, perfil, self._disponibilidad(e, datos, texto, ahora), ahora)
+
+        siguiente = ""
+        if intencion == "cancelar" and (partes := self._partir(s)):
+            # «cancélala, quiero una cita para el lunes»: primero se cancela y después se agenda la nueva
+            primera, siguiente = partes
+            datos = self._leer(self.entender(primera)["ranuras"], ahora)
 
         # Un mensaje que solo trae datos se clasifica como reservar, pero pertenece a la tarea en curso
         nueva = e.intencion is None
@@ -236,14 +320,23 @@ class Agente:
         elif e.intencion is None:
             e.intencion = "reservar"
         e.espera = None
+        e.siguiente = siguiente or e.siguiente
+        e.todas = e.intencion == "cancelar" and bool(re.search(r"\btodas\b", s))
+        if e.intencion == "reprogramar" and (m := re.search(DESPLAZA, s)):
+            e.desplazar = _minutos(m)
         if e.intencion in ("reprogramar", "cancelar"):
-            alto = self._ubicar(uid, e, datos, perfil, ahora)
+            alto = self._ubicar(uid, e, datos, perfil, ahora, nombre)
             if alto:
                 return alto
-        limpio = fechas.limpiar(texto)
+        limpio = s
         if re.search(r"\blo (mismo )?de siempre\b|\blo mismo de la (otra|ultima) vez\b", limpio) \
-                and not any(re.search(EL_DE_SIEMPRE, fechas.limpiar(s)) for s in datos["servicio"]):
+                and not any(re.search(EL_DE_SIEMPRE, fechas.limpiar(x)) for x in datos["servicio"]):
             datos["servicio"] = ["lo de siempre"]   # «quiero lo de siempre» aunque el clasificador lo parta
+            if not datos["barbero"]:
+                datos["barbero"] = ["el de siempre"]   # lo de siempre también es con el barbero de siempre
+        elif e.intencion == "reservar" and re.search(COMBO, limpio):
+            # «un corte y de una vez la barba»: el clasificador marcó solo uno de los dos
+            datos["servicio"] = ["corte y barba"] + [x for x in datos["servicio"] if detalle([x])]
         elif e.intencion == "reservar" and e.servicio is None and not datos["servicio"]:
             # el clasificador no marcó el servicio pero el mensaje lo nombra («un corte», «una afeitada»), o lo
             # da por hecho («me motila mañana», «estoy muy mechudo»): un barbero entiende de qué se trata
@@ -251,6 +344,11 @@ class Agente:
             if nombrados:
                 datos["servicio"] = [" y ".join(nombrados)]
         self._aplicar(e, datos, perfil, ahora)
+        if e.intencion == "reservar":
+            e.pronto = e.pronto or (bool(re.search(PRONTO, limpio)) and not (datos["fecha"] or datos["hora"]))
+            e.ver_horas = e.ver_horas or bool(re.search(VER_HORAS, limpio))
+            if nueva and re.search(VARIAS, limpio):
+                e.aviso += "Te las agendo una por una: empecemos con la tuya y después hacemos la otra. "
         respuestas = self._avanzar(uid, nombre, e, perfil, ahora)
         if nueva and e.intencion == "reservar":
             respuestas[0].texto = self._charla(texto) + respuestas[0].texto
@@ -282,6 +380,76 @@ class Agente:
                     datos[tipo].append(valor)
                     break
         return datos
+
+    def _sin_preferencia(self, uid, nombre, e, perfil, s, ahora):
+        """«La que tengas», «cualquier día», «la más tarde», «no sé»: contesta el día o la hora sin escoger uno."""
+        if e.intencion not in ("reservar", "reprogramar") or e.pregunta not in ("dia", "hora"):
+            return None
+        if re.fullmatch(NO_SE, s):
+            return [Respuesta(self._una("Tranqui 😄", "Fresco 😄") + " Mira lo que tengo y escoge lo que te quede mejor.")] \
+                + self._avanzar(uid, nombre, e, perfil, ahora)
+        if e.pregunta == "hora" and re.search(LA_ULTIMA, s):
+            e.pedida = fechas.Hora(especial="ultima")
+        elif re.search(LA_QUE_SEA, s) and not re.search(rf"\d|\b(tarde|noche|manana|mediodia|hoy|pasado)\b|{fechas._DIA}|{fechas._MES}", s):
+            if e.pregunta == "dia":
+                e.pronto = True
+            else:
+                e.pedida = fechas.Hora(especial="primera")
+        else:
+            return None
+        e.hora = e.quiso = None
+        return self._avanzar(uid, nombre, e, perfil, ahora)
+
+    def _y_seguimos(self, uid, nombre, e, perfil, respuestas, ahora):
+        """Una consulta en medio de la reserva («¿cuánto vale?», «¿hasta qué hora abren?»): se contesta y se retoma."""
+        pendiente = e.intencion in ("reservar", "reprogramar") and (e.espera == "confirmar" or e.pregunta)
+        if not pendiente or any(r.pedir_contacto for r in respuestas):
+            return respuestas
+        for r in respuestas:                        # los botones de agendar sobran: ya está agendando
+            filas = [[(t, d) for t, d in fila if not d.startswith(("srv:", "menu:reservar"))] for fila in r.botones]
+            r.botones = [fila for fila in filas if fila]
+        if any(r.botones for r in respuestas):
+            return respuestas
+        if e.espera == "confirmar":
+            botones = [[("Sí, cámbiala" if e.cita else "Sí, agéndala", "ok"), ("Cambiar algo", "cambiar")]]
+            return respuestas + [Respuesta("¿Le doy?" if e.cita else "¿Te la agendo así?", botones)]
+        return respuestas + self._avanzar(uid, nombre, e, perfil, ahora)
+
+    def _recuerdo(self, perfil, ahora):
+        """«Recuérdame»: el recordatorio sale el día anterior a la cita; si es para hoy o mañana, se le dice cuándo es."""
+        proxima = next(iter(self._mias(perfil, ahora)), None) if perfil["cliente_id"] is not None else None
+        if proxima is None:
+            return "¡Claro! Cuando agendes una cita, te escribo el día anterior para recordártela 👍"
+        dia, faltan = inicio(proxima).date(), (inicio(proxima).date() - ahora.date()).days
+        if faltan > 1:
+            return (f"¡Claro! El {f.DIAS[(dia - timedelta(days=1)).weekday()]} te escribo para recordarte tu cita del "
+                    f"{f.dia(dia)} 👍")
+        cuando = "hoy" if faltan == 0 else "mañana"
+        return f"¡De una! Tu cita es {cuando} a las {f.hora(inicio(proxima).time())}: aquí te espero 💈"
+
+    def _aparte(self, s):
+        """Lo que no es de citas pero tiene respuesta fija: quién es el bot, hablar con alguien, quejas, descuentos."""
+        if re.search(IDENTIDAD, s):
+            return [Respuesta("Soy TBot, el asistente de la barbería 🤖 Soy un programa, no una persona: te ayudo a agendar, "
+                              "cambiar o cancelar tus citas y te digo precios y horarios. Si prefieres hablar con alguien, "
+                              f"llama a la barbería al {config.TELEFONO}.")]
+        if re.search(QUEJA, s):
+            return [Respuesta(f"Uy, qué pena 😕 Cuéntaselo a la barbería al {config.TELEFONO} para que te lo arreglen.")]
+        if re.search(HUMANO, s):
+            return [Respuesta(f"¡Claro! Puedes escribirle o llamar a la barbería al {config.TELEFONO}.")]
+        if re.search(DESCUENTO, s):
+            return [Respuesta(f"Las promociones te las cuentan en la barbería: escríbeles o llama al {config.TELEFONO}.")]
+        if re.search(DOMICILIO, s):
+            return [Respuesta("Por ahora solo atendemos en la barbería 💈 Si necesitas algo especial, pregúntales al "
+                              f"{config.TELEFONO}.")]
+        return None
+
+    def _partir(self, s):
+        """«Cancélala, quiero una cita para el lunes» -> («cancélala», «quiero una cita para el lunes»)."""
+        m = re.search(NUEVA, s)
+        if m and m.start() > 0 and re.search(ANULA, s[:m.start()]):
+            return s[:m.start()], s[m.start():]
+        return None
 
     def _respuesta_directa(self, e, texto, ahora):
         """Lee el mensaje como respuesta a lo que el agente acaba de preguntar, sin pasar por el clasificador."""
@@ -385,10 +553,17 @@ class Agente:
     def _avanzar(self, uid, nombre, e, perfil, ahora):
         if e.intencion == "cancelar":
             e.espera = "confirmar"
+            if e.varias:
+                lista = "\n\n".join(f.cita(c) for c in e.varias)
+                return [Respuesta(f"¿Seguro que te cancelo estas {len(e.varias)} citas?\n\n{lista}",
+                                  [[("Sí, cancélalas", "ok"), ("No, déjalas", "no")]])]
             return [Respuesta(f"¿Seguro que te cancelo esta cita?\n{f.cita(e.cita)}",
                               [[("Sí, cancélala", "ok"), ("No, déjala", "no")]])]
         if e.intencion == "reprogramar":
             antes = inicio(e.cita)
+            if e.desplazar:                         # «una hora más tarde»: el mismo día, corrida esos minutos
+                movida = antes + timedelta(minutes=e.desplazar)
+                e.dia, e.hora, e.pedida, e.desplazar = movida.date(), movida.time(), None, None
             if not (e.servicio or e.barbero or e.cualquiera or e.dia or e.rango or e.hora or e.pedida or e.franja):
                 return self._preguntar(e, "dia", f"Tu cita está así:\n{f.cita(e.cita)}\n¿Para cuándo te la paso?",
                                        self._dias(ahora, None))
@@ -410,7 +585,12 @@ class Agente:
         aviso, e.aviso = e.aviso, ""
         hoy = ahora.date()
         if e.servicio is None:
-            return self._preguntar(e, "servicio", aviso + self._una("¿Qué te vas a hacer? ✂️", "¿Qué te hacemos? ✂️"),
+            pregunta = self._una("¿Qué te vas a hacer? ✂️", "¿Qué te hacemos? ✂️")
+            if e.ver_horas:                         # «¿qué horas tienes?»: los turnos dependen de cuánto dura el servicio
+                cuando = f" el {f.dia(e.dia)}" if e.dia and e.dia >= hoy else ""
+                pregunta = (f"Claro, te digo qué horas tengo{cuando}. Primero dime qué te vas a hacer, así sé cuánto "
+                            "tiempo apartarte ✂️")
+            return self._preguntar(e, "servicio", aviso + pregunta,
                                    [[(f"{s['nombre']} · {f.precio(s['precio'])}", f"srv:{s['id']}")] for s in servicios])
         if e.opciones and e.opciones[0][0] == "dia":
             dias = [d for _, d in e.opciones]
@@ -421,9 +601,13 @@ class Agente:
             aviso, e.dia = aviso + "Ese día ya pasó 😅 ", None
         if e.dia is not None and e.dia.weekday() not in config.HORARIO:
             aviso, e.dia = aviso + f.horario(e.dia.weekday()) + " ", None
+        if e.dia is None and e.rango and len(unico := self._dias_lista(ahora, e.rango)) == 1:
+            e.dia, e.rango = unico[0], None         # «el fin de semana»: el domingo no se atiende, queda el sábado
+        if e.dia is None and e.pronto:
+            e.dia = self._primer_dia(e, ahora)
         if e.dia is None:
-            return self._preguntar(e, "dia", aviso + self._una("¿Para qué día te anoto?", "¿Qué día te queda bien?"),
-                                   self._dias(ahora, e.rango))
+            pregunta = "¿Para qué día te la paso?" if e.cita else self._una("¿Para qué día te anoto?", "¿Qué día te queda bien?")
+            return self._preguntar(e, "dia", aviso + pregunta, self._dias(ahora, e.rango))
 
         apertura, cierre = config.HORARIO[e.dia.weekday()]
         duracion = e.servicio["duracionMinutos"]
@@ -436,6 +620,18 @@ class Agente:
         con_quien = f" con {f.pila(elegido['nombre'])}" if elegido else ""
         borde = None                               # «primeras» o «ultimas»: la hora pedida cae antes de abrir o después de cerrar
 
+        # el cliente tampoco puede tener dos citas que se crucen, aunque sean con barberos distintos (la API lo rechaza)
+        propias = [c for c in citas if perfil["cliente_id"] is not None and c["clienteId"] == perfil["cliente_id"]
+                   and c["estado"] == "PROGRAMADA" and c["id"] != excepto]
+
+        def choca(t):
+            desde = datetime.combine(e.dia, t)
+            hasta = desde + timedelta(minutes=duracion)
+            return next((c for c in propias
+                         if desde < inicio(c) + timedelta(minutes=c["duracionMinutos"]) and inicio(c) < hasta), None)
+
+        libres = {t: quienes for t, quienes in libres.items() if not choca(t)}
+
         if e.opciones and e.opciones[0][0] == "hora":
             horas = list(dict.fromkeys(t for _, h in e.opciones for t in fechas.en_horario(h, apertura, cierre)[:1]))
             if len(horas) > 1:
@@ -447,6 +643,9 @@ class Agente:
             if pedida.especial:                    # «a primera hora», «a última hora»
                 posibles = [t for t in libres if not e.franja or fechas.dentro(t, e.franja)]
                 e.hora = (posibles[0] if pedida.especial == "primera" else posibles[-1]) if posibles else None
+                if e.hora:                          # el agente escogió la hora: se dice cuál antes de seguir
+                    cual = "primera" if pedida.especial == "primera" else "última"
+                    aviso += f"La {cual} hora que tengo{con_quien} es a las {f.hora(e.hora)} "
             else:
                 abiertas, cerrada = fechas.resolver(pedida, apertura, cierre, e.franja)
                 e.franja = None                    # la hora dice más que la franja y ya la tuvo en cuenta
@@ -494,17 +693,27 @@ class Agente:
                 e.franja = None
             if not posibles:
                 return self._sin_turnos(e, aviso, con_quien, ahora)
+            if e.pronto:                            # «lo más pronto posible»: los primeros turnos que quedan
+                return self._preguntar(e, "hora", aviso + f"Lo más pronto que tengo{con_quien} es el {f.dia(e.dia)} "
+                                       "a estas horas. ¿Cuál te sirve?", self._horas(posibles[:4]))
             return self._preguntar(e, "hora", aviso + f"El {f.dia(e.dia)} tengo libre{con_quien} a estas horas. "
                                    "¿Cuál te sirve?", self._horas(_repartidas(posibles, 8)))
 
         cuando = datetime.combine(e.dia, e.hora)
         quienes = libres_a(cuando, duracion, candidatos, citas, ahora, excepto)
-        if not quienes:
+        propia = choca(e.hora)
+        if not quienes or propia:
             fin = (cuando + timedelta(minutes=duracion)).time()
-            if cuando <= ahora:
+            if propia:
+                motivo = (f"A esa hora ya tienes una cita: {propia['servicioNombre'].lower()} con "
+                          f"{f.pila(propia['barberoNombre'])} a las {f.hora(inicio(propia).time())}")
+            elif cuando <= ahora:
                 motivo = "Esa hora ya pasó."
-            elif e.hora < apertura or fin > cierre or fin < e.hora:
-                motivo = f"A esa hora no alcanzamos a atenderte; abrimos de {f.hora(apertura)} a {f.hora(cierre)}"
+            elif e.hora < apertura:
+                motivo = f"A esa hora todavía no hemos abierto; abrimos a las {f.hora(apertura)}"
+            elif fin > cierre or fin < e.hora:
+                motivo = (f"A las {f.hora(e.hora)} no alcanzamos: {e.servicio['nombre'].lower()} dura {duracion} minutos "
+                          f"y cerramos a las {f.hora(cierre)}")
             elif elegido and any(c["barberoId"] == elegido["id"] and inicio(c) == cuando for c in citas):
                 motivo = f"{f.pila(elegido['nombre'])} ya tiene una cita a las {f.hora(e.hora)[:-6]}."
             elif elegido:
@@ -552,15 +761,28 @@ class Agente:
         e.pregunta, e.espera = que, None
         return [Respuesta(texto, botones)]
 
-    def _dias(self, ahora, rango, saltar=None):
-        """Botones con los próximos días en que se atiende (o los del intervalo que dijo el cliente)."""
+    def _dias_lista(self, ahora, rango, saltar=None):
+        """Los próximos días en que se atiende (o los del intervalo que dijo el cliente), sin los que ya cerraron."""
         hoy = ahora.date()
         desde, hasta = (max(rango[0], hoy), rango[1]) if rango else (hoy, hoy + timedelta(days=13))
         dias = [desde + timedelta(days=i) for i in range((hasta - desde).days + 1)]
-        dias = [d for d in dias if d.weekday() in config.HORARIO and d != saltar
-                and (d > hoy or ahora.time() < config.HORARIO[d.weekday()][1])][:6]
-        botones = [(f.dia_corto(d, hoy), f"dia:{d.isoformat()}") for d in dias]
+        return [d for d in dias if d.weekday() in config.HORARIO and d != saltar
+                and (d > hoy or ahora.time() < config.HORARIO[d.weekday()][1])]
+
+    def _dias(self, ahora, rango, saltar=None):
+        """Botones con los próximos días en que se atiende (o los del intervalo que dijo el cliente)."""
+        hoy = ahora.date()
+        botones = [(f.dia_corto(d, hoy), f"dia:{d.isoformat()}") for d in self._dias_lista(ahora, rango, saltar)[:6]]
         return [botones[i:i + 3] for i in range(0, len(botones), 3)]
+
+    def _primer_dia(self, e, ahora):
+        """«Lo más pronto»: el primer día, desde hoy, con algún turno libre para ese servicio y ese barbero."""
+        barberos = [b for b in self.api.barberos() if b["activo"]]
+        candidatos = [e.barbero] if e.barbero and not e.cualquiera else barberos
+        citas = self.api.citas()
+        excepto = e.cita["id"] if e.cita else None
+        return next((d for d in self._dias_lista(ahora, None)
+                     if turnos(d, e.servicio["duracionMinutos"], candidatos, citas, ahora, excepto)), None)
 
     def _horas(self, horas):
         botones = [(f.hora(t), f"hor:{t.strftime('%H:%M')}") for t in horas]
@@ -590,10 +812,23 @@ class Agente:
         """La única parte del agente que escribe en la agenda. Solo se llega aquí después de confirmar."""
         try:
             if e.intencion == "cancelar":
+                for otra in (e.varias or [])[1:]:   # «cancela todas»: las demás primero, la del marco al final
+                    self.api.cancelar_cita(otra["id"])
                 cita = self.api.cancelar_cita(e.cita["id"])
                 self.estados.pop(uid, None)
-                return [Respuesta(f"Listo, cancelé tu cita del {f.dia(inicio(cita).date())} a las "
-                                  f"{f.hora(inicio(cita).time())} Cuando quieras volver, aquí estamos 💈")]
+                hecho = f"Listo, cancelé tu cita del {f.dia(inicio(cita).date())} a las {f.hora(inicio(cita).time())}"
+                if e.varias:
+                    hecho = f"Listo, cancelé tus {len(e.varias)} citas."
+                if not e.siguiente:
+                    return [Respuesta(f"{hecho} Cuando quieras volver, aquí estamos 💈")]
+                # «cancélala, quiero una cita para el lunes»: sigue la cita nueva, con el mismo servicio si aún se ofrece
+                nueva = self._estado(uid, ahora)
+                servicio = self._del_catalogo(self.api.servicios(), cita["servicioId"])
+                if servicio and servicio["activo"]:
+                    nueva.servicio = servicio
+                    nueva.aviso = f"Te busco turno para {servicio['nombre'].lower()}, como la que cancelaste. "
+                return [Respuesta(f"{hecho} 👌")] + self._decidir(uid, nombre, nueva, perfil, e.siguiente,
+                                                                 self.entender(e.siguiente), ahora)
             observaciones = ". ".join(x for x in (e.detalle, self._nota(e, perfil)) if x)
             datos = (perfil["cliente_id"], e.servicio["id"], e.barbero["id"], datetime.combine(e.dia, e.hora),
                      observaciones)
@@ -657,13 +892,19 @@ class Agente:
             return [Respuesta("No tienes citas programadas. ¿Te agendo una?", [[("✂️ Agendar una cita", "menu:reservar")]])]
         return [Respuesta("Estas son tus citas:\n\n" + "\n\n".join(f.cita(c) for c in citas))]
 
-    def _ubicar(self, uid, e, datos, perfil, ahora):
+    def _ubicar(self, uid, e, datos, perfil, ahora, nombre=""):
         """Decide de cuál cita habla el cliente. Devuelve una respuesta si hay que detenerse a preguntar."""
         if perfil["cliente_id"] is None:
             e.espera, e.despues, e.pendiente = "telefono", "ubicar", datos
             return [Respuesta("No encuentro citas tuyas en este chat. Si ya eres cliente de la barbería, comparte tu "
                               "número y las busco. " + PEDIR_NUMERO, pedir_contacto=True)]
         citas = self._mias(perfil, ahora)
+        if not citas and e.siguiente:
+            # «cancela mi cita y agéndame una para el viernes» sin citas: no hay qué cancelar, se sigue con la nueva
+            siguiente = e.siguiente
+            nueva = self.estados[uid] = Estado(visto=ahora)
+            return [Respuesta("No tienes citas programadas para cancelar, así que vamos con la nueva 👇")] + \
+                self._decidir(uid, nombre, nueva, perfil, siguiente, self.entender(siguiente), ahora)
         if not citas:
             intencion = e.intencion
             e = self.estados[uid] = Estado(visto=ahora)
@@ -673,6 +914,9 @@ class Agente:
                 return [Respuesta("No tienes citas programadas para cambiar. ¿Te agendo una nueva con lo que me dijiste?",
                                   [[("Sí, agéndala", "duda:reservar"), ("No", "no")]])]
             return [Respuesta("No tienes citas programadas. ¿Te agendo una?", [[("✂️ Agendar una cita", "menu:reservar")]])]
+        if e.cita is None and e.todas and len(citas) > 1:
+            e.varias, e.cita = citas, citas[0]       # «cancela todas mis citas»
+            return None
         if e.cita is None:
             dias = {x.dia for x in datos["fecha"] if x.dia and not x.hasta}
             horas = {t for h in datos["hora"] for t in fechas.lecturas(h)}
@@ -747,12 +991,17 @@ class Agente:
 
         dia = ultima.dia
         if dia.weekday() not in config.HORARIO:
-            return [Respuesta(f.horario(dia.weekday()), self._dias(ahora, None))]
+            return [Respuesta(f.horario(dia.weekday()) + " ¿Miramos otro día?", self._dias(ahora, None))]
         apertura, cierre = config.HORARIO[dia.weekday()]
         # el contexto queda listo para agendar con un toque
         e.dia, e.rango, e.barbero, e.servicio = dia, None, barbero or e.barbero, servicio or e.servicio
         libres = turnos(dia, duracion, candidatos, citas, ahora)
         inicio_texto = f"El {f.dia(dia)} atendemos de {f.hora(apertura)} a {f.hora(cierre)} " if por_horario else ""
+        if re.search(r"\bcuanto (cuesta|vale|valen|cobran|sale)\b|\bprecios?\b", s):
+            # «¿cuánto cuesta y tienen cupo mañana?»: las dos respuestas en una
+            precios = [f"el {x['nombre'].lower()} vale {f.precio(x['precio'])}" for x in ([servicio] if servicio else servicios)]
+            inicio_texto = (", ".join(precios[:-1]) + " y " if len(precios) > 1 else "") + precios[-1] + ". " + inicio_texto
+            inicio_texto = inicio_texto[0].upper() + inicio_texto[1:]
         lecturas, cerrada = [], None
         if pedida and pedida.hora is not None:
             lecturas, cerrada = fechas.resolver(pedida, apertura, cierre, franja)
@@ -784,7 +1033,11 @@ class Agente:
             donde = " a esa hora" if franja else ""
             return [Respuesta(f"{inicio_texto}Uy, el {f.dia(dia)} ya no quedan turnos{donde}{con_quien} 😕 ¿Miramos otro día?",
                               self._dias(ahora, None, saltar=dia))]
-        return [Respuesta(f"{inicio_texto}El {f.dia(dia)} tengo libre{con_quien} a estas horas. Toca una y te la agendo:",
+        if pedida and pedida.en_minutos is not None:  # «¿ahorita me pueden atender?»: los primeros que quedan
+            return [Respuesta(f"{inicio_texto}Lo más pronto que tengo{con_quien} hoy es a estas horas. Toca una y te la agendo:",
+                              self._horas(posibles[:4]))]
+        cuando = "Tengo" if por_horario else f"El {f.dia(dia)} tengo"   # el día ya lo dijo el horario
+        return [Respuesta(f"{inicio_texto}{cuando} libre{con_quien} a estas horas. Toca una y te la agendo:",
                           self._horas(_repartidas(posibles, 9)))]
 
     def _barberos(self, e):
@@ -943,16 +1196,31 @@ class Agente:
 
     # ----------------------------------------------------------------------- apoyo
 
-    def _no_entendi(self, uid, nombre, e, perfil, texto, ahora):
+    def _no_entendi(self, uid, nombre, e, perfil, texto, ahora, fuera=False):
         s = fechas.limpiar(texto)
+        pendiente = e.intencion in ("reservar", "reprogramar") and (e.espera == "confirmar" or e.pregunta)
         if re.fullmatch(SALUDO, s):
+            if pendiente:                           # «hola» a mitad de la reserva: se saluda y se sigue donde iba
+                quien = f", {f.pila(perfil['nombre'])}" if perfil["nombre"] else ""
+                return self._y_seguimos(uid, nombre, e, perfil, [Respuesta(f"¡Qué más{quien}! 💈")], ahora)
             return [Respuesta(self._saludo(perfil), MENU)]
         if re.search(r"\bgracias\b", s):
-            return [Respuesta(self._una("¡Con gusto! Aquí estoy para lo que necesites 💈", "¡A la orden! 💈"))]
+            return self._y_seguimos(uid, nombre, e, perfil, [Respuesta(
+                self._una("¡Con gusto! Aquí estoy para lo que necesites 💈", "¡A la orden! 💈"))], ahora)
         if re.search(DESPEDIDA, s):
             return [Respuesta("¡Nos vemos! Que estés bien 👋")]
         if re.search(r"\bbarberos\b|\bque barberos?\b|\bquienes (atienden|trabajan|son)\b", s):
             return self._barberos(e)
+        aparte = self._aparte(s)
+        if aparte:
+            return aparte
+        if re.fullmatch(RISA, s.replace(" ", "")) or (not s and not e.intencion):
+            # «jajaja», «👍»: no hay nada que entender
+            return [Respuesta(self._una("😄 ¿Te ayudo con algo más?", "😄 Aquí estoy si necesitas algo."))]
+        if fuera:
+            if e.intencion:
+                return [Respuesta(FUERA)] + self._avanzar(uid, nombre, e, perfil, ahora)
+            return [Respuesta(FUERA, MENU)]
         e.fallos += 1
         if e.espera == "confirmar" and e.fallos < 2:
             return [Respuesta("No te entendí bien 😅 Toca «Sí, agéndala» para dejarla así, o dime qué le cambio.")]
@@ -1022,6 +1290,12 @@ class Agente:
 
 
 CADA = "cada media hora" if config.PASO == 30 else f"cada {config.PASO} minutos"
+
+
+def _minutos(m):
+    """«Una hora más tarde» -> 60, «media hora antes» -> -30. `m` es un resultado de DESPLAZA."""
+    cantidad = {"media": 30, "una": 60, "un": 60, "dos": 120, "tres": 180}.get(m.group(1)) or 60 * int(m.group(1))
+    return cantidad if m.group(4) in ("tarde", "despues") else -cantidad
 
 
 def _en_punto(hora, apertura):
