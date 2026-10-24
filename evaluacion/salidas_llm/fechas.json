@@ -1,0 +1,802 @@
+{
+ "fecha|hoy|2026-10-13": {
+  "n": 1,
+  "valor": "2026-10-13"
+ },
+ "fecha|mañana|2026-10-13": {
+  "n": 2,
+  "valor": "2026-10-14"
+ },
+ "fecha|pasado mañana|2026-10-13": {
+  "n": 3,
+  "valor": "2026-10-15"
+ },
+ "fecha|el jueves|2026-10-13": {
+  "n": 4,
+  "valor": "2026-10-15"
+ },
+ "fecha|el sábado|2026-10-13": {
+  "n": 5,
+  "valor": "2026-10-17"
+ },
+ "fecha|este sábado|2026-10-13": {
+  "n": 6,
+  "valor": "2026-10-17"
+ },
+ "fecha|el próximo sábado|2026-10-13": {
+  "n": 7,
+  "valor": "2026-10-17"
+ },
+ "fecha|el otro sábado|2026-10-13": {
+  "n": 8,
+  "valor": "2026-10-24"
+ },
+ "fecha|el sábado que viene|2026-10-13": {
+  "n": 9,
+  "valor": "2026-10-17"
+ },
+ "fecha|el sábado de la otra semana|2026-10-13": {
+  "n": 10,
+  "valor": "2026-10-24"
+ },
+ "fecha|el martes|2026-10-13": {
+  "n": 11,
+  "valor": "2026-10-20"
+ },
+ "fecha|este martes|2026-10-13": {
+  "n": 12,
+  "valor": "2026-10-13"
+ },
+ "fecha|el lunes|2026-10-13": {
+  "n": 13,
+  "valor": "2026-10-19"
+ },
+ "fecha|el lunes festivo|2026-10-13": {
+  "n": 14,
+  "valor": "2026-10-19"
+ },
+ "fecha|el viernes de esta semana|2026-10-13": {
+  "n": 15,
+  "valor": "2026-10-16"
+ },
+ "fecha|el miércoles de la próxima semana|2026-10-13": {
+  "n": 16,
+  "valor": "2026-10-20"
+ },
+ "fecha|el 15|2026-10-13": {
+  "n": 17,
+  "valor": "2026-10-15"
+ },
+ "fecha|el 12|2026-10-13": {
+  "n": 18,
+  "valor": "2026-11-12"
+ },
+ "fecha|el 20 de octubre|2026-10-13": {
+  "n": 19,
+  "valor": "2026-10-20"
+ },
+ "fecha|el 3 de noviembre|2026-10-13": {
+  "n": 20,
+  "valor": "2026-11-03"
+ },
+ "fecha|el 5 de octubre|2026-10-13": {
+  "n": 21,
+  "valor": "2027-10-05"
+ },
+ "fecha|el primero de noviembre|2026-10-13": {
+  "n": 22,
+  "valor": "2026-11-01"
+ },
+ "fecha|15/10|2026-10-13": {
+  "n": 23,
+  "valor": "2026-10-15"
+ },
+ "fecha|el sábado 17|2026-10-13": {
+  "n": 24,
+  "valor": "2026-10-17"
+ },
+ "fecha|el jueves 22|2026-10-13": {
+  "n": 25,
+  "valor": "2026-10-22"
+ },
+ "fecha|esta semana|2026-10-13": {
+  "n": 1,
+  "valor": "2026-10-13..2026-10-17"
+ },
+ "fecha|la otra semana|2026-10-13": {
+  "n": 2,
+  "valor": "2026-10-19..2026-10-25"
+ },
+ "fecha|la semana que viene|2026-10-13": {
+  "n": 3,
+  "valor": "2026-10-19..2026-10-25"
+ },
+ "fecha|el fin de semana|2026-10-13": {
+  "n": 4,
+  "valor": "2026-10-16..2026-10-17"
+ },
+ "fecha|los domingos|2026-10-13": {
+  "n": 5,
+  "valor": "2026-10-17"
+ },
+ "fecha|el savado|2026-10-13": {
+  "n": 6,
+  "valor": "invalid"
+ },
+ "fecha|manana|2026-10-13": {
+  "n": 7,
+  "valor": "2026-10-14"
+ },
+ "fecha|en ocho días|2026-10-13": {
+  "n": 8,
+  "valor": "2026-10-20"
+ },
+ "fecha|de hoy en ocho|2026-10-13": {
+  "n": 9,
+  "valor": "2026-10-20"
+ },
+ "fecha|de mañana en ocho|2026-10-13": {
+  "n": 10,
+  "valor": "2026-10-21"
+ },
+ "fecha|en quince días|2026-10-13": {
+  "n": 11,
+  "valor": "2026-10-27"
+ },
+ "fecha|el sábado en ocho|2026-10-13": {
+  "n": 12,
+  "valor": "2026-10-23"
+ },
+ "fecha|dentro de tres días|2026-10-13": {
+  "n": 13,
+  "valor": "2026-10-16"
+ },
+ "fecha|el 31|2026-10-13": {
+  "n": 14,
+  "valor": "2026-10-31"
+ },
+ "fecha|el domingo|2026-10-13": {
+  "n": 15,
+  "valor": "2026-10-17"
+ },
+ "fecha|el miércoles|2026-10-13": {
+  "n": 16,
+  "valor": "2026-10-14"
+ },
+ "fecha|el otro lunes|2026-10-13": {
+  "n": 17,
+  "valor": "2026-10-26"
+ },
+ "fecha|hoy|2026-10-31": {
+  "n": 1,
+  "valor": "2026-10-31"
+ },
+ "fecha|mañana|2026-10-31": {
+  "n": 2,
+  "valor": "2026-11-01"
+ },
+ "fecha|pasado mañana|2026-10-31": {
+  "n": 3,
+  "valor": "2026-11-02"
+ },
+ "fecha|el lunes|2026-10-31": {
+  "n": 4,
+  "valor": "2026-11-02"
+ },
+ "fecha|el sábado|2026-10-31": {
+  "n": 5,
+  "valor": "2026-11-07"
+ },
+ "fecha|este sábado|2026-10-31": {
+  "n": 6,
+  "valor": "2026-10-31"
+ },
+ "fecha|el otro sábado|2026-10-31": {
+  "n": 7,
+  "valor": "2026-11-14"
+ },
+ "fecha|el próximo viernes|2026-10-31": {
+  "n": 8,
+  "valor": "2026-11-06"
+ },
+ "fecha|el domingo|2026-10-31": {
+  "n": 9,
+  "valor": "2026-11-01"
+ },
+ "fecha|el 1|2026-10-31": {
+  "n": 10,
+  "valor": "2026-11-01"
+ },
+ "fecha|el 31|2026-10-31": {
+  "n": 11,
+  "valor": "2026-10-31"
+ },
+ "fecha|el 30|2026-10-31": {
+  "n": 12,
+  "valor": "2026-11-30"
+ },
+ "fecha|el 5|2026-10-31": {
+  "n": 13,
+  "valor": "2026-11-05"
+ },
+ "fecha|el martes 3|2026-10-31": {
+  "n": 14,
+  "valor": "2026-11-03"
+ },
+ "fecha|el 3 de noviembre|2026-10-31": {
+  "n": 15,
+  "valor": "2026-11-03"
+ },
+ "fecha|el 15 de octubre|2026-10-31": {
+  "n": 16,
+  "valor": "2027-10-15"
+ },
+ "fecha|esta semana|2026-10-31": {
+  "n": 17,
+  "valor": "2026-10-31..2026-11-01"
+ },
+ "fecha|la próxima semana|2026-10-31": {
+  "n": 18,
+  "valor": "2026-11-02..2026-11-08"
+ },
+ "fecha|el fin de semana|2026-10-31": {
+  "n": 19,
+  "valor": "2026-10-31..2026-11-01"
+ },
+ "fecha|este fin de semana|2026-10-31": {
+  "n": 20,
+  "valor": "2026-10-31..2026-11-01"
+ },
+ "fecha|el jueves de la otra semana|2026-10-31": {
+  "n": 21,
+  "valor": "2026-11-05"
+ },
+ "fecha|en ocho días|2026-10-31": {
+  "n": 22,
+  "valor": "2026-11-07"
+ },
+ "fecha|el lunes en ocho|2026-10-31": {
+  "n": 23,
+  "valor": "2026-11-09"
+ },
+ "fecha|los sábados|2026-10-31": {
+  "n": 24,
+  "valor": "2026-11-07"
+ },
+ "fecha|2/11|2026-10-31": {
+  "n": 25,
+  "valor": "2026-11-02"
+ },
+ "fecha|el primero de diciembre|2026-10-31": {
+  "n": 1,
+  "valor": "2026-12-01"
+ },
+ "fecha|hoy|2026-12-27": {
+  "n": 1,
+  "valor": "2026-12-27"
+ },
+ "fecha|mañana|2026-12-27": {
+  "n": 2,
+  "valor": "2026-12-28"
+ },
+ "fecha|pasado mañana|2026-12-27": {
+  "n": 3,
+  "valor": "2026-12-29"
+ },
+ "fecha|el jueves|2026-12-27": {
+  "n": 4,
+  "valor": "2026-12-31"
+ },
+ "fecha|el sábado|2026-12-27": {
+  "n": 5,
+  "valor": "2027-01-02"
+ },
+ "fecha|el domingo|2026-12-27": {
+  "n": 6,
+  "valor": "2027-01-03"
+ },
+ "fecha|este domingo|2026-12-27": {
+  "n": 7,
+  "valor": "2026-12-27"
+ },
+ "fecha|el otro sábado|2026-12-27": {
+  "n": 8,
+  "valor": "2027-01-09"
+ },
+ "fecha|el 31|2026-12-27": {
+  "n": 9,
+  "valor": "2026-12-31"
+ },
+ "fecha|el 5|2026-12-27": {
+  "n": 10,
+  "valor": "2027-01-05"
+ },
+ "fecha|el 2 de enero|2026-12-27": {
+  "n": 11,
+  "valor": "2027-01-02"
+ },
+ "fecha|el 24 de diciembre|2026-12-27": {
+  "n": 12,
+  "valor": "2027-12-24"
+ },
+ "fecha|la otra semana|2026-12-27": {
+  "n": 13,
+  "valor": "2026-12-28"
+ },
+ "fecha|el fin de semana|2026-12-27": {
+  "n": 14,
+  "valor": "2027-01-02"
+ },
+ "fecha|el lunes de la otra semana|2026-12-27": {
+  "n": 15,
+  "valor": "2026-12-28"
+ },
+ "fecha|el viernes de la próxima semana|2026-12-27": {
+  "n": 16,
+  "valor": "2027-01-01"
+ },
+ "fecha|en quince días|2026-12-27": {
+  "n": 17,
+  "valor": "2027-01-10"
+ },
+ "fecha|el primero de enero|2026-12-27": {
+  "n": 18,
+  "valor": "2027-01-01"
+ },
+ "fecha|mañana|2027-02-26": {
+  "n": 1,
+  "valor": "2027-02-27"
+ },
+ "fecha|pasado mañana|2027-02-26": {
+  "n": 2,
+  "valor": "2027-02-28"
+ },
+ "fecha|el lunes|2027-02-26": {
+  "n": 3,
+  "valor": "2027-03-01"
+ },
+ "fecha|el viernes|2027-02-26": {
+  "n": 4,
+  "valor": "2027-03-05"
+ },
+ "fecha|este viernes|2027-02-26": {
+  "n": 5,
+  "valor": "2027-02-26"
+ },
+ "fecha|el 28|2027-02-26": {
+  "n": 6,
+  "valor": "2027-02-28"
+ },
+ "fecha|el 30|2027-02-26": {
+  "n": 7,
+  "valor": "2027-03-30"
+ },
+ "fecha|el 1|2027-02-26": {
+  "n": 8,
+  "valor": "2027-03-01"
+ },
+ "fecha|el próximo martes|2027-02-26": {
+  "n": 9,
+  "valor": "2027-03-02"
+ },
+ "fecha|el otro martes|2027-02-26": {
+  "n": 10,
+  "valor": "2027-03-09"
+ },
+ "fecha|el sábado de la otra semana|2027-02-26": {
+  "n": 11,
+  "valor": "2027-03-04"
+ },
+ "fecha|la semana entrante|2027-02-26": {
+  "n": 12,
+  "valor": "2027-03-01..2027-03-07"
+ },
+ "fecha|el 15 de marzo|2027-02-26": {
+  "n": 13,
+  "valor": "2027-03-15"
+ },
+ "fecha|el 20 de febrero|2027-02-26": {
+  "n": 14,
+  "valor": "2028-02-20"
+ },
+ "hora|a las 3|-": {
+  "n": 1,
+  "valor": "15:00"
+ },
+ "hora|a las tres|-": {
+  "n": 2,
+  "valor": "15:00"
+ },
+ "hora|tipo tres|-": {
+  "n": 3,
+  "valor": "15:00"
+ },
+ "hora|tipo 3|-": {
+  "n": 4,
+  "valor": "15:00"
+ },
+ "hora|a las 10|-": {
+  "n": 5,
+  "valor": "10:00"
+ },
+ "hora|a las diez|-": {
+  "n": 6,
+  "valor": "10:00"
+ },
+ "hora|a las 9|-": {
+  "n": 7,
+  "valor": "09:00"
+ },
+ "hora|a las 11|-": {
+  "n": 8,
+  "valor": "11:00"
+ },
+ "hora|a las 12|-": {
+  "n": 9,
+  "valor": "12:00"
+ },
+ "hora|a la 1|-": {
+  "n": 10,
+  "valor": "13:00"
+ },
+ "hora|a la una|-": {
+  "n": 11,
+  "valor": "13:00"
+ },
+ "hora|a las 2|-": {
+  "n": 12,
+  "valor": "14:00"
+ },
+ "hora|a las 4|-": {
+  "n": 13,
+  "valor": "16:00"
+ },
+ "hora|a las 5|-": {
+  "n": 14,
+  "valor": "17:00"
+ },
+ "hora|a las 6|-": {
+  "n": 15,
+  "valor": "18:00"
+ },
+ "hora|a las 6:30|-": {
+  "n": 16,
+  "valor": "18:30"
+ },
+ "hora|a las 7|-": {
+  "n": 17,
+  "valor": "fuera"
+ },
+ "hora|a las 8|-": {
+  "n": 18,
+  "valor": "fuera"
+ },
+ "hora|a las 3 y media|-": {
+  "n": 19,
+  "valor": "15:30"
+ },
+ "hora|a las tres y media|-": {
+  "n": 20,
+  "valor": "15:30"
+ },
+ "hora|a las 4 y cuarto|-": {
+  "n": 21,
+  "valor": "16:15"
+ },
+ "hora|a las 3:30|-": {
+  "n": 22,
+  "valor": "15:30"
+ },
+ "hora|3:45|-": {
+  "n": 23,
+  "valor": "15:45"
+ },
+ "hora|a las 10:30|-": {
+  "n": 24,
+  "valor": "10:30"
+ },
+ "hora|a las 9 y media|-": {
+  "n": 25,
+  "valor": "09:30"
+ },
+ "hora|a las 3 de la tarde|-": {
+  "n": 1,
+  "valor": "15:00"
+ },
+ "hora|a las 10 de la mañana|-": {
+  "n": 2,
+  "valor": "10:00"
+ },
+ "hora|a las 6 de la tarde|-": {
+  "n": 3,
+  "valor": "18:00"
+ },
+ "hora|a las 8 de la noche|-": {
+  "n": 4,
+  "valor": "fuera"
+ },
+ "hora|a las 7 de la mañana|-": {
+  "n": 5,
+  "valor": "fuera"
+ },
+ "hora|3pm|-": {
+  "n": 6,
+  "valor": "15:00"
+ },
+ "hora|3 pm|-": {
+  "n": 7,
+  "valor": "15:00"
+ },
+ "hora|4:30 pm|-": {
+  "n": 8,
+  "valor": "16:30"
+ },
+ "hora|10 am|-": {
+  "n": 9,
+  "valor": "10:00"
+ },
+ "hora|9am|-": {
+  "n": 10,
+  "valor": "09:00"
+ },
+ "hora|a las 5 p.m.|-": {
+  "n": 11,
+  "valor": "17:00"
+ },
+ "hora|a las 9:30 a.m.|-": {
+  "n": 12,
+  "valor": "09:30"
+ },
+ "hora|15:00|-": {
+  "n": 13,
+  "valor": "15:00"
+ },
+ "hora|a las 14:30|-": {
+  "n": 14,
+  "valor": "14:30"
+ },
+ "hora|a las 16|-": {
+  "n": 15,
+  "valor": "16:00"
+ },
+ "hora|a mediodía|-": {
+  "n": 16,
+  "valor": "12:00"
+ },
+ "hora|al medio día|-": {
+  "n": 17,
+  "valor": "12:00"
+ },
+ "hora|12 del día|-": {
+  "n": 18,
+  "valor": "12:00"
+ },
+ "hora|a las 12 y media|-": {
+  "n": 19,
+  "valor": "12:30"
+ },
+ "hora|como a las 4|-": {
+  "n": 20,
+  "valor": "16:00"
+ },
+ "hora|a eso de las 5|-": {
+  "n": 21,
+  "valor": "17:00"
+ },
+ "hora|sobre las 11|-": {
+  "n": 22,
+  "valor": "11:00"
+ },
+ "hora|hacia las 2|-": {
+  "n": 23,
+  "valor": "14:00"
+ },
+ "hora|por ahí a las 3|-": {
+  "n": 24,
+  "valor": "15:00"
+ },
+ "hora|a las 4 en punto|-": {
+  "n": 25,
+  "valor": "16:00"
+ },
+ "hora|a primera hora|-": {
+  "n": 1,
+  "valor": "09:00"
+ },
+ "hora|a última hora|-": {
+  "n": 2,
+  "valor": "18:00"
+ },
+ "hora|ahorita|-": {
+  "n": 3,
+  "valor": "+0"
+ },
+ "hora|ahora mismo|-": {
+  "n": 4,
+  "valor": "+0"
+ },
+ "hora|en media hora|-": {
+  "n": 5,
+  "valor": "+30"
+ },
+ "hora|en una hora|-": {
+  "n": 6,
+  "valor": "+60"
+ },
+ "hora|en 20 minutos|-": {
+  "n": 7,
+  "valor": "+20"
+ },
+ "hora|en dos horas|-": {
+  "n": 8,
+  "valor": "+120"
+ },
+ "hora|un cuarto para las 4|-": {
+  "n": 9,
+  "valor": "15:45"
+ },
+ "hora|faltando un cuarto para las cinco|-": {
+  "n": 10,
+  "valor": "16:45"
+ },
+ "hora|a las 4 menos cuarto|-": {
+  "n": 11,
+  "valor": "15:45"
+ },
+ "hora|tipo 5 y media|-": {
+  "n": 12,
+  "valor": "17:30"
+ },
+ "hora|a las dos y cuarto|-": {
+  "n": 13,
+  "valor": "14:15"
+ },
+ "hora|tipo mediodía|-": {
+  "n": 14,
+  "valor": "12:00"
+ },
+ "hora|en hora y media|-": {
+  "n": 15,
+  "valor": "+90"
+ },
+ "franja|en la mañana|-": {
+  "n": 1,
+  "valor": "*-12:00"
+ },
+ "franja|por la mañana|-": {
+  "n": 2,
+  "valor": "*-12:00"
+ },
+ "franja|en horas de la mañana|-": {
+  "n": 3,
+  "valor": "*-12:00"
+ },
+ "franja|en la mañanita|-": {
+  "n": 4,
+  "valor": "*-12:00"
+ },
+ "franja|en la tarde|-": {
+  "n": 5,
+  "valor": "12:00-18:00"
+ },
+ "franja|por la tarde|-": {
+  "n": 6,
+  "valor": "12:00-18:00"
+ },
+ "franja|en la tardecita|-": {
+  "n": 7,
+  "valor": "12:00-18:00"
+ },
+ "franja|en horas de la tarde|-": {
+  "n": 8,
+  "valor": "12:00-18:00"
+ },
+ "franja|en la noche|-": {
+  "n": 9,
+  "valor": "18:00-*"
+ },
+ "franja|por la noche|-": {
+  "n": 10,
+  "valor": "18:00-*"
+ },
+ "franja|temprano|-": {
+  "n": 11,
+  "valor": "*-10:30"
+ },
+ "franja|bien temprano|-": {
+  "n": 12,
+  "valor": "*-10:30"
+ },
+ "franja|tempranito|-": {
+  "n": 13,
+  "valor": "*-10:30"
+ },
+ "franja|después de las 5|-": {
+  "n": 14,
+  "valor": "09:00-*"
+ },
+ "franja|después de las 4 de la tarde|-": {
+  "n": 15,
+  "valor": "16:00-*"
+ },
+ "franja|después de las 10|-": {
+  "n": 16,
+  "valor": "10:00-*"
+ },
+ "franja|a partir de las 3|-": {
+  "n": 17,
+  "valor": "09:00-*"
+ },
+ "franja|luego de las 3|-": {
+  "n": 18,
+  "valor": "09:00-*"
+ },
+ "franja|después de las 6|-": {
+  "n": 19,
+  "valor": "09:00-*"
+ },
+ "franja|antes de las 10|-": {
+  "n": 20,
+  "valor": "09:00-10:00"
+ },
+ "franja|antes de las 12|-": {
+  "n": 21,
+  "valor": "09:00-12:00"
+ },
+ "franja|antes de las 4|-": {
+  "n": 22,
+  "valor": "fuera"
+ },
+ "franja|antes del mediodía|-": {
+  "n": 23,
+  "valor": "09:00-12:00"
+ },
+ "franja|después del mediodía|-": {
+  "n": 24,
+  "valor": "12:00-*"
+ },
+ "franja|pasado el mediodía|-": {
+  "n": 25,
+  "valor": "12:00-*"
+ },
+ "franja|después del almuerzo|-": {
+  "n": 1,
+  "valor": "14:00-19:00"
+ },
+ "franja|antes del almuerzo|-": {
+  "n": 2,
+  "valor": "09:00-12:00"
+ },
+ "franja|entre las 3 y las 4|-": {
+  "n": 3,
+  "valor": "15:00-16:00"
+ },
+ "franja|entre las 10 y las 12|-": {
+  "n": 4,
+  "valor": "10:00-12:00"
+ },
+ "franja|entre 2 y 5|-": {
+  "n": 5,
+  "valor": "14:00-17:00"
+ },
+ "franja|de 2 a 4|-": {
+  "n": 6,
+  "valor": "14:00-16:00"
+ },
+ "franja|a media mañana|-": {
+  "n": 7,
+  "valor": "10:00-11:30"
+ },
+ "franja|a media tarde|-": {
+  "n": 8,
+  "valor": "15:00-16:30"
+ },
+ "franja|al final de la tarde|-": {
+  "n": 9,
+  "valor": "17:00-19:00"
+ },
+ "franja|esta tarde|-": {
+  "n": 10,
+  "valor": "12:00-18:00 hoy"
+ }
+}

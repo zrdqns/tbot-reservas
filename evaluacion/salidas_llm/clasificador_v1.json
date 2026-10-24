@@ -1,0 +1,3007 @@
+{
+ "test-0001": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 4"
+   }
+  ]
+ },
+ "test-0002": {
+  "n": 2,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Camilo"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la mañana"
+   }
+  ]
+ },
+ "test-0003": {
+  "n": 3,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0004": {
+  "n": 4,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte y barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el viernes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 6"
+   },
+   {
+    "tipo": "franja",
+    "valor": "de la tarde"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "Julián"
+   }
+  ]
+ },
+ "test-0005": {
+  "n": 5,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la tarde"
+   }
+  ]
+ },
+ "test-0006": {
+  "n": 6,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "3pm"
+   }
+  ]
+ },
+ "test-0007": {
+  "n": 7,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el jueves"
+   },
+   {
+    "tipo": "hora",
+    "valor": "después de las 5"
+   }
+  ]
+ },
+ "test-0008": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "nombre",
+    "valor": "Mateo Rincón"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "Andrés"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el 20 de octubre"
+   }
+  ]
+ },
+ "test-0009": {
+  "n": 9,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0010": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "pasado mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 10 am"
+   }
+  ]
+ },
+ "test-0011": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "degradado"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   }
+  ]
+ },
+ "test-0012": {
+  "n": 2,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "nombre",
+    "valor": "Samuel"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "corte de niño"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "domingo"
+   },
+   {
+    "tipo": "franja",
+    "valor": "por la mañana"
+   }
+  ]
+ },
+ "test-0013": {
+  "n": 3,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el otro sábado"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 11"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "corte clásico"
+   }
+  ]
+ },
+ "test-0014": {
+  "n": 4,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "cortarme el pelo"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a eso de las 7"
+   }
+  ]
+ },
+ "test-0015": {
+  "n": 5,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "franja",
+    "valor": "a primera hora"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "Felipe"
+   }
+  ]
+ },
+ "test-0016": {
+  "n": 6,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "motilarme"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el viernes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a mediodía"
+   }
+  ]
+ },
+ "test-0017": {
+  "n": 7,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el martes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "tipo 2:30"
+   }
+  ]
+ },
+ "test-0018": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 6"
+   }
+  ]
+ },
+ "test-0019": {
+  "n": 9,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "lo de siempre"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "Andrés"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "este sábado"
+   }
+  ]
+ },
+ "test-0020": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 3 de noviembre"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 9"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "corte y barba"
+   },
+   {
+    "tipo": "nombre",
+    "valor": "Jorge Trujillo"
+   }
+  ]
+ },
+ "test-0021": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "franja",
+    "valor": "por la tarde"
+   }
+  ]
+ },
+ "test-0022": {
+  "n": 2,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "Juli"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   },
+   {
+    "tipo": "hora",
+    "valor": "4:30 pm"
+   }
+  ]
+ },
+ "test-0023": {
+  "n": 3,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Camilo"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el miércoles"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la noche"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "corte y barba"
+   }
+  ]
+ },
+ "test-0024": {
+  "n": 4,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 8"
+   }
+  ]
+ },
+ "test-0025": {
+  "n": 5,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Jairo"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el jueves 15"
+   }
+  ]
+ },
+ "test-0026": {
+  "n": 6,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte + barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a la 1"
+   }
+  ]
+ },
+ "test-0027": {
+  "n": 7,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "tinturarme el pelo"
+   }
+  ]
+ },
+ "test-0028": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   },
+   {
+    "tipo": "hora",
+    "valor": "10:00"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "Sebas"
+   }
+  ]
+ },
+ "test-0029": {
+  "n": 9,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corten el pelo"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   }
+  ]
+ },
+ "test-0030": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "perfilado de barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el viernes"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la tarde"
+   }
+  ]
+ },
+ "test-0031": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 3 y media"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "cualquiera"
+   }
+  ]
+ },
+ "test-0032": {
+  "n": 2,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "test-0033": {
+  "n": 3,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   }
+  ]
+ },
+ "test-0034": {
+  "n": 4,
+  "intencion": "reservar",
+  "ranuras": []
+ },
+ "test-0035": {
+  "n": 5,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Felipe"
+   }
+  ]
+ },
+ "test-0036": {
+  "n": 6,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el domingo"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "motilarme"
+   }
+  ]
+ },
+ "test-0037": {
+  "n": 7,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 24 de diciembre"
+   },
+   {
+    "tipo": "franja",
+    "valor": "por la mañana"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "corte y barba completo"
+   }
+  ]
+ },
+ "test-0038": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "tipo 11"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "Julián"
+   }
+  ]
+ },
+ "test-0039": {
+  "n": 9,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "cortarme el pelo y arreglarme la barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el viernes que viene"
+   }
+  ]
+ },
+ "test-0040": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 5:15"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "corte sencillo"
+   }
+  ]
+ },
+ "test-0041": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "este jueves"
+   },
+   {
+    "tipo": "hora",
+    "valor": "sobre las 4"
+   }
+  ]
+ },
+ "test-0042": {
+  "n": 2,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "nombre",
+    "valor": "Hernán Lozano"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 9"
+   }
+  ]
+ },
+ "test-0043": {
+  "n": 3,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "pasado mañana"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la tarde"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "motilen"
+   }
+  ]
+ },
+ "test-0044": {
+  "n": 4,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "korte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0045": {
+  "n": 5,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte de cabello"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el martes 20"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 2"
+   }
+  ]
+ },
+ "test-0046": {
+  "n": 6,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "fade"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   }
+  ]
+ },
+ "test-0047": {
+  "n": 7,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el viernes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 7 pm"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "Andrés"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "barba y corte"
+   }
+  ]
+ },
+ "test-0048": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "sábado"
+   },
+   {
+    "tipo": "hora",
+    "valor": "9am"
+   },
+   {
+    "tipo": "nombre",
+    "valor": "Camilo"
+   }
+  ]
+ },
+ "test-0049": {
+  "n": 9,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte y barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el domingo"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 12"
+   }
+  ]
+ },
+ "test-0050": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "martes"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "miércoles"
+   },
+   {
+    "tipo": "franja",
+    "valor": "por la tarde"
+   }
+  ]
+ },
+ "test-0051": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la mañana"
+   }
+  ]
+ },
+ "test-0052": {
+  "n": 2,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   }
+  ]
+ },
+ "test-0053": {
+  "n": 3,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "afeitada y corte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 4 pm"
+   }
+  ]
+ },
+ "test-0054": {
+  "n": 4,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte clásico"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "el mismo de siempre"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el jueves"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 6"
+   }
+  ]
+ },
+ "test-0055": {
+  "n": 5,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "cejas y barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0056": {
+  "n": 6,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0057": {
+  "n": 7,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "a las 3"
+   }
+  ]
+ },
+ "test-0058": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Andrés"
+   }
+  ]
+ },
+ "test-0059": {
+  "n": 9,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte y barba"
+   }
+  ]
+ },
+ "test-0060": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la tarde"
+   }
+  ]
+ },
+ "test-0061": {
+  "n": 1,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "a las 5"
+   }
+  ]
+ },
+ "test-0062": {
+  "n": 2,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "nombre",
+    "valor": "Daniel Vanegas"
+   }
+  ]
+ },
+ "test-0063": {
+  "n": 3,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "cualquiera"
+   }
+  ]
+ },
+ "test-0064": {
+  "n": 4,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el viernes"
+   }
+  ]
+ },
+ "test-0065": {
+  "n": 5,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "barba"
+   }
+  ]
+ },
+ "test-0066": {
+  "n": 6,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0067": {
+  "n": 7,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Julián"
+   }
+  ]
+ },
+ "test-0068": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 6:30"
+   }
+  ]
+ },
+ "test-0069": {
+  "n": 9,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "nombre",
+    "valor": "Carlos"
+   }
+  ]
+ },
+ "test-0070": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "franja",
+    "valor": "por la mañana"
+   }
+  ]
+ },
+ "test-0071": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "2 pm"
+   }
+  ]
+ },
+ "test-0072": {
+  "n": 2,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el 15"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 10"
+   }
+  ]
+ },
+ "test-0073": {
+  "n": 3,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Nico"
+   }
+  ]
+ },
+ "test-0074": {
+  "n": 4,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el miércoles"
+   },
+   {
+    "tipo": "franja",
+    "valor": "antes del mediodía"
+   }
+  ]
+ },
+ "test-0075": {
+  "n": 5,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "arreglo de barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la mañana"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "el que sea"
+   }
+  ]
+ },
+ "test-0076": {
+  "n": 6,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "pintarme el pelo"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   }
+  ]
+ },
+ "test-0077": {
+  "n": 7,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "nombre",
+    "valor": "Tomás"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el viernes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 3"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   }
+  ]
+ },
+ "test-0078": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte y también cejas"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el jueves"
+   },
+   {
+    "tipo": "hora",
+    "valor": "tipo 6"
+   }
+  ]
+ },
+ "test-0079": {
+  "n": 9,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "viernes"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   }
+  ]
+ },
+ "test-0080": {
+  "n": 10,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "pasado mañana"
+   }
+  ]
+ },
+ "test-0081": {
+  "n": 1,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   }
+  ]
+ },
+ "test-0082": {
+  "n": 2,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "a las 3"
+   },
+   {
+    "tipo": "hora",
+    "valor": "las 4"
+   }
+  ]
+ },
+ "test-0083": {
+  "n": 3,
+  "intencion": "reprogramar",
+  "ranuras": []
+ },
+ "test-0084": {
+  "n": 4,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 5"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0085": {
+  "n": 5,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el jueves"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la tarde"
+   }
+  ]
+ },
+ "test-0086": {
+  "n": 6,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el domingo"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 10"
+   }
+  ]
+ },
+ "test-0087": {
+  "n": 7,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "las 2"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 4"
+   }
+  ]
+ },
+ "test-0088": {
+  "n": 8,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el miércoles"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "Andrés"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el jueves"
+   }
+  ]
+ },
+ "test-0089": {
+  "n": 9,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "a las 6"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 4"
+   }
+  ]
+ },
+ "test-0090": {
+  "n": 10,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el viernes"
+   }
+  ]
+ },
+ "test-0091": {
+  "n": 1,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "tipo 11"
+   }
+  ]
+ },
+ "test-0092": {
+  "n": 2,
+  "intencion": "reprogramar",
+  "ranuras": []
+ },
+ "test-0093": {
+  "n": 3,
+  "intencion": "reprogramar",
+  "ranuras": []
+ },
+ "test-0094": {
+  "n": 4,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "la otra semana"
+   }
+  ]
+ },
+ "test-0095": {
+  "n": 5,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Felipe"
+   }
+  ]
+ },
+ "test-0096": {
+  "n": 6,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el miércoles"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 7 de la noche"
+   }
+  ]
+ },
+ "test-0097": {
+  "n": 7,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0098": {
+  "n": 8,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "a las 5:30"
+   }
+  ]
+ },
+ "test-0099": {
+  "n": 9,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 18"
+   }
+  ]
+ },
+ "test-0100": {
+  "n": 10,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la mañana"
+   }
+  ]
+ },
+ "test-0101": {
+  "n": 1,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el domingo"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el lunes festivo"
+   }
+  ]
+ },
+ "test-0102": {
+  "n": 2,
+  "intencion": "reprogramar",
+  "ranuras": []
+ },
+ "test-0103": {
+  "n": 3,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0104": {
+  "n": 4,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el viernes"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el jueves"
+   }
+  ]
+ },
+ "test-0105": {
+  "n": 5,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte y barba"
+   }
+  ]
+ },
+ "test-0106": {
+  "n": 6,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 4"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el martes"
+   },
+   {
+    "tipo": "franja",
+    "valor": "por la tarde"
+   }
+  ]
+ },
+ "test-0107": {
+  "n": 7,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 9"
+   },
+   {
+    "tipo": "hora",
+    "valor": "las 11"
+   }
+  ]
+ },
+ "test-0108": {
+  "n": 8,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "las 3"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el viernes"
+   }
+  ]
+ },
+ "test-0109": {
+  "n": 9,
+  "intencion": "reprogramar",
+  "ranuras": []
+ },
+ "test-0110": {
+  "n": 10,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "15"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el 22"
+   }
+  ]
+ },
+ "test-0111": {
+  "n": 1,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Camilo"
+   }
+  ]
+ },
+ "test-0112": {
+  "n": 2,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "tipo 6"
+   }
+  ]
+ },
+ "test-0113": {
+  "n": 3,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el viernes"
+   }
+  ]
+ },
+ "test-0114": {
+  "n": 4,
+  "intencion": "reprogramar",
+  "ranuras": []
+ },
+ "test-0115": {
+  "n": 5,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "pasado mañana"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   }
+  ]
+ },
+ "test-0116": {
+  "n": 6,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 30 de octubre"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 3 pm"
+   }
+  ]
+ },
+ "test-0117": {
+  "n": 7,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "test-0118": {
+  "n": 8,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0119": {
+  "n": 9,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   }
+  ]
+ },
+ "test-0120": {
+  "n": 10,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "test-0121": {
+  "n": 1,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   }
+  ]
+ },
+ "test-0122": {
+  "n": 2,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "viernes"
+   }
+  ]
+ },
+ "test-0123": {
+  "n": 3,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Julián"
+   }
+  ]
+ },
+ "test-0124": {
+  "n": 4,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "test-0125": {
+  "n": 5,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "martes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 3"
+   }
+  ]
+ },
+ "test-0126": {
+  "n": 6,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0127": {
+  "n": 7,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "test-0128": {
+  "n": 8,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "20 de octubre"
+   }
+  ]
+ },
+ "test-0129": {
+  "n": 9,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "test-0130": {
+  "n": 10,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la tarde"
+   }
+  ]
+ },
+ "test-0131": {
+  "n": 1,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "test-0132": {
+  "n": 2,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "domingo"
+   }
+  ]
+ },
+ "test-0133": {
+  "n": 3,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "test-0134": {
+  "n": 4,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "test-0135": {
+  "n": 5,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 10"
+   }
+  ]
+ },
+ "test-0136": {
+  "n": 6,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "jueves"
+   }
+  ]
+ },
+ "test-0137": {
+  "n": 7,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "test-0138": {
+  "n": 8,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "pasado mañana"
+   }
+  ]
+ },
+ "test-0139": {
+  "n": 9,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0140": {
+  "n": 10,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "test-0141": {
+  "n": 1,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   }
+  ]
+ },
+ "test-0142": {
+  "n": 2,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el miércoles"
+   }
+  ]
+ },
+ "test-0143": {
+  "n": 3,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "nombre",
+    "valor": "Luis Parra"
+   }
+  ]
+ },
+ "test-0144": {
+  "n": 4,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "sábado"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 11"
+   }
+  ]
+ },
+ "test-0145": {
+  "n": 5,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el viernes"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la noche"
+   }
+  ]
+ },
+ "test-0146": {
+  "n": 6,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Andrés"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "este jueves"
+   }
+  ]
+ },
+ "test-0147": {
+  "n": 7,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la tarde"
+   }
+  ]
+ },
+ "test-0148": {
+  "n": 8,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   }
+  ]
+ },
+ "test-0149": {
+  "n": 9,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   }
+  ]
+ },
+ "test-0150": {
+  "n": 10,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Camilo"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 3"
+   }
+  ]
+ },
+ "test-0151": {
+  "n": 1,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   }
+  ]
+ },
+ "test-0152": {
+  "n": 2,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "los domingos"
+   }
+  ]
+ },
+ "test-0153": {
+  "n": 3,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   }
+  ]
+ },
+ "test-0154": {
+  "n": 4,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Andrés"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el viernes"
+   }
+  ]
+ },
+ "test-0155": {
+  "n": 5,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "test-0156": {
+  "n": 6,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 31 de octubre"
+   }
+  ]
+ },
+ "test-0157": {
+  "n": 7,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "test-0158": {
+  "n": 8,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "test-0159": {
+  "n": 9,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Julián"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0160": {
+  "n": 10,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   },
+   {
+    "tipo": "franja",
+    "valor": "por la mañana"
+   }
+  ]
+ },
+ "test-0161": {
+  "n": 1,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   }
+  ]
+ },
+ "test-0162": {
+  "n": 2,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   }
+  ]
+ },
+ "test-0163": {
+  "n": 3,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte y barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "este viernes"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la tarde"
+   }
+  ]
+ },
+ "test-0164": {
+  "n": 4,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0165": {
+  "n": 5,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "test-0166": {
+  "n": 6,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0167": {
+  "n": 7,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "test-0168": {
+  "n": 8,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0169": {
+  "n": 9,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el jueves"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 5"
+   }
+  ]
+ },
+ "test-0170": {
+  "n": 10,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0171": {
+  "n": 1,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Felipe"
+   }
+  ]
+ },
+ "test-0172": {
+  "n": 2,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   },
+   {
+    "tipo": "hora",
+    "valor": "antes de las 7"
+   }
+  ]
+ },
+ "test-0173": {
+  "n": 3,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "arreglar la barba"
+   }
+  ]
+ },
+ "test-0174": {
+  "n": 4,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "sábado"
+   }
+  ]
+ },
+ "test-0175": {
+  "n": 5,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "domingo"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 9"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 10"
+   }
+  ]
+ },
+ "test-0176": {
+  "n": 6,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "test-0177": {
+  "n": 7,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Andrés"
+   }
+  ]
+ },
+ "test-0178": {
+  "n": 8,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "franja",
+    "valor": "por la noche"
+   }
+  ]
+ },
+ "test-0179": {
+  "n": 9,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 24"
+   }
+  ]
+ },
+ "test-0180": {
+  "n": 10,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Sebas"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0181": {
+  "n": 1,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "test-0182": {
+  "n": 2,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el miércoles"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la mañana"
+   }
+  ]
+ },
+ "test-0183": {
+  "n": 3,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "test-0184": {
+  "n": 4,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "franja",
+    "valor": "esta tarde"
+   }
+  ]
+ },
+ "test-0185": {
+  "n": 5,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   }
+  ]
+ },
+ "test-0186": {
+  "n": 6,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0187": {
+  "n": 7,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "barba"
+   }
+  ]
+ },
+ "test-0188": {
+  "n": 8,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "tinte"
+   }
+  ]
+ },
+ "test-0189": {
+  "n": 9,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte y barba"
+   }
+  ]
+ },
+ "test-0190": {
+  "n": 10,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0191": {
+  "n": 1,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte clásico"
+   }
+  ]
+ },
+ "test-0192": {
+  "n": 2,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "motilar"
+   }
+  ]
+ },
+ "test-0193": {
+  "n": 3,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0194": {
+  "n": 4,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "arreglo de barba"
+   }
+  ]
+ },
+ "test-0195": {
+  "n": 5,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "cejas"
+   }
+  ]
+ },
+ "test-0196": {
+  "n": 6,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "cortarse el pelo y la barba"
+   }
+  ]
+ },
+ "test-0197": {
+  "n": 7,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "degradado"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "Felipe"
+   }
+  ]
+ },
+ "test-0198": {
+  "n": 8,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte de niño"
+   }
+  ]
+ },
+ "test-0199": {
+  "n": 9,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0200": {
+  "n": 10,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "cortes"
+   }
+  ]
+ },
+ "test-0201": {
+  "n": 1,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0202": {
+  "n": 2,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0203": {
+  "n": 3,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0204": {
+  "n": 4,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0205": {
+  "n": 5,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0206": {
+  "n": 6,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0207": {
+  "n": 7,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0208": {
+  "n": 8,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0209": {
+  "n": 9,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0210": {
+  "n": 10,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0211": {
+  "n": 1,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0212": {
+  "n": 2,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0213": {
+  "n": 3,
+  "intencion": "consultar_servicios",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte a tijera"
+   }
+  ]
+ },
+ "test-0214": {
+  "n": 4,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "test-0215": {
+  "n": 5,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0216": {
+  "n": 6,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0217": {
+  "n": 7,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0218": {
+  "n": 8,
+  "intencion": "consultar_citas",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el sábado"
+   }
+  ]
+ },
+ "test-0219": {
+  "n": 9,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0220": {
+  "n": 10,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0221": {
+  "n": 1,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0222": {
+  "n": 2,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0223": {
+  "n": 3,
+  "intencion": "consultar_citas",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "viernes"
+   }
+  ]
+ },
+ "test-0224": {
+  "n": 4,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0225": {
+  "n": 5,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0226": {
+  "n": 6,
+  "intencion": "consultar_citas",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   }
+  ]
+ },
+ "test-0227": {
+  "n": 7,
+  "intencion": "consultar_citas",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "Andrés"
+   }
+  ]
+ },
+ "test-0228": {
+  "n": 8,
+  "intencion": "consultar_citas",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "a las 3"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 4"
+   }
+  ]
+ },
+ "test-0229": {
+  "n": 9,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0230": {
+  "n": 10,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0231": {
+  "n": 1,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0232": {
+  "n": 2,
+  "intencion": "consultar_citas",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "martes"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "Julián"
+   }
+  ]
+ },
+ "test-0233": {
+  "n": 3,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0234": {
+  "n": 4,
+  "intencion": "consultar_citas",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "hoy"
+   }
+  ]
+ },
+ "test-0235": {
+  "n": 5,
+  "intencion": "consultar_citas",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "corte y barba"
+   }
+  ]
+ },
+ "test-0236": {
+  "n": 6,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "test-0237": {
+  "n": 7,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0238": {
+  "n": 8,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0239": {
+  "n": 9,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0240": {
+  "n": 10,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0241": {
+  "n": 1,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0242": {
+  "n": 2,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0243": {
+  "n": 3,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0244": {
+  "n": 4,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0245": {
+  "n": 5,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0246": {
+  "n": 6,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0247": {
+  "n": 7,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0248": {
+  "n": 8,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0249": {
+  "n": 9,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0250": {
+  "n": 10,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0251": {
+  "n": 1,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0252": {
+  "n": 2,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0253": {
+  "n": 3,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0254": {
+  "n": 4,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "test-0255": {
+  "n": 5,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0256": {
+  "n": 6,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0257": {
+  "n": 7,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0258": {
+  "n": 8,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0259": {
+  "n": 9,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0260": {
+  "n": 10,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0261": {
+  "n": 1,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0262": {
+  "n": 2,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0263": {
+  "n": 3,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0264": {
+  "n": 4,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0265": {
+  "n": 5,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0266": {
+  "n": 6,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0267": {
+  "n": 7,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0268": {
+  "n": 8,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0269": {
+  "n": 9,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0270": {
+  "n": 10,
+  "intencion": "negar",
+  "ranuras": []
+ },
+ "test-0271": {
+  "n": 1,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0272": {
+  "n": 2,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0273": {
+  "n": 3,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0274": {
+  "n": 4,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0275": {
+  "n": 5,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0276": {
+  "n": 6,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0277": {
+  "n": 7,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0278": {
+  "n": 8,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0279": {
+  "n": 9,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0280": {
+  "n": 10,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0281": {
+  "n": 1,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0282": {
+  "n": 2,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0283": {
+  "n": 3,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0284": {
+  "n": 4,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0285": {
+  "n": 5,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0286": {
+  "n": 6,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0287": {
+  "n": 7,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0288": {
+  "n": 8,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0289": {
+  "n": 9,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0290": {
+  "n": 10,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0291": {
+  "n": 1,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0292": {
+  "n": 2,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0293": {
+  "n": 3,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0294": {
+  "n": 4,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0295": {
+  "n": 5,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0296": {
+  "n": 6,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0297": {
+  "n": 7,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0298": {
+  "n": 8,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0299": {
+  "n": 9,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "test-0300": {
+  "n": 10,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ }
+}

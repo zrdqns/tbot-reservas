@@ -1,0 +1,209 @@
+# Expresiones de fecha y hora con su valor correcto, para probar el normalizador (Tabla III del informe).
+# 200 expresiones: 100 fechas, 65 horas y 35 franjas. Los valores se escribieron a mano, sin usar el normalizador.
+#
+# Fechas de referencia: martes 2026-10-13, sábado 2026-10-31, domingo 2026-12-27 y viernes 2027-02-26.
+# Criterios: un día de la semana es el próximo, sin contar hoy («este sábado» sí cuenta hoy); «el otro sábado»
+# es el que sigue al próximo; «en ocho días» son siete días y «en quince», catorce, como se usa en Colombia.
+# Un intervalo se escribe inicio..fin. Las horas se leen dentro del horario de atención, de 9:00 a 19:00:
+# «a las 3» es 15:00 y «a las 8» queda fuera. En las franjas, * es un extremo abierto.
+tipo;expresion;referencia;esperado
+fecha;hoy;2026-10-13;2026-10-13
+fecha;mañana;2026-10-13;2026-10-14
+fecha;pasado mañana;2026-10-13;2026-10-15
+fecha;el jueves;2026-10-13;2026-10-15
+fecha;el sábado;2026-10-13;2026-10-17
+fecha;este sábado;2026-10-13;2026-10-17
+fecha;el próximo sábado;2026-10-13;2026-10-17
+fecha;el otro sábado;2026-10-13;2026-10-24
+fecha;el sábado que viene;2026-10-13;2026-10-17
+fecha;el sábado de la otra semana;2026-10-13;2026-10-24
+fecha;el martes;2026-10-13;2026-10-20
+fecha;este martes;2026-10-13;2026-10-13
+fecha;el lunes;2026-10-13;2026-10-19
+fecha;el lunes festivo;2026-10-13;2026-10-19
+fecha;el viernes de esta semana;2026-10-13;2026-10-16
+fecha;el miércoles de la próxima semana;2026-10-13;2026-10-21
+fecha;el 15;2026-10-13;2026-10-15
+fecha;el 12;2026-10-13;2026-11-12
+fecha;el 20 de octubre;2026-10-13;2026-10-20
+fecha;el 3 de noviembre;2026-10-13;2026-11-03
+fecha;el 5 de octubre;2026-10-13;2027-10-05
+fecha;el primero de noviembre;2026-10-13;2026-11-01
+fecha;15/10;2026-10-13;2026-10-15
+fecha;el sábado 17;2026-10-13;2026-10-17
+fecha;el jueves 22;2026-10-13;2026-10-22
+fecha;esta semana;2026-10-13;2026-10-13..2026-10-18
+fecha;la otra semana;2026-10-13;2026-10-19..2026-10-25
+fecha;la semana que viene;2026-10-13;2026-10-19..2026-10-25
+fecha;el fin de semana;2026-10-13;2026-10-17..2026-10-18
+fecha;los domingos;2026-10-13;habitual:domingo
+fecha;el savado;2026-10-13;2026-10-17
+fecha;manana;2026-10-13;2026-10-14
+fecha;en ocho días;2026-10-13;2026-10-20
+fecha;de hoy en ocho;2026-10-13;2026-10-20
+fecha;de mañana en ocho;2026-10-13;2026-10-21
+fecha;en quince días;2026-10-13;2026-10-27
+fecha;el sábado en ocho;2026-10-13;2026-10-24
+fecha;dentro de tres días;2026-10-13;2026-10-16
+fecha;el 31;2026-10-13;2026-10-31
+fecha;el domingo;2026-10-13;2026-10-18
+fecha;el miércoles;2026-10-13;2026-10-14
+fecha;el otro lunes;2026-10-13;2026-10-26
+fecha;hoy;2026-10-31;2026-10-31
+fecha;mañana;2026-10-31;2026-11-01
+fecha;pasado mañana;2026-10-31;2026-11-02
+fecha;el lunes;2026-10-31;2026-11-02
+fecha;el sábado;2026-10-31;2026-11-07
+fecha;este sábado;2026-10-31;2026-10-31
+fecha;el otro sábado;2026-10-31;2026-11-14
+fecha;el próximo viernes;2026-10-31;2026-11-06
+fecha;el domingo;2026-10-31;2026-11-01
+fecha;el 1;2026-10-31;2026-11-01
+fecha;el 31;2026-10-31;2026-10-31
+fecha;el 30;2026-10-31;2026-11-30
+fecha;el 5;2026-10-31;2026-11-05
+fecha;el martes 3;2026-10-31;2026-11-03
+fecha;el 3 de noviembre;2026-10-31;2026-11-03
+fecha;el 15 de octubre;2026-10-31;2027-10-15
+fecha;esta semana;2026-10-31;2026-10-31..2026-11-01
+fecha;la próxima semana;2026-10-31;2026-11-02..2026-11-08
+fecha;el fin de semana;2026-10-31;2026-10-31..2026-11-01
+fecha;este fin de semana;2026-10-31;2026-10-31..2026-11-01
+fecha;el jueves de la otra semana;2026-10-31;2026-11-05
+fecha;en ocho días;2026-10-31;2026-11-07
+fecha;el lunes en ocho;2026-10-31;2026-11-09
+fecha;los sábados;2026-10-31;habitual:sabado
+fecha;2/11;2026-10-31;2026-11-02
+fecha;el primero de diciembre;2026-10-31;2026-12-01
+fecha;hoy;2026-12-27;2026-12-27
+fecha;mañana;2026-12-27;2026-12-28
+fecha;pasado mañana;2026-12-27;2026-12-29
+fecha;el jueves;2026-12-27;2026-12-31
+fecha;el sábado;2026-12-27;2027-01-02
+fecha;el domingo;2026-12-27;2027-01-03
+fecha;este domingo;2026-12-27;2026-12-27
+fecha;el otro sábado;2026-12-27;2027-01-09
+fecha;el 31;2026-12-27;2026-12-31
+fecha;el 5;2026-12-27;2027-01-05
+fecha;el 2 de enero;2026-12-27;2027-01-02
+fecha;el 24 de diciembre;2026-12-27;2027-12-24
+fecha;la otra semana;2026-12-27;2026-12-28..2027-01-03
+fecha;el fin de semana;2026-12-27;2026-12-27..2026-12-27
+fecha;el lunes de la otra semana;2026-12-27;2026-12-28
+fecha;el viernes de la próxima semana;2026-12-27;2027-01-01
+fecha;en quince días;2026-12-27;2027-01-10
+fecha;el primero de enero;2026-12-27;2027-01-01
+fecha;mañana;2027-02-26;2027-02-27
+fecha;pasado mañana;2027-02-26;2027-02-28
+fecha;el lunes;2027-02-26;2027-03-01
+fecha;el viernes;2027-02-26;2027-03-05
+fecha;este viernes;2027-02-26;2027-02-26
+fecha;el 28;2027-02-26;2027-02-28
+fecha;el 30;2027-02-26;2027-03-30
+fecha;el 1;2027-02-26;2027-03-01
+fecha;el próximo martes;2027-02-26;2027-03-02
+fecha;el otro martes;2027-02-26;2027-03-09
+fecha;el sábado de la otra semana;2027-02-26;2027-03-06
+fecha;la semana entrante;2027-02-26;2027-03-01..2027-03-07
+fecha;el 15 de marzo;2027-02-26;2027-03-15
+fecha;el 20 de febrero;2027-02-26;2028-02-20
+hora;a las 3;-;15:00
+hora;a las tres;-;15:00
+hora;tipo tres;-;15:00
+hora;tipo 3;-;15:00
+hora;a las 10;-;10:00
+hora;a las diez;-;10:00
+hora;a las 9;-;09:00
+hora;a las 11;-;11:00
+hora;a las 12;-;12:00
+hora;a la 1;-;13:00
+hora;a la una;-;13:00
+hora;a las 2;-;14:00
+hora;a las 4;-;16:00
+hora;a las 5;-;17:00
+hora;a las 6;-;18:00
+hora;a las 6:30;-;18:30
+hora;a las 7;-;fuera
+hora;a las 8;-;fuera
+hora;a las 3 y media;-;15:30
+hora;a las tres y media;-;15:30
+hora;a las 4 y cuarto;-;16:15
+hora;a las 3:30;-;15:30
+hora;3:45;-;15:45
+hora;a las 10:30;-;10:30
+hora;a las 9 y media;-;09:30
+hora;a las 3 de la tarde;-;15:00
+hora;a las 10 de la mañana;-;10:00
+hora;a las 6 de la tarde;-;18:00
+hora;a las 8 de la noche;-;fuera
+hora;a las 7 de la mañana;-;fuera
+hora;3pm;-;15:00
+hora;3 pm;-;15:00
+hora;4:30 pm;-;16:30
+hora;10 am;-;10:00
+hora;9am;-;09:00
+hora;a las 5 p.m.;-;17:00
+hora;a las 9:30 a.m.;-;09:30
+hora;15:00;-;15:00
+hora;a las 14:30;-;14:30
+hora;a las 16;-;16:00
+hora;a mediodía;-;12:00
+hora;al medio día;-;12:00
+hora;12 del día;-;12:00
+hora;a las 12 y media;-;12:30
+hora;como a las 4;-;16:00
+hora;a eso de las 5;-;17:00
+hora;sobre las 11;-;11:00
+hora;hacia las 2;-;14:00
+hora;por ahí a las 3;-;15:00
+hora;a las 4 en punto;-;16:00
+hora;a primera hora;-;primera
+hora;a última hora;-;ultima
+hora;ahorita;-;+0
+hora;ahora mismo;-;+0
+hora;en media hora;-;+30
+hora;en una hora;-;+60
+hora;en 20 minutos;-;+20
+hora;en dos horas;-;+120
+hora;un cuarto para las 4;-;15:45
+hora;faltando un cuarto para las cinco;-;16:45
+hora;a las 4 menos cuarto;-;15:45
+hora;tipo 5 y media;-;17:30
+hora;a las dos y cuarto;-;14:15
+hora;tipo mediodía;-;12:00
+hora;en hora y media;-;+90
+franja;en la mañana;-;*-12:00
+franja;por la mañana;-;*-12:00
+franja;en horas de la mañana;-;*-12:00
+franja;en la mañanita;-;*-12:00
+franja;en la tarde;-;12:00-18:00
+franja;por la tarde;-;12:00-18:00
+franja;en la tardecita;-;12:00-18:00
+franja;en horas de la tarde;-;12:00-18:00
+franja;en la noche;-;18:00-*
+franja;por la noche;-;18:00-*
+franja;temprano;-;*-10:30
+franja;bien temprano;-;*-10:30
+franja;tempranito;-;*-10:30
+franja;después de las 5;-;17:00-*
+franja;después de las 4 de la tarde;-;16:00-*
+franja;después de las 10;-;10:00-*
+franja;a partir de las 3;-;15:00-*
+franja;luego de las 3;-;15:00-*
+franja;después de las 6;-;18:00-*
+franja;antes de las 10;-;*-10:00
+franja;antes de las 12;-;*-12:00
+franja;antes de las 4;-;*-16:00
+franja;antes del mediodía;-;*-12:00
+franja;después del mediodía;-;12:00-*
+franja;pasado el mediodía;-;12:00-*
+franja;después del almuerzo;-;14:00-*
+franja;antes del almuerzo;-;*-12:00
+franja;entre las 3 y las 4;-;15:00-16:00
+franja;entre las 10 y las 12;-;10:00-12:00
+franja;entre 2 y 5;-;14:00-17:00
+franja;de 2 a 4;-;14:00-16:00
+franja;a media mañana;-;10:00-11:30
+franja;a media tarde;-;15:00-16:30
+franja;al final de la tarde;-;17:00-*
+franja;esta tarde;-;12:00-18:00 hoy

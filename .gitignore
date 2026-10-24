@@ -1,0 +1,19 @@
+# Claves y configuración local
+.env*
+.vercel
+
+# Entorno de Python
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Perfiles de clientes y mensajes que guarda el bot cuando corre en el computador
+bot/datos/
+
+# El modelo descomprimido pesa 105 MB y GitHub no acepta archivos de más de 100 MB.
+# Va modelo/modelo_tbot.zip, que modelo/entender.py descomprime la primera vez.
+modelo/modelo_tbot/
+
+# Informes y presentaciones de las entregas
+Avance 2/
+SIU 2026/

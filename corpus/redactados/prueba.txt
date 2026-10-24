@@ -1,0 +1,394 @@
+# Conjunto de prueba: 370 mensajes escritos uno a uno, sin pasar por el generador.
+# Formato: intención, espacio y el mensaje con las ranuras entre corchetes.
+
+# --- reservar (78)
+reservar buenas, quiero un [servicio : corte] para [fecha : mañana] [hora : a las 4]
+reservar hola parce me agendas con [barbero : Camilo] [fecha : el sábado] [franja : en la mañana]
+reservar necesito [servicio : motilarme] [fecha : hoy], tienen algo [hora : tipo 5]?
+reservar Buenas tardes, quisiera agendar una cita para [servicio : corte y barba] [fecha : el viernes] [hora : a las 6 de la tarde] con [barbero : Julián], por favor.
+reservar me regalas un turno pa [fecha : hoy] [franja : en la tarde]
+reservar [servicio : corte] [fecha : mañana] [hora : 3pm]
+reservar quiero [servicio : arreglarme la barba] [fecha : el jueves] [franja : después de las 5]
+reservar hola, soy [nombre : Mateo Rincón], me puedes apartar una cita con [barbero : Andrés] para [fecha : el 20 de octubre]?
+reservar ey bro agéndame [fecha : mañana] [franja : temprano] que tengo una entrevista
+reservar será que me puede dar una citica para [fecha : pasado mañana] [hora : a las 10 am]
+reservar necesito un [servicio : degradado] urgente pa [fecha : hoy], con [barbero : el que esté libre]
+reservar Hola. Quiero reservar para mi hijo [nombre : Samuel], un [servicio : corte de niño] [fecha : el domingo] [franja : por la mañana].
+reservar [fecha : el otro sábado] [hora : a las 11] me sirve, agéndame un [servicio : corte clásico]
+reservar quiero ir a [servicio : cortarme el pelo] [fecha : hoy] [hora : a eso de las 7], se puede?
+reservar buenas noches, para pedir un turno [fecha : mañana] [hora : a primera hora] con [barbero : Felipe]
+reservar me toca [servicio : motilarme] antes del grado, apártame [fecha : el viernes] [hora : a mediodía]
+reservar holaa, cita para [servicio : barba] [fecha : el martes] [hora : tipo 2:30] porfa
+reservar q mas, me anotas pa [fecha : hoy] [hora : a las 6]?
+reservar quiero [servicio : lo de siempre] con [barbero : Andrés] [fecha : este sábado]
+reservar Necesito una cita [fecha : el 3 de noviembre] [hora : a las 9 de la mañana] para [servicio : corte y barba], a nombre de [nombre : Jorge Trujillo].
+reservar me quiero [servicio : hacer la barba] [fecha : mañana] [franja : por la tarde], me agenda?
+reservar hola buen día, [servicio : corte] con [barbero : Juli] [fecha : hoy] [hora : 4:30 pm]
+reservar parce necesito cupo con [barbero : Camilo] [fecha : el miércoles] [franja : en la noche], [servicio : corte y barba]
+reservar agendame [fecha : el lunes] [hora : a las 8], que después entro a trabajar
+reservar quiero sacar cita con don [barbero : Jairo] para [fecha : el jueves 15]
+reservar un [servicio : corte + barba] [fecha : mañana] [hora : a la 1], gracias
+reservar buenas, me colabora con un turno para [servicio : tinturarme el pelo] [fecha : la otra semana]?
+reservar hola, quiero agendar. [fecha : el sábado] [hora : 10:00] con [barbero : Sebas]
+reservar necesito que me [servicio : corten el pelo] [fecha : hoy mismo], tengo una fiesta
+reservar hola! me gustaría reservar un [servicio : perfilado de barba] para [fecha : el viernes] [franja : en la tarde] 😊
+reservar apúntame para [fecha : mañana] [hora : a las 3 y media] con [barbero : cualquiera]
+reservar quiero una cita, cómo hago?
+reservar necesito agendar un [servicio : corte]
+reservar hola me puedes agendar por favor
+reservar buenas quiero pedir turno con [barbero : Felipe]
+reservar para [servicio : motilarme] [fecha : el domingo] porfa
+reservar reservame [fecha : el 24 de diciembre] [franja : por la mañana], [servicio : corte y barba] completo
+reservar voy [fecha : mañana] [hora : tipo 11], sepárame el turno con [barbero : Julián]
+reservar quiero [servicio : cortarme el pelo y arreglarme la barba] [fecha : el viernes que viene]
+reservar hola, es para una cita [fecha : hoy] [hora : a las 5:15] si se puede, [servicio : corte sencillo]
+reservar me das una cita [fecha : este jueves] [hora : sobre las 4]?
+reservar necesito un [servicio : corte] para mi papá, [nombre : Hernán Lozano], [fecha : el sábado] [hora : a las 9]
+reservar [fecha : pasado mañana] [franja : en la tarde] quiero ir a que me [servicio : motilen]
+reservar ola kiero un [servicio : korte] pa [fecha : mañana]
+reservar Buenos días, ¿me podría agendar una cita para [servicio : corte de cabello] [fecha : el martes 20] [hora : a las 2 de la tarde]?
+reservar hermano me urge un [servicio : fade] [fecha : hoy], [hora : ahorita] si se puede
+reservar ponme [fecha : el viernes] [hora : a las 7 pm] con [barbero : Andrés], [servicio : barba y corte]
+reservar cita [fecha : sábado] [hora : 9am] [barbero : Camilo]
+reservar quiero apartar turno para el [servicio : combo de corte y barba], [fecha : el domingo] [hora : a las 12]
+reservar hola qué tal, quisiera un turno [fecha : la próxima semana], [fecha : martes] o [fecha : miércoles] [franja : por la tarde]
+reservar me agendas a mí y a mi hermano [fecha : el sábado] [franja : en la mañana]? los dos [servicio : corte]
+reservar necesito un turno [fecha : hoy] [franja : después del almuerzo]
+reservar buenas, agéndeme [servicio : afeitada y corte] [fecha : mañana] [hora : a las 4 pm]
+reservar quiero el [servicio : corte clásico] con [barbero : el mismo de siempre], [fecha : el jueves] [hora : a las 6]
+reservar hola, me regalas una cita para [fecha : mañana]? es para [servicio : cejas y barba]
+reservar [fecha : mañana]
+reservar [hora : a las 3]
+reservar con [barbero : Andrés]
+reservar [servicio : corte y barba]
+reservar [fecha : el sábado] [franja : en la tarde]
+reservar mejor [hora : a las 5]
+reservar [nombre : Daniel Vanegas]
+reservar [barbero : cualquiera]
+reservar no, mejor [fecha : el viernes]
+reservar la [servicio : barba] nada más
+reservar [hora : tipo 4] está bien
+reservar sí, pero con [barbero : Julián]
+reservar [fecha : hoy] [hora : a las 6:30]
+reservar a nombre de [nombre : Carlos]
+reservar que sea [franja : por la mañana]
+reservar [hora : 2 pm]
+reservar hola, quiero agendar [servicio : corte] para [fecha : el 15] [hora : a las 10], gracias
+reservar necesito cita con [barbero : Nico] lo más pronto posible
+reservar me puedes cuadrar una cita [fecha : el miércoles] [franja : antes del mediodía]?
+reservar buenas, un turno para [servicio : arreglo de barba] [fecha : mañana] [franja : en la mañana], con [barbero : el que sea]
+reservar quiero [servicio : pintarme el pelo] [fecha : el sábado], a qué hora puedo ir?
+reservar agenda una cita para [nombre : Tomás] [fecha : el viernes] [hora : a las 3], [servicio : corte]
+reservar hola necesito [servicio : corte] y también [servicio : cejas], [fecha : el jueves] [hora : tipo 6]
+
+# --- reprogramar (38)
+reprogramar necesito cambiar mi cita del [fecha : viernes] para [fecha : el sábado]
+reprogramar hola, puedo pasar la cita de [fecha : mañana] para [fecha : pasado mañana] a la misma hora?
+reprogramar cámbieme la del [fecha : sábado] para [fecha : el lunes]
+reprogramar parce no alcanzo a llegar [hora : a las 3], me la corres para [hora : las 4]?
+reprogramar buenas, quiero reprogramar mi cita
+reprogramar tengo cita [fecha : hoy] [hora : a las 5] pero salgo tarde del trabajo, la podemos dejar para [fecha : mañana]?
+reprogramar me surgió algo, será que me cambias la cita para [fecha : el jueves] [franja : en la tarde]
+reprogramar ya no puedo [fecha : el sábado], mejor [fecha : el domingo] [hora : a las 10]
+reprogramar quiero mover mi turno de [hora : las 2] [hora : a las 4]
+reprogramar Buenas tardes, necesito reagendar la cita que tengo [fecha : el miércoles] con [barbero : Andrés], ¿tiene espacio [fecha : el jueves]?
+reprogramar me puedes adelantar la cita? quedó [hora : a las 6] y la necesito [hora : a las 4]
+reprogramar se me cruzó una reunión [fecha : mañana], toca correr la cita para [fecha : el viernes] a la misma hora
+reprogramar hola, mi cita era [fecha : hoy] pero no puedo, me la pasas para [fecha : mañana] [hora : tipo 11]?
+reprogramar cambiar la cita
+reprogramar quiero cambiar la hora de mi cita
+reprogramar necesito aplazar el [servicio : corte] de [fecha : mañana] para [fecha : la otra semana]
+reprogramar será que puedo cambiar de barbero? quiero que me atienda [barbero : Felipe] y no [barbero : Julián]
+reprogramar hermano la cita del [fecha : martes] pásamela para [fecha : el miércoles] [hora : a las 7 de la noche]
+reprogramar no voy a alcanzar, me das 30 minuticos más?
+reprogramar oye, voy a llegar tarde, puedes moverme la cita [hora : a las 5:30]?
+reprogramar reagendar para [fecha : el 18]
+reprogramar me toca cambiar la cita porque tengo parcial, puede ser [fecha : el sábado] [franja : en la mañana]?
+reprogramar hola buenas, la cita de mi hijo que estaba para [fecha : el domingo] la podemos pasar para [fecha : el lunes festivo]?
+reprogramar necesito correr mi turno una hora
+reprogramar cámbiame el turno pa [fecha : mañana] [franja : temprano] porfa
+reprogramar puedo ir más bien [fecha : el viernes]? tenía cita [fecha : el jueves]
+reprogramar quiero cambiar mi cita, en vez de [servicio : corte] que sea [servicio : corte y barba]
+reprogramar qué pena, no puedo [fecha : hoy] [hora : a las 4]. Me puede reprogramar para [fecha : el martes] [franja : por la tarde]?
+reprogramar mi cita de [fecha : mañana] [hora : a las 9] muévela para [hora : las 11] porfa
+reprogramar será que me pueden cambiar la cita? tengo la de [hora : las 3 de la tarde] [fecha : el viernes]
+reprogramar quiero pasar mi cita para otro día
+reprogramar buenas, tocó viajar. la cita del [fecha : 15] déjamela para [fecha : el 22]
+reprogramar ya no con [barbero : Andrés], pásame con [barbero : Camilo]
+reprogramar me puedes atrasar la cita un poquito? [hora : tipo 6] me queda mejor
+reprogramar cambio de planes, mejor nos vemos [fecha : el sábado] y no [fecha : el viernes]
+reprogramar hola necesito modificar mi reserva
+reprogramar la cita que tengo [fecha : pasado mañana] la necesito para [fecha : hoy], se puede?
+reprogramar reprográmame para [fecha : el 30 de octubre] [hora : a las 3 pm]
+
+# --- cancelar (30)
+cancelar quiero cancelar una cita
+cancelar cancela la cita de [fecha : mañana] porfa
+cancelar hola, ya no voy a poder ir [fecha : el sábado]
+cancelar buenas, me cancelas el turno de [hora : las 4]?
+cancelar no puedo ir [fecha : hoy], cancela
+cancelar parce qué pena pero me toca cancelar la cita del [fecha : viernes]
+cancelar anula mi cita con [barbero : Julián]
+cancelar ya no necesito la cita, me motilé en otro lado
+cancelar Buenas tardes, por favor cancelar la cita que tengo [fecha : el martes] [hora : a las 3].
+cancelar me enfermé, no voy a ir [fecha : mañana]
+cancelar cancelar
+cancelar elimina mi reserva del [fecha : 20 de octubre]
+cancelar al final no puedo ir, cancélala
+cancelar hola, necesito cancelar el [servicio : corte] de [fecha : hoy] [franja : en la tarde]
+cancelar no voy a alcanzar a llegar, mejor cancela la cita
+cancelar quita la cita de mi hijo, la del [fecha : domingo]
+cancelar ya no quiero ese turno
+cancelar me salió un viaje, cancela todo lo que tenga agendado
+cancelar no cuentes conmigo [fecha : mañana] [hora : a las 10], me surgió algo
+cancelar cancela la del [fecha : jueves] y no la reprogrames
+cancelar hermano toca cancelar, estoy sin plata jaja
+cancelar borra mi turno de [fecha : pasado mañana]
+cancelar buenas noches, para cancelar la cita de [fecha : mañana] [hora : a primera hora]
+cancelar no voy a ir
+cancelar cancélame lo de [fecha : hoy]
+cancelar tengo cita [fecha : el miércoles] pero ya no la voy a usar
+cancelar deseo cancelar mi reserva a nombre de [nombre : Luis Parra]
+cancelar libera mi turno del [fecha : sábado] [hora : a las 11], no alcanzo
+cancelar se me dañó el plan, ya no voy [fecha : el viernes] [franja : en la noche]
+cancelar cancela la cita q tenia con [barbero : Andrés] [fecha : este jueves]
+
+# --- consultar_disponibilidad (38)
+consultar_disponibilidad tiene cupo [fecha : mañana] [franja : en la tarde]?
+consultar_disponibilidad hola, hay turnos para [fecha : hoy]?
+consultar_disponibilidad qué horarios tienen [fecha : el sábado]
+consultar_disponibilidad [barbero : Camilo] está libre [fecha : mañana] [hora : a las 3]?
+consultar_disponibilidad quiubo, tiene un huequito [fecha : hoy] pa [servicio : motilarme]?
+consultar_disponibilidad buenas, atienden [fecha : los domingos]?
+consultar_disponibilidad hasta qué hora abren [fecha : hoy]
+consultar_disponibilidad a qué horas hay cupo con [barbero : Andrés] [fecha : el viernes]
+consultar_disponibilidad hay campo [hora : ahorita]?
+consultar_disponibilidad Buenas tardes, ¿tienen disponibilidad para [fecha : el 31 de octubre]?
+consultar_disponibilidad cuándo hay cita disponible lo más pronto
+consultar_disponibilidad está muy lleno? para pasar [hora : ahora]
+consultar_disponibilidad [barbero : Julián] trabaja [fecha : mañana]?
+consultar_disponibilidad qué tan llenos están [fecha : el sábado] [franja : por la mañana]
+consultar_disponibilidad hay algo libre [fecha : hoy] [franja : después de las 6]?
+consultar_disponibilidad quién atiende [fecha : el lunes]?
+consultar_disponibilidad tienen espacio para [servicio : corte y barba] [fecha : este viernes] [franja : en la tarde]?
+consultar_disponibilidad a qué hora cierran ustedes?
+consultar_disponibilidad si voy [hora : en media hora] me atienden?
+consultar_disponibilidad hola, quería saber si hay cupo [fecha : mañana] [franja : temprano]
+consultar_disponibilidad para cuándo tienen agenda
+consultar_disponibilidad abren [fecha : los festivos]?
+consultar_disponibilidad [fecha : el jueves] [hora : a las 5] hay algo?
+consultar_disponibilidad parce cómo está la cosa [fecha : hoy], hay mucha fila?
+consultar_disponibilidad qué días atiende [barbero : Felipe]
+consultar_disponibilidad hay chance de un [servicio : corte] [fecha : hoy] [franja : antes de las 7]?
+consultar_disponibilidad alcanzo a [servicio : arreglarme la barba] si llego [hora : en 20 minutos]?
+consultar_disponibilidad disponibilidad [fecha : sábado]
+consultar_disponibilidad tienen turno [fecha : el domingo] [hora : a las 9] o [hora : a las 10]?
+consultar_disponibilidad cuál es el horario de atención
+consultar_disponibilidad [barbero : Andrés] cuándo tiene cupo? es que solo me gusta con él
+consultar_disponibilidad hay citas [fecha : esta semana] [franja : por la noche]?
+consultar_disponibilidad oye y [fecha : el 24] trabajan?
+consultar_disponibilidad qué horas le quedan libres a [barbero : Sebas] [fecha : mañana]
+consultar_disponibilidad están atendiendo [hora : ahorita]?
+consultar_disponibilidad ¿Me podrían indicar qué disponibilidad hay [fecha : el miércoles] [franja : en la mañana]?
+consultar_disponibilidad y hay cupo o está todo lleno?
+consultar_disponibilidad tienen algo [franja : esta tarde]?
+
+# --- consultar_servicios (30)
+consultar_servicios cuánto vale el [servicio : corte]?
+consultar_servicios qué servicios tienen ahí
+consultar_servicios precio de la [servicio : barba]
+consultar_servicios hola, hacen [servicio : tinte]?
+consultar_servicios a cómo el [servicio : corte y barba]
+consultar_servicios buenas, me regalas la lista de precios
+consultar_servicios cuánto se demora un [servicio : corte clásico]
+consultar_servicios cuanto cobran por [servicio : motilar]
+consultar_servicios tienen promociones o algo?
+consultar_servicios Buenos días, ¿qué incluye el [servicio : arreglo de barba]?
+consultar_servicios hacen [servicio : cejas]?
+consultar_servicios en cuánto sale [servicio : cortarse el pelo y la barba]
+consultar_servicios cuánto vale el [servicio : degradado] con [barbero : Felipe]
+consultar_servicios y el [servicio : corte de niño] cuánto cuesta?
+consultar_servicios los precios?
+consultar_servicios qué [servicio : cortes] hacen?
+consultar_servicios manejan [servicio : keratina] o [servicio : alisado]?
+consultar_servicios hacen descuento a estudiantes?
+consultar_servicios cuánto dura el [servicio : tinte] más o menos
+consultar_servicios el [servicio : corte] incluye lavado?
+consultar_servicios info de los servicios porfa
+consultar_servicios qué diferencia hay entre el [servicio : corte clásico] y el [servicio : degradado]
+consultar_servicios cuánto me cobran por [servicio : corte y cejas]
+consultar_servicios tienen [servicio : mascarilla negra]?
+consultar_servicios cuánto es lo mínimo que cobran
+consultar_servicios el [servicio : perfilado de barba] qué precio tiene
+consultar_servicios hola, cuánto vale [servicio : motilarse] [fecha : los domingos]? es que me dijeron que sube
+consultar_servicios también [servicio : arreglan barba]?
+consultar_servicios qué valor tiene el [servicio : corte a tijera]
+consultar_servicios cuáles son sus tarifas
+
+# --- consultar_citas (22)
+consultar_citas a qué hora quedó mi cita?
+consultar_citas tengo cita [fecha : mañana]?
+consultar_citas cuándo es que me toca
+consultar_citas hola, se me olvidó a qué hora quedé [fecha : el sábado]
+consultar_citas qué citas tengo agendadas
+consultar_citas me recuerdas con quién tengo la cita
+consultar_citas mi cita era [fecha : hoy] o [fecha : mañana]?
+consultar_citas sí quedó agendada la cita que pedí ayer?
+consultar_citas buenas, para confirmar la hora de mi cita del [fecha : viernes]
+consultar_citas mis reservas
+consultar_citas cuál es la próxima cita que tengo
+consultar_citas a qué hora tengo que estar allá [fecha : mañana]
+consultar_citas tengo algo agendado con [barbero : Andrés]?
+consultar_citas parce no me acuerdo si quedé [hora : a las 3] o [hora : a las 4]
+consultar_citas la cita sigue en pie o toca confirmar?
+consultar_citas quiero ver mi reserva
+consultar_citas Buenas tardes, ¿me puede confirmar para cuándo quedó mi cita?
+consultar_citas la cita del [fecha : martes] es con [barbero : Julián] cierto?
+consultar_citas qué tengo [fecha : esta semana]
+consultar_citas todavía tengo el turno de [fecha : hoy]?
+consultar_citas para qué quedó mi cita, [servicio : corte] o [servicio : corte y barba]?
+consultar_citas cuándo es la cita de mi hijo
+
+# --- afirmar (18)
+afirmar sí, dale
+afirmar listo, confirmo
+afirmar de una parce
+afirmar sí señor, así está bien
+afirmar perfecto, gracias
+afirmar hágale pues mijo
+afirmar correcto, esa es
+afirmar ok, confírmala
+afirmar sii porfa
+afirmar claro que sí, agéndala
+afirmar eso es, tal cual
+afirmar va, de una
+afirmar sisas
+afirmar todo bien, así déjala
+afirmar sí, está perfecto 👍
+afirmar melo
+afirmar afirmativo
+afirmar sí, confirmo la cita
+
+# --- negar (16)
+negar no, muchas gracias
+negar nop, eso no
+negar mejor no, dejemos así
+negar así no quedamos
+negar todavía no, espérame
+negar no era eso lo que pedí
+negar nel pastel
+negar ninguna de las dos me sirve
+negar no, olvida eso
+negar por ahora no, luego te escribo
+negar no confirmo todavía
+negar paila, no puedo
+negar no señor, eso está mal
+negar nada, deja así
+negar me entendiste mal
+negar no no no, espera
+
+# --- fuera_de_alcance (30)
+fuera_de_alcance venden cera para el pelo?
+fuera_de_alcance dónde quedan ubicados
+fuera_de_alcance tienen parqueadero?
+fuera_de_alcance puedo pagar con nequi
+fuera_de_alcance quién ganó el partido anoche
+fuera_de_alcance jajaja qué chistoso
+fuera_de_alcance están buscando barberos? quiero trabajar con ustedes
+fuera_de_alcance cuál es la capital de Francia
+fuera_de_alcance me recomiendas una película
+fuera_de_alcance holaaa
+fuera_de_alcance gracias, muy amables
+fuera_de_alcance qué clima va a hacer mañana en Ibagué
+fuera_de_alcance necesito hablar con el dueño
+fuera_de_alcance tienen datáfono?
+fuera_de_alcance quiero poner una queja
+fuera_de_alcance cuéntame un chiste de barberos
+fuera_de_alcance tienen wifi?
+fuera_de_alcance cómo hago para que no se me caiga el pelo
+fuera_de_alcance eres un robot?
+fuera_de_alcance me prestas plata
+fuera_de_alcance venden minoxidil
+fuera_de_alcance aceptan tarjeta de crédito?
+fuera_de_alcance cuál es su instagram
+fuera_de_alcance qué música ponen ahí jaja
+fuera_de_alcance ayúdame con una tarea de cálculo
+fuera_de_alcance quiero pedir una pizza para las 8
+fuera_de_alcance asdfgh
+fuera_de_alcance me dejaron mal el corte la vez pasada, quiero que me devuelvan la plata
+fuera_de_alcance puedo llevar a mi perro?
+fuera_de_alcance buenas noches, feliz noche
+
+# --- versión 2: mensajes reales escritos al bot en Telegram durante las pruebas (16), tal como llegaron
+reservar oe bro estoy muy mechudo dame una cita para [fecha : el 16] [franja : en la madrugada], quiero [servicio : solo las puntas] y [servicio : el 7 con desvanecido].
+reservar no bro la cita es para [fecha : el 16]
+reservar la cita es para [fecha : el 16]
+consultar_disponibilidad que barberos hay disponibles?
+reservar [barbero : cualquiera de los dos]
+reprogramar puedes cambiar la cita para [fecha : el marte 13 de octubre] por fa?
+consultar_disponibilidad para [fecha : el dia miercoles 14] que horas hay disponible?
+consultar_disponibilidad citas para [fecha : el 14] disponibles
+reservar agenda una cita para [fecha : el 14] con [barbero : andres] [hora : a las 4pm]
+reservar agendame una cita con [barbero : andres] [hora : a las 3pm] [fecha : mañana]
+consultar_citas dime que cita tengo
+reservar [fecha : mañana 16]
+consultar_citas que citas tengo programadas?
+reservar me puedes programar otra cita para [fecha : el 19] [servicio : arreglo de barba] [hora : a las 4pm]
+reservar agendame una cita para [fecha : el 16] [hora : a las 3 pm]
+reservar agenda una cita para [fecha : el 15] [hora : a las 3pm] con [barbero : andres]
+
+# --- versión 2: registro colombiano, descripciones del corte y correcciones (54)
+reservar quiubo parce, me [servicio : motila] [fecha : el sábado] [franja : en la mañana]? ando muy greñudo
+reservar oiga, me puede hacer un [servicio : desvanecido con el 2 a los lados] [fecha : mañana] [hora : tipo 4]?
+reservar quiero [servicio : el 1 a los lados y tijera arriba] con [barbero : Julián] [fecha : el viernes]
+reservar dame un cupo pal [fecha : 20] [hora : a las 11], es [servicio : solo despuntar]
+reservar ey mi llave, sepárame [fecha : el 17] [hora : a las 9 am] para [servicio : el 3 parejo]
+reservar necesito [servicio : motilarme] ya, tengo matrimonio el sábado, me atiende [fecha : el viernes] [franja : en la tarde]?
+reservar le caigo [fecha : mañana] [hora : a las 10] pa [servicio : arreglarme la barba]
+reservar hágame el favor y me agenda un [servicio : low fade] [fecha : el 23] [franja : después de las 5]
+reservar parce [fecha : el lunes] [franja : bien temprano] para [servicio : corte y barba] con [barbero : el que esté libre]
+reservar será que me puede [servicio : peluquear] [fecha : hoy] [franja : en la noche]?
+reservar quiero [servicio : solo las puntas con tijera] [fecha : el jueves] [hora : a las 2]
+reservar me agenda pal [fecha : 18]? es un [servicio : fade bajito]
+reservar buenas, para [servicio : el 7 con desvanecido] [fecha : el martes] [hora : a las 3 de la tarde]
+reservar [servicio : desvanecido en 0] [fecha : el sábado] [hora : 10am] con [barbero : Andrés]
+reservar quiero quedar bien pinta pal [fecha : viernes], dame una cita [franja : en la tarde]
+reservar con [barbero : cualquiera] está bien
+reservar [barbero : el que esté libre], me da igual
+reservar no parce, mejor [fecha : el jueves]
+reservar uy no, era para [fecha : el 21]
+reservar no, el corte es [servicio : el 2 a los lados]
+reservar corrijo: [fecha : pasado mañana] [hora : a las 11]
+reservar [servicio : rebajar un poquito los lados] y la [servicio : barba] [fecha : mañana]
+reservar me guarda un cupito [fecha : hoy] [hora : a las 6]? voy saliendo del trabajo
+reservar estoy hecho un oso, me agenda una [servicio : motilada] lo antes posible?
+reservar necesito un [servicio : corte de pelo]
+reservar necesito [servicio : cortarme el pelo]
+reservar [fecha : el dieciséis] [hora : a las 5] para [servicio : barba]
+reservar me agenda [fecha : el quince] [franja : en la mañana]?
+reservar [fecha : mañana] [franja : de madrugada] antes del trabajo, se puede?
+reservar el 7 no es la fecha parce, es el corte. la cita es [fecha : el viernes]
+reprogramar parce, me corre la cita del [fecha : sábado] para [fecha : el 24]?
+reprogramar no puedo [fecha : mañana], me la pasa pal [fecha : lunes] a la misma hora?
+reprogramar oiga, me cambia el turno de [hora : las 3] para [hora : las 5]?
+cancelar parce, cancéleme la cita que me salió un camello
+cancelar ya no voy a poder caer [fecha : mañana], cancele porfa
+consultar_disponibilidad quién está trabajando [fecha : hoy]?
+consultar_disponibilidad con quién me puedo [servicio : motilar] [fecha : mañana]?
+consultar_disponibilidad qué barberos tienen?
+consultar_disponibilidad parce, hay campito [fecha : hoy] [franja : en la tarde]?
+consultar_servicios cuánto vale un [servicio : desvanecido]?
+consultar_servicios a cómo está el [servicio : corte con diseño]?
+consultar_citas oe, a qué hora era que me tocaba [fecha : el sábado]?
+afirmar sisas, de una
+afirmar melo, agéndela
+afirmar de una mi llave
+afirmar hágale pues, así está bien
+negar nanay
+negar nel parce, así no
+negar ni de riesgos
+fuera_de_alcance parce, venden cera mate?
+fuera_de_alcance y eso dónde queda, mi llave?
+fuera_de_alcance estoy muy mechudo jajaja
+fuera_de_alcance qué corte me queda bien con cara redonda?
+fuera_de_alcance quiubo pues

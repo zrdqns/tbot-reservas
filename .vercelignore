@@ -1,0 +1,17 @@
+# A Vercel solo sube lo que necesita la imagen del bot. Nada de .env, datos de clientes, informes ni el corpus.
+# El requirements.txt de la raíz tampoco: si lo ve, Vercel busca una función de Python que no existe.
+/*
+!/bot
+!/corpus
+!/modelo
+!/Dockerfile
+!/vercel.json
+/bot/datos
+/bot/tests
+__pycache__
+/corpus/*
+!/corpus/esquema.py
+/modelo/*
+!/modelo/entender.py
+!/modelo/modelo_tbot.zip
+.env*
