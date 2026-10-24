@@ -40,6 +40,11 @@ cada despliegue (`almacen.py`).
 - Las claves van como variables de entorno del proyecto: `TELEGRAM_TOKEN`, `GROQ_API_KEY`, `DATABASE_URL`,
   `API_CITAS_URL` y `API_CATALOGO_URL`.
 - Para publicar un cambio, desde la raíz del proyecto: `vercel deploy --prod`.
+- El agente trabaja en un hilo aparte mientras el chat muestra «escribiendo…», que se renueva cada cuatro
+  segundos: si un microservicio está despertando, el cliente ve que el bot sigue en eso. Si la conexión con
+  Telegram se cae un instante, el aviso se omite y el envío se reintenta, en vez de perder el mensaje.
+- Las conversaciones a medio armar viven en memoria: un despliegue nuevo las reinicia (las citas y los
+  perfiles no, están en la base de datos).
 - **No hay que encender el bot en el computador mientras corre en Vercel.** Telegram entrega los mensajes a
   un solo proceso a la vez; si se prenden los dos, se pelean por ellos.
 

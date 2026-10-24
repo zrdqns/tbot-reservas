@@ -563,3 +563,27 @@ def test_recuerdame():
     chat.digo("corte el viernes a las 3 con julian")
     chat.toco("ok")
     assert "El jueves te escribo para recordarte tu cita del viernes 16 de octubre" in chat.digo("recuérdame porfa")
+
+
+# ----------------------------------------------------------------------------- capturas del 24 de octubre en la tarde
+
+def test_cancela_mientras_arma_la_cita_la_deja():
+    chat = Chat(cliente_id=1)
+    chat.digo(PIDE_HORAS)
+    assert "no agendé nada" in chat.digo("cancela")
+    assert chat.agenda.escrituras == 0
+
+
+def test_si_despues_de_te_agendo_una_arranca_la_cita():
+    """«cancela» sin citas -> «¿Te agendo una?» -> «'si» mostraba el menú en vez de empezar."""
+    chat = Chat(cliente_id=1)
+    assert "¿Te agendo una?" in chat.digo("cancela")
+    assert "¿Qué te" in chat.digo("'si") and chat.botones[0].startswith("srv:")
+
+
+def test_cualquier_barbero_y_el_numero_del_degradado():
+    chat = Chat(cliente_id=1)
+    chat.digo("agendar")
+    texto = chat.digo("corte clasico con cualquier barbero el lunes a las 3 un 7 degradado que estoy muy mechudo")
+    assert "lunes 19 de octubre, 3:00 p. m." in texto and "un 7 degradado" in texto
+    assert "arreglada" in texto and "¿Con quién" not in texto

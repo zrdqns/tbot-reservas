@@ -88,6 +88,16 @@ IDENTIDAD = (r"\b(eres|sos|es) (un |una )?(bot|robot|persona|humano|maquina|prog
 DESCUENTO = r"\bdescuentos?\b|\bpromo(cion|ciones)?\b|\bofertas?\b|\bcupon\b|\b2x1\b|\bprecio especial\b"
 DOMICILIO = r"\bdomicilio\b|\ba (la |mi )?casa\b|\bvan a (la casa|domicilio)\b"
 VARIAS = r"\b(dos|2|tres|3) citas\b|\buna para mi y otra\b|\bpara mi y (para )?(mi|el|la)\b"
+# «con cualquier barbero»: sin preferencia aunque el clasificador no lo marque
+BARBERO_IGUAL = (r"\bcon (cualquiera|cualquier barbero|el que (este|sea|haya)( libre)?|quien sea|el que me toque)\b|"
+                 r"\bcualquier barbero\b|\bcualquiera de los (dos|barberos)\b|\bel barbero que sea\b")
+# «un 7 degradado», «desvanecido al 2»: el número de la guarda va con el estilo en la nota para el barbero
+_ESTILO = r"(degradado|desvanecido|fade|taper|rapado)"
+NUMERO_ESTILO = (rf"\b(?:(?:el|un|una) )?\d{{1,2}} (?:con )?(?:el |un )?{_ESTILO}\b|"
+                 rf"\b{_ESTILO} (?:con el|al|en el|en) \d{{1,2}}\b")
+# «cancela», «olvídalo» mientras arma una cita: deja esa cita, no busca otra
+SUELTA = (r"(no |mejor |entonces |bueno )*(cancela(r|lo|la|le)?|olvida(lo|la)?( eso)?|dejalo( asi)?|deja asi|"
+          r"ya no( quiero)?|no quiero nada)( mejor| entonces| gracias| porfa| por favor)*")
 COMBO = (r"(\b[ck]ort|\bmotil|\bpelo\b|\bcabello\b).{0,40}\by\b.{0,30}\bbar[bv]|"
          r"\bbar[bv].{0,40}\by\b.{0,30}(\b[ck]ort|\bmotil|\bpelo\b|\bcabello\b)")
 FUERA = ("Eso no lo manejo por aquí 😅 Yo te ayudo con tus citas, los precios y el horario. Para lo demás, escríbele "
@@ -129,6 +139,7 @@ class Estado:
     desplazar: int | None = None        # «una hora más tarde»: minutos que se mueve la cita
     siguiente: str = ""                 # «cancélala y agéndame el lunes»: la cita nueva, para después de cancelar
     todas: bool = False                 # «cancela todas mis citas»
+    charlo: bool = False                # ya le contestó «¡Uy, sí, toca darle una arreglada!» en esta cita
     varias: list | None = None          # las citas que se cancelan juntas
     fallos: int = 0
     visto: datetime | None = None
@@ -247,6 +258,12 @@ class Agente:
         if not datos["fecha"] and (m := re.search(r"\b(en|dentro de) \w+ (dias?|semanas?)\b", s)) \
                 and (rescatada := fechas.fecha(m.group(0), ahora.date())):
             datos["fecha"].append(rescatada)        # «corte en ocho días»: el clasificador lo dejó dentro del servicio
+        if not datos["barbero"] and re.search(BARBERO_IGUAL, s):
+            datos["barbero"].append("cualquiera")
+        for m in re.finditer(NUMERO_ESTILO, s):
+            frase, estilo = m.group(0), m.group(1) or m.group(2)
+            if not any(frase in fechas.limpiar(x) for x in datos["servicio"]):
+                datos["servicio"] = [x for x in datos["servicio"] if fechas.limpiar(x) != estilo] + [frase]
         con_datos = any(datos.values())
         dudoso = resultado["confianza"] < config.UMBRAL or intencion == "fuera_de_alcance"
         # hablar con alguien, una queja, descuentos, domicilios o quién es el bot: tiene respuesta fija
@@ -307,6 +324,9 @@ class Agente:
         if intencion == "consultar_disponibilidad":
             return self._y_seguimos(uid, nombre, e, perfil, self._disponibilidad(e, datos, texto, ahora), ahora)
 
+        if intencion == "cancelar" and e.intencion == "reservar" and re.fullmatch(SUELTA, s):
+            return self._dejar(uid, e)              # «cancela» mientras arma una cita: se deja esa cita
+
         siguiente = ""
         if intencion == "cancelar" and (partes := self._partir(s)):
             # «cancélala, quiero una cita para el lunes»: primero se cancela y después se agenda la nueva
@@ -350,8 +370,8 @@ class Agente:
             if nueva and re.search(VARIAS, limpio):
                 e.aviso += "Te las agendo una por una: empecemos con la tuya y después hacemos la otra. "
         respuestas = self._avanzar(uid, nombre, e, perfil, ahora)
-        if nueva and e.intencion == "reservar":
-            respuestas[0].texto = self._charla(texto) + respuestas[0].texto
+        if e.intencion == "reservar" and not e.charlo and (frase := self._charla(texto)):
+            respuestas[0].texto, e.charlo = frase + respuestas[0].texto, True   # una vez por cita
         return respuestas
 
     def _leer(self, ranuras, ahora):
@@ -889,6 +909,8 @@ class Agente:
                               "número y busco tus citas. " + PEDIR_NUMERO, pedir_contacto=True)]
         citas = self._mias(perfil, ahora)
         if not citas:
+            if not e.intencion:                     # si ya está agendando, la cita en curso sigue como iba
+                e.espera, e.pendiente = "duda", {clave: [] for clave in VACIO}   # un «sí» arranca la cita
             return [Respuesta("No tienes citas programadas. ¿Te agendo una?", [[("✂️ Agendar una cita", "menu:reservar")]])]
         return [Respuesta("Estas son tus citas:\n\n" + "\n\n".join(f.cita(c) for c in citas))]
 
@@ -913,6 +935,7 @@ class Agente:
                 e.pendiente, e.espera = datos, "duda"
                 return [Respuesta("No tienes citas programadas para cambiar. ¿Te agendo una nueva con lo que me dijiste?",
                                   [[("Sí, agéndala", "duda:reservar"), ("No", "no")]])]
+            e.espera, e.pendiente = "duda", {clave: [] for clave in VACIO}   # un «sí» arranca la cita
             return [Respuesta("No tienes citas programadas. ¿Te agendo una?", [[("✂️ Agendar una cita", "menu:reservar")]])]
         if e.cita is None and e.todas and len(citas) > 1:
             e.varias, e.cita = citas, citas[0]       # «cancela todas mis citas»
