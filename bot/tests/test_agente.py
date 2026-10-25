@@ -376,7 +376,8 @@ def test_dos_dias_en_el_mismo_mensaje():
 def test_reprogramar_sin_citas_ofrece_agendar():
     chat = Chat(cliente_id=1)
     assert "¿Te agendo una nueva" in chat.digo("cámbiame la cita para el viernes a las 4")
-    assert "¿Qué te" in chat.toco("duda:reservar")                          # lo que dijo se conserva; falta el servicio
+    # lo que dijo se conserva (y se le repite); falta el servicio
+    assert "Para el viernes 16 de octubre a las 4:00 p. m., ¿qué te" in chat.toco("duda:reservar")
     chat.toco("srv:1")
     assert "viernes 16 de octubre, 4:00 p. m." in chat.toco("bar:0")
     assert chat.agenda.escrituras == 0
@@ -743,3 +744,96 @@ def test_pedir_el_numero_para_ver_citas_no_atrapa_la_conversacion():
     chat._ver(chat.agente.comando(YO, "Daniel Vanegas", "miscitas", AHORA))
     assert chat.ultima.pedir_contacto
     assert "El jueves 15 de octubre tengo libre" in chat.digo("quiero un corte el jueves")
+
+
+# ----------------------------------------------------------------------------- cada cambio se confirma
+
+def test_cambiar_la_hora_antes_de_escoger_el_servicio_se_confirma():
+    """La captura: «agéndame el martes a las 3» -> «cámbiame la hora a las 5», y el agente solo volvía a preguntar."""
+    chat = Chat(cliente_id=1)
+    assert "Para el martes 20 de octubre a las 3:00 p. m., ¿qué te" in chat.digo("agendame una cita para el martes a las 3")
+    texto = chat.digo("cambiame la hora a las 5")
+    assert texto.startswith("Listo, cambié la hora a las 5:00 p. m. 👍") and "martes 20 de octubre a las 5:00 p. m." in texto
+    chat.toco("srv:1")
+    assert "martes 20 de octubre, 5:00 p. m." in chat.toco("bar:1")
+
+
+def test_cambiar_el_servicio_se_confirma():
+    chat = Chat(cliente_id=1)
+    # en Telegram el clasificador dudó y el LLM leyó el mensaje como reprogramar: sigue siendo la cita que se arma
+    chat.agente.respaldo = lambda texto, contexto: {"intencion": "reprogramar", "confianza": 1.0,
+                                                    "ranuras": [{"tipo": "servicio", "valor": "corte y barba"}]}
+    chat.digo("quiero un corte a las 3")
+    texto = chat.digo("ya no quiero ese servicio quiero corte y barba, puedes cambiarlo?")
+    assert texto.startswith("Listo, cambié el servicio a corte y barba 👍")
+    assert "¿Qué día te queda bien para corte y barba a las 3:00 p. m.?" in texto     # y lo demás sigue en pie
+
+
+@pytest.mark.parametrize("cambio, confirmacion, queda", [
+    ("cámbiame la hora a las 5", "la hora a las 5:00 p. m.", "jueves 15 de octubre, 5:00 p. m."),
+    ("mejor con julián", "el barbero a Julián", "Corte clásico con Julián"),
+    ("mejor el viernes", "el día al viernes 16 de octubre", "viernes 16 de octubre, 3:00 p. m."),
+    ("mejor corte y barba", "el servicio a corte y barba", "Corte y barba con Andrés"),
+    ("una hora más tarde", "la hora a las 4:00 p. m.", "jueves 15 de octubre, 4:00 p. m."),
+    ("mejor el viernes a las 5 con julian", "el día al viernes 16 de octubre, la hora a las 5:00 p. m. y el barbero a Julián",
+     "Corte clásico con Julián\n📅 viernes 16 de octubre, 5:00 p. m."),
+])
+def test_cada_cambio_en_el_resumen_se_confirma(cambio, confirmacion, queda):
+    chat = Chat(cliente_id=1)
+    chat.digo("corte con andres el jueves a las 3")
+    texto = chat.digo(cambio)
+    assert texto.startswith(f"Listo, cambié {confirmacion} 👍") and queda in texto
+    assert chat.botones == ["ok", "cambiar"]
+
+
+@pytest.mark.parametrize("pasos, confirmacion", [
+    (["cam:hora", "hor:17:00"], "la hora a las 5:00 p. m."), (["cam:barbero", "bar:2"], "el barbero a Julián"),
+    (["cam:servicio", "srv:3"], "el servicio a corte y barba"), (["cam:dia", "dia:2026-10-16"], "el día al viernes 16 de octubre"),
+])
+def test_cambiar_algo_con_botones_se_confirma(pasos, confirmacion):
+    chat = Chat(cliente_id=1)
+    chat.digo("corte con andres el jueves a las 3")
+    chat.toco("cambiar")
+    for paso in pasos:
+        texto = chat.toco(paso)
+    assert texto.startswith(f"Listo, cambié {confirmacion} 👍") and chat.botones == ["ok", "cambiar"]
+
+
+def test_lo_que_no_cambia_no_se_confirma():
+    chat = Chat(cliente_id=1)
+    chat.digo("corte con andres el jueves a las 3")
+    assert "Listo, cambié" not in chat.digo("mejor más tarde")      # muestra las horas siguientes: todavía no cambió
+    chat = Chat(cliente_id=1)
+    chat.digo("corte con andres el jueves a las 3")
+    chat.toco("cambiar")
+    chat.toco("cam:hora")
+    assert "Listo, cambié" not in chat.toco("hor:15:00")             # escogió la misma hora
+
+
+def test_si_la_hora_nueva_esta_ocupada_dice_que_no_la_cambio():
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(2, 1, 1, "2026-10-15T17:00")
+    chat.digo("corte con andres el jueves a las 3")
+    texto = chat.digo("mejor a las 5")
+    assert "Listo, cambié" not in texto and "No te la cambié. ¿Te sirve alguna de estas, o la dejamos a las 3:00 p. m.?" in texto
+    assert "jueves 15 de octubre, 3:00 p. m." in chat.toco("hor:15:00")
+
+
+def test_sin_preferencia_de_barbero_avisa_si_cambia_quien_atiende():
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(2, 1, 1, "2026-10-15T17:00")                # a las 5 Andrés está ocupado
+    assert "Corte clásico con Andrés" in chat.digo("corte el jueves a las 3 con cualquiera")
+    assert chat.digo("mejor a las 5").startswith("Listo, cambié la hora a las 5:00 p. m. y el barbero a Julián 👍")
+
+
+def test_mover_una_cita_dice_de_que_a_que():
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-16T10:00")
+    chat.digo("cámbiame la cita para el jueves")
+    assert chat.digo("mejor a las 4").startswith("Listo, cambié la hora a las 4:00 p. m. 👍")
+    final = chat.toco("ok")
+    assert "Ya no es el viernes 16 de octubre a las 10:00 a. m.; ahora quedó así:\nCorte clásico con Andrés\njueves 15" in final
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-16T10:00")
+    chat.digo("cámbiame la cita con julián")
+    assert "¡Listo, te cambié la cita! Ahora quedó así:\nCorte clásico con Julián" in chat.toco("ok")

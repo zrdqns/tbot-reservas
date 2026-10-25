@@ -150,6 +150,19 @@ más al banco de revisión:
 - **Detalles.** Devuelve el saludo («¡Buenas noches, Carlos!») y escribe «a la 1:00», no «a las 1:00». Si pidió
   el número para buscar las citas y el cliente sigue con otra cosa, lo atiende en vez de volver a pedir el número.
 
+**Cada cambio se confirma.** En las pruebas, al cambiar el servicio o la hora mientras faltaba otro dato, el agente
+solo volvía a preguntar y no quedaba claro si había hecho el cambio. Ahora:
+
+- Si el mensaje cambia algo que la cita ya tenía (servicio, día, hora, barbero o la nota para el barbero), la
+  respuesta empieza por «Listo, cambié la hora a las 5:00 p. m. 👍», aunque todavía falte otro dato. Vale igual
+  escrito («mejor con Julián», «una hora más tarde», «mejor el viernes a las 5 con Julián») o con los botones de
+  «Cambiar algo». Si con la hora nueva cambia quién atiende, también lo dice.
+- Si el cambio no se puede (la hora nueva está ocupada), lo dice: «No te la cambié», con las horas cercanas y un
+  botón para dejarla como estaba.
+- Las preguntas repiten lo que ya entendió: «Para el martes 27 de octubre a las 3:00 p. m., ¿qué te vas a hacer?».
+- Al mover una cita, la respuesta final dice de qué a qué: «Ya no es el viernes 16 de octubre a las 10:00 a. m.;
+  ahora quedó así:».
+
 En Telegram, al tocar un botón el mensaje queda con la opción escogida («👉 9:00 a. m.»), y mientras el
 agente procesa un texto aparece «escribiendo…».
 
