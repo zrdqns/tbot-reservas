@@ -114,6 +114,19 @@ _Y_OTRO = (rf"(?: ni| y| o)(?:(?: (?:el|los))?(?: dias?)? (?P<dia>{fechas._DIA}s
 NO_PUEDE = (rf"\bno (?:la |lo |le )?(?:puedo|quiero|me sirve|me queda)(?: (?:ir|para|el|los|este|esta))* "
             rf"(?P<dia>{fechas._DIA}s?|manana|hoy|pasado manana)\b|"
             rf"\b(?P<fecha>{fechas._DIA}|manana|hoy|pasado manana) no (?:puedo|me sirve|me queda)\b")
+# «cambia el lunes por el martes», «el martes en vez del lunes», «no a las 3 sino a las 5», «julián en vez de andrés»:
+# lo que se nombra en estas frases es lo que se reemplaza, no lo que pide
+_UN_DIA = rf"(?:el (?:dia )?)?(?:{fechas._DIA}|manana|hoy|pasado manana)|el (?:dia )?\d{{1,2}}(?: de {fechas._MES})?"
+_UNA_HORA = r"(?:a )?(?:la|las) \d{1,2}(?::\d{2})?(?: (?:am|pm|a m|p m|de la (?:manana|tarde|noche)))?"
+_VIEJO = rf"(?P<viejo>{_UN_DIA}|{_UNA_HORA}|(?:con |el |la )?[a-z]+)"
+REEMPLAZA = (rf"\ben (?:vez|lugar) de(?:l| la| el)? {_VIEJO}",
+             rf"\bno (?:es |sea |para |quiero |me )*{_VIEJO} sino\b",
+             rf"\by no (?:para )?{_VIEJO}\b",
+             rf"\bno (?=el |a |al |con |para |la |las ){_VIEJO}$",     # «a las 5, no a las 3» (pero «jueves no, viernes»)
+             rf"\b(?:cambi|pas|muev|corr)\w*(?: (?:la cita|mi cita|la hora|el dia|el barbero|la|lo|me))*(?: de| del| a| al)? "
+             rf"{_VIEJO} (?:por|al?|para) ")
+# «ya no quiero corte, quiero barba», «cambia el corte por corte y barba»: dos servicios y uno es el que ya llevaba
+CAMBIA = r"\bpor\b|\ben (?:vez|lugar)\b|\bsino\b|\bya no\b|\bno quiero\b|\bcambi|\bmejor\b"
 # «¿qué días tienes?»: quiere ver los días con turno libre
 VER_DIAS = (r"\b(que|cuales|cual|en que) dias?\b(?! (atienden|abren|trabajan|cierran|descansan))|\bdias? (libres|disponibles)\b|"
             r"\bcuando (tienes|tiene|tienen|hay) (cupo|turno|espacio|agenda|disponib|libre)")
@@ -420,7 +433,9 @@ class Agente:
             datos["servicio"] = ["lo de siempre"]   # «quiero lo de siempre» aunque el clasificador lo parta
             if not datos["barbero"]:
                 datos["barbero"] = ["el de siempre"]   # lo de siempre también es con el barbero de siempre
-        elif e.intencion == "reservar" and re.search(COMBO, limpio):
+        elif e.intencion == "reservar" and re.search(COMBO, limpio) \
+                and not re.search(r"\by no\b|\ben (?:vez|lugar)\b|\bsino\b|\bno quiero\b|\bya no\b|\bpor (?!fa)", limpio):
+            # (si dice «barba y no corte» o «corte por barba», uno reemplaza al otro: eso lo ve _quitar_reemplazados)
             # «un corte y de una vez la barba»: el clasificador marcó solo uno de los dos
             datos["servicio"] = ["corte y barba"] + [x for x in datos["servicio"] if detalle([x])]
         elif e.intencion == "reservar" and e.servicio is None and not datos["servicio"]:
@@ -435,6 +450,8 @@ class Agente:
                                             and not datos["fecha"] and not junto)
         if e.intencion == "reservar" and ver_dias:  # el día que traía no cuenta: quiere ver cuáles hay
             e.ver_dias, e.dia, e.hora, e.quiso, e.pronto, e.primer_dia = True, None, None, None, False, False
+        if e.intencion in ("reservar", "reprogramar"):
+            self._quitar_reemplazados(e, datos, s, ahora)
         antes_dia = e.dia
         self._aplicar(e, datos, perfil, ahora)
         if e.intencion in ("reservar", "reprogramar") and e.dia and _evitado(e.evitar, e.dia):
@@ -598,6 +615,63 @@ class Agente:
         if m and m.start() > 0 and re.search(ANULA, s[:m.start()]):
             return s[:m.start()], s[m.start():]
         return None
+
+    def _quitar_reemplazados(self, e, datos, s, ahora):
+        """«Cambia el lunes por el martes», «julián en vez de andrés», «ya no quiero corte, quiero barba»: el mensaje
+        nombra lo viejo y lo nuevo. Lo viejo se saca de los datos para que quede solo lo que pide, en vez de preguntar
+        «¿el lunes o el martes?» o quedarse con el que no era. Si al sacarlo no queda nada, no se toca."""
+        barberos = self.api.barberos()
+        if datos["nombre"] and datos["barbero"]:
+            # «julián en vez de andrés»: el clasificador tomó a Julián como «a nombre de»; es otro barbero. Solo si es
+            # su nombre exacto: «a nombre de Juan Pérez» se parece a Julián y es otra persona
+            pilas = {fechas.limpiar(f.pila(b["nombre"])) for b in barberos}
+            barberos_en_nombre = [x for x in datos["nombre"] if fechas.limpiar(x) in pilas]
+            datos["nombre"] = [x for x in datos["nombre"] if x not in barberos_en_nombre]
+            datos["barbero"] = barberos_en_nombre + datos["barbero"]
+        def id_barbero(texto):
+            barbero = buscar_barbero(texto, barberos)
+            return barbero["id"] if isinstance(barbero, dict) else None
+
+        catalogo = self.api.servicios()
+        dias, horas, de_barbero, de_servicio = set(), set(), set(), set()
+        for patron in REEMPLAZA:
+            for m in re.finditer(patron, s):
+                viejo = m.group("viejo")
+                nombre = re.sub(r"^(con|el|la) ", "", viejo)
+                if (dia := fechas.fecha(viejo, ahora.date())) and dia.dia and not dia.hasta:
+                    dias.add(dia.dia)
+                elif (hora := fechas.hora(viejo)) and hora.hora is not None:
+                    horas.update(fechas.lecturas(hora))
+                elif id_barbero(nombre) is not None:
+                    de_barbero.add(id_barbero(nombre))
+                elif servicio := buscar_servicio(nombre, catalogo):
+                    de_servicio.add(servicio["id"])       # «en vez de corte quiero barba»
+        # sin frase que lo diga: si nombra dos y uno es el que la cita ya tenía, ese es el viejo
+        nombrados = {x.dia for x in datos["fecha"] if x.dia and not x.hasta}
+        if e.dia in nombrados and len(nombrados) == 2:
+            dias.add(e.dia)
+        tenia = e.hora or _hora_pedida(e)
+        if tenia and len(datos["hora"]) == 2 and sum(tenia in fechas.lecturas(h) for h in datos["hora"]) == 1:
+            horas.add(tenia)
+        if de_barbero and {id_barbero(x) for x in datos["barbero"]} <= de_barbero | {None}:
+            # «cambia a andrés por julián» y el clasificador solo marcó a Andrés: el otro barbero que nombra es el nuevo
+            datos["barbero"] += [f.pila(b["nombre"]) for b in barberos if b["id"] not in de_barbero
+                                 and re.search(rf"\b{fechas.limpiar(f.pila(b['nombre']))}\b", s)]
+        if e.barbero and len({id_barbero(x) for x in datos["barbero"]} - {None}) == 2:
+            de_barbero.add(e.barbero["id"])
+
+        def sin(lista, es_viejo):
+            nuevos = [x for x in lista if not es_viejo(x)]
+            return nuevos or lista
+
+        datos["fecha"] = sin(datos["fecha"], lambda x: x.dia in dias and not x.hasta)
+        datos["hora"] = sin(datos["hora"], lambda h: bool(set(fechas.lecturas(h)) & horas))
+        datos["barbero"] = sin(datos["barbero"], lambda x: id_barbero(x) in de_barbero)
+        if e.servicio and len(datos["servicio"]) > 1 and re.search(CAMBIA, s):
+            de_servicio.add(e.servicio["id"])
+        if len(datos["servicio"]) > 1:
+            datos["servicio"] = sin(datos["servicio"], lambda x: not detalle([x])
+                                    and (buscar_servicio(x, catalogo) or {}).get("id") in de_servicio)
 
     def _junto(self, perfil, s, ref, ahora):
         """La cita del cliente a la que se refiere «el mismo día del corte» o «justo después de mi cita» (la que nombra,

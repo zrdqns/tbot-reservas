@@ -897,3 +897,76 @@ def test_mover_una_cita_a_un_dia_cerrado_dice_que_sigue_igual():
 
 def test_dos_fechas_y_una_no_se_atiende():
     assert "sábado 17 de octubre, 10:00 a. m." in Chat(cliente_id=1).digo("corte el sábado o el domingo a las 10 con julian")
+
+
+# ----------------------------------------------------------------------------- reemplazar: lo viejo y lo nuevo en un mensaje
+
+def test_cambia_el_lunes_por_el_martes():
+    """La captura: el lunes y el martes en el mismo mensaje quedaban como «dos fechas» y se perdía el día sin avisar."""
+    chat = Chat(cliente_id=1)
+    chat.digo("agéndame una cita para el lunes a las")
+    chat.digo("4 pm")
+    texto = chat.digo("cambia el lunes por el martes")
+    assert texto.startswith("Listo, cambié el día al martes 20 de octubre 👍")
+    assert "Para el martes 20 de octubre a las 4:00 p. m., ¿qué te" in texto
+    chat.toco("srv:1")
+    assert "martes 20 de octubre, 4:00 p. m." in chat.toco("bar:1")
+
+
+@pytest.mark.parametrize("mensaje, confirmacion", [
+    *[(m, "el día al viernes 16 de octubre") for m in [
+        "cambia el jueves por el viernes", "cámbiala del jueves al viernes", "pásala del jueves para el viernes",
+        "mejor el viernes en vez del jueves", "en lugar del jueves, el viernes", "no el jueves sino el viernes",
+        "el viernes, no el jueves", "mejor el viernes y no el jueves", "ya no el jueves, mejor el viernes",
+        "jueves no, viernes", "ya no la quiero para el jueves, para el viernes"]],
+    *[(m, "la hora a las 5:00 p. m.") for m in [
+        "cambia las 3 por las 5", "cámbiame la hora de las 3 a las 5", "a las 5 en vez de las 3", "no a las 3 sino a las 5",
+        "a las 5, no a las 3", "mejor a las 5 y no a las 3", "pásala de las 3 para las 5", "en lugar de las 3, a las 5"]],
+    *[(m, "el barbero a Julián") for m in [
+        "cambia a andrés por julián", "julián en vez de andrés", "con julián, no con andrés", "no con andrés sino con julián",
+        "mejor con julián y no con andrés", "en lugar de andrés, con julián"]],
+    ("cambia el corte por corte y barba", "el servicio a corte y barba"),
+    ("ya no quiero corte, quiero barba", "el servicio a arreglo de barba"),
+    ("mejor barba en vez de corte", "el servicio a arreglo de barba"),
+    ("no corte sino corte y barba", "el servicio a corte y barba"),
+    ("cambia el jueves por el viernes y las 3 por las 5", "el día al viernes 16 de octubre y la hora a las 5:00 p. m."),
+])
+def test_reemplazar_en_el_resumen(mensaje, confirmacion):
+    chat = Chat(cliente_id=1)
+    chat.digo("corte con andres el jueves a las 3")
+    assert chat.digo(mensaje).startswith(f"Listo, cambié {confirmacion} 👍")
+    assert chat.botones == ["ok", "cambiar"]
+
+
+@pytest.mark.parametrize("mensaje, esperado", [
+    ("cambia la cita del viernes por el sábado", "sábado 17 de octubre, 10:00 a. m."),
+    ("pásala del viernes al sábado", "sábado 17 de octubre, 10:00 a. m."),
+    ("cámbiala de las 10 a las 11", "viernes 16 de octubre, 11:00 a. m."),
+    ("muévela del viernes al lunes a las 3", "lunes 19 de octubre, 3:00 p. m."),
+    ("cambia mi cita de andrés a julián", "Corte clásico con Julián"),
+])
+def test_reemplazar_al_mover_una_cita(mensaje, esperado):
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-16T10:00")
+    texto = chat.digo(mensaje)
+    assert "Te la cambio así" in texto and esperado in texto
+
+
+@pytest.mark.parametrize("mensaje, esperado", [
+    ("en vez de corte quiero barba mañana a las 3 con julián", "Arreglo de barba con Julián"),
+    ("quiero barba y no corte el jueves a las 3 con julián", "Arreglo de barba con Julián"),
+    ("un corte y barba por favor el jueves a las 3 con julián", "Corte y barba con Julián"),
+    ("agéndame un corte a nombre de Juan Pérez mañana a las 10 con andres", "A nombre de Juan Pérez"),
+])
+def test_reemplazar_sin_nada_antes(mensaje, esperado):
+    assert esperado in Chat(cliente_id=1).digo(mensaje)
+
+
+@pytest.mark.parametrize("antes, mensaje", [
+    ("corte con andres el jueves a las 3", "a las 3 está bien"), ("corte con andres el jueves a las 3", "con andrés está bien"),
+    ("corte con andres el jueves a las 3", "¿cuánto vale?"), ("corte el jueves", "a las 3 o a las 4"),
+])
+def test_lo_que_no_es_un_cambio_no_se_confirma(antes, mensaje):
+    chat = Chat(cliente_id=1)
+    chat.digo(antes)
+    assert "Listo, cambié" not in chat.digo(mensaje)

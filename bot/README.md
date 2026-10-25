@@ -160,6 +160,11 @@ solo volvía a preguntar y no quedaba claro si había hecho el cambio. Ahora:
 - Si el cambio no se puede (la hora nueva está ocupada o fuera del horario), lo dice: «No te la cambié», con las
   horas cercanas y un botón para dejarla como estaba. Si el día nuevo no se atiende o ya pasó («mejor el domingo»),
   la cita se queda en el día que tenía y se lo dice, en vez de perderlo.
+- **Lo viejo y lo nuevo en el mismo mensaje.** «Cambia el lunes por el martes», «pásala del jueves al viernes», «a
+  las 5 en vez de las 3», «no con Andrés sino con Julián», «ya no quiero corte, quiero barba»: el agente saca lo
+  viejo y se queda con lo nuevo, en vez de preguntar «¿el lunes o el martes?». Lo sabe por la frase («por», «en vez
+  de», «sino», «y no», «del… al…») o porque uno de los dos es el que la cita ya tenía. Lo revisé con 64 formas de
+  decirlo, en cada punto de la conversación y al mover citas, con y sin el LLM de respaldo.
 - «Ya no la quiero para el martes» o «el jueves no me sirve» quitan ese día («Listo, ya no es el martes 27 de
   octubre 👍»), conservan la hora y ofrecen los días en que esa hora está libre.
 - Las preguntas repiten lo que ya entendió: «Para el martes 27 de octubre a las 3:00 p. m., ¿qué te vas a hacer?».
