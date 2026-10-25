@@ -145,8 +145,9 @@ más al banco de revisión:
 - **Cancelar varias.** «Cancela las dos del martes», «cancela mis citas», «ambas» o «la del viernes y la del
   sábado» las muestran juntas para confirmar, y al preguntar cuál hay un botón para cancelarlas todas. «Todas
   menos la del sábado» deja esa. «Las citas que tengo agendadas» ya no se toma como una cita nueva por agendar.
-- **«¿A las 10 no tienes?»** Los botones muestran solo algunas horas del día, así que el agente avisa que hay más.
-  Cuando el cliente pide una, le confirma el día, la hora y con quién la tiene antes de preguntarle el barbero.
+- **«¿A las 10 no tienes?»** Los botones muestran solo algunas horas del día, así que el agente avisa (una vez) que
+  hay más. Si el cliente pregunta por una, le contesta «¡Sí! A las 10:00 a. m. tengo turno con Andrés y Julián»
+  antes de preguntarle el barbero.
 - **Detalles.** Devuelve el saludo («¡Buenas noches, Carlos!») y escribe «a la 1:00», no «a las 1:00». Si pidió
   el número para buscar las citas y el cliente sigue con otra cosa, lo atiende en vez de volver a pedir el número.
 
@@ -167,7 +168,11 @@ solo volvía a preguntar y no quedaba claro si había hecho el cambio. Ahora:
   decirlo, en cada punto de la conversación y al mover citas, con y sin el LLM de respaldo.
 - «Ya no la quiero para el martes» o «el jueves no me sirve» quitan ese día («Listo, ya no es el martes 27 de
   octubre 👍»), conservan la hora y ofrecen los días en que esa hora está libre.
-- Las preguntas repiten lo que ya entendió: «Para el martes 27 de octubre a las 3:00 p. m., ¿qué te vas a hacer?».
+- Solo confirma lo que cambia: las preguntas no repiten el día ni la hora que ya dio. La excepción es cuando el
+  cliente da un dato distinto al que se le preguntó («4 pm» cuando se esperaba el servicio): «Anotado: a las 4:00
+  p. m. 👍», una vez, para que no parezca que no lo entendió.
+- Si al preguntar «¿Con quién…?» el cliente contesta solo el nombre («andres»), se toma como el barbero, aunque el
+  clasificador lo lea como «a nombre de».
 - Al mover una cita, la respuesta final dice de qué a qué: «Ya no es el viernes 16 de octubre a las 10:00 a. m.;
   ahora quedó así:».
 

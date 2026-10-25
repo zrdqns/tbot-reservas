@@ -184,6 +184,8 @@ class Estado:
     todas: bool = False                 # «cancela todas mis citas»
     charlo: bool = False                # ya le contestó «¡Uy, sí, toca darle una arreglada!» en esta cita
     previo: dict | None = None          # lo que llevaba la cita antes de «Cambiar algo», para confirmarle el cambio
+    decir_hora: str | None = None       # «pregunta», «despues» o «antes»: al preguntar el barbero hay que nombrar la hora
+    supo_mas: bool = False              # ya se le dijo que hay más horas que las de los botones
     varias: list | None = None          # las citas que se cancelan juntas
     fallos: int = 0
     visto: datetime | None = None
@@ -233,7 +235,7 @@ class Agente:
             e = self.estados[uid] = Estado(visto=ahora)    # el número era para buscar sus citas y siguió con otra cosa
         resultado = self.entender(texto)
         self._registrar(texto, resultado, ahora)
-        antes = self._lleva(e)
+        antes = {**self._lleva(e), "pregunta": e.pregunta}
         return self._seguro(lambda: self._con_cambios(uid, e, antes, self._decidir(uid, nombre, e, perfil, texto, resultado,
                                                                                      ahora)))
 
@@ -248,7 +250,7 @@ class Agente:
             return [Respuesta("¡Gracias! " + self._saludo(perfil), MENU)]
         if not perfil["acepta"]:
             return [Respuesta(AVISO, [[("Sí, acepto", "acepto")]])]
-        antes = self._lleva(e)
+        antes = {**self._lleva(e), "pregunta": None}       # un botón contesta lo que se preguntó
         return self._seguro(lambda: self._con_cambios(uid, e, antes, self._boton(uid, nombre, e, perfil, dato, ahora)))
 
     def contacto(self, uid, nombre, telefono, ahora):
@@ -469,6 +471,10 @@ class Agente:
                 e.dia, e.rango, e.opciones = inicio(cita).date(), None, None
                 if lado != "mismo" and e.servicio:  # «justo después de mi corte»: la hora pegada a esa cita
                     e.hora, e.pedida, e.franja = _pegada(cita, lado, e.servicio["duracionMinutos"]), None, None
+                    e.decir_hora = lado
+            if datos["hora"] and ("?" in texto or re.search(r"\b(tienes|tiene|tienen|hay|habra|queda|quedan|puedes|"
+                                                            r"puede|alcanza)\b", s)):
+                e.decir_hora = "pregunta"           # «¿a las 10 no tienes?»: se le contesta que sí antes del barbero
             e.pronto = e.pronto or (bool(re.search(PRONTO, limpio)) and not (datos["fecha"] or datos["hora"]))
             e.ver_horas = e.ver_horas or bool(re.search(VER_HORAS, limpio))
             if nueva and re.search(VARIAS, limpio):
@@ -550,6 +556,7 @@ class Agente:
         """Si el mensaje cambió algo que la cita ya tenía (servicio, día, hora, barbero o la nota), se le confirma de
         una vez, aunque todavía falte otro dato: «Listo, cambié la hora a las 5:00 p. m. 👍». Si lo que pidió no se
         pudo (la hora está ocupada), la cita no cambia y la respuesta ya explica por qué."""
+        e.decir_hora = None                         # solo vale para la respuesta de este mensaje
         if self.estados.get(uid) is not e or e.intencion not in ("reservar", "reprogramar") or not respuestas:
             return respuestas
         previo, despues = e.previo or {}, self._lleva(e)
@@ -558,6 +565,16 @@ class Agente:
                  "detalle": lambda v: f"la nota para el barbero a «{v}»"}
         partes = [decir[clave](nuevo) for clave, nuevo in despues.items()
                   if nuevo is not None and (antes[clave] if antes[clave] is not None else previo.get(clave)) not in (None, nuevo)]
+        if not partes and antes["pregunta"] and e.espera != "confirmar":
+            # se le preguntó una cosa y dio otra («4 pm» cuando se esperaba el servicio): que vea que se tomó, una vez,
+            # en vez de repetirle la misma pregunta como si no la hubiera entendido
+            anota = {"servicio": lambda v: v.lower(), "dia": lambda v: f"el {f.dia(v)}", "hora": lambda v: f"a {f.las(v)}",
+                     "barbero": lambda v: f"con {v}"}
+            dichos = [anota[clave](despues[clave]) for clave in anota if clave != antes["pregunta"]
+                      and antes[clave] is None and despues[clave] is not None
+                      and anota[clave](despues[clave]) not in respuestas[0].texto]
+            if dichos:
+                respuestas[0].texto = f"Anotado: {_y(dichos)} 👍\n{respuestas[0].texto}"
         if e.espera == "confirmar":
             e.previo = None                         # el resumen ya muestra cómo quedó todo
         quitado = antes["dia"] if antes["dia"] and despues["dia"] is None and _evitado(e.evitar, antes["dia"]) else None
@@ -621,11 +638,13 @@ class Agente:
         nombra lo viejo y lo nuevo. Lo viejo se saca de los datos para que quede solo lo que pide, en vez de preguntar
         «¿el lunes o el martes?» o quedarse con el que no era. Si al sacarlo no queda nada, no se toca."""
         barberos = self.api.barberos()
-        if datos["nombre"] and datos["barbero"]:
-            # «julián en vez de andrés»: el clasificador tomó a Julián como «a nombre de»; es otro barbero. Solo si es
-            # su nombre exacto: «a nombre de Juan Pérez» se parece a Julián y es otra persona
+        if datos["nombre"]:
+            # «andres» al preguntar con quién, «julián en vez de andrés»: el clasificador tomó el nombre del barbero como
+            # «a nombre de». Solo si es su nombre exacto («a nombre de Juan Pérez» se parece a Julián y es otra
+            # persona) y si no dice que la cita es para alguien («a nombre de Julián», «es para Julián»)
             pilas = {fechas.limpiar(f.pila(b["nombre"])) for b in barberos}
-            barberos_en_nombre = [x for x in datos["nombre"] if fechas.limpiar(x) in pilas]
+            barberos_en_nombre = [x for x in datos["nombre"] if fechas.limpiar(x) in pilas and not re.search(
+                rf"\b(?:a nombre de|para|de parte de) {re.escape(fechas.limpiar(x))}\b", s)]
             datos["nombre"] = [x for x in datos["nombre"] if x not in barberos_en_nombre]
             datos["barbero"] = barberos_en_nombre + datos["barbero"]
         def id_barbero(texto):
@@ -834,11 +853,7 @@ class Agente:
             aviso, e.dia = aviso + motivo + sigue + " ", None
         dicha = e.hora or _hora_pedida(e) or e.quiso  # la hora que ya pidió (o la que se reintenta en otro día)
         if e.servicio is None:
-            # lo que ya dijo se le repite, para que vea que quedó: «Para el martes 27 de octubre a las 3:00 p. m., ¿qué…?»
-            para = " ".join(x for x in (e.dia and f"el {f.dia(e.dia)}", dicha and f"a {f.las(dicha)}") if x)
             pregunta = self._una("¿Qué te vas a hacer? ✂️", "¿Qué te hacemos? ✂️")
-            if para:
-                pregunta = f"Para {para.removeprefix('a ')}, ¿{pregunta[1].lower()}{pregunta[2:]}"
             if e.ver_dias:                          # «¿qué días tienes?»: también depende de cuánto dura el servicio
                 pregunta = "Claro, te digo qué días tengo. Primero dime qué te vas a hacer, así sé cuánto tiempo apartarte ✂️"
             elif e.ver_horas:                       # «¿qué horas tienes?»: los turnos dependen de cuánto dura el servicio
@@ -876,8 +891,6 @@ class Agente:
                 pregunta = f"Para {e.servicio['nombre'].lower()}{quien}{a_las} tengo turno estos días{sin}. ¿Cuál te sirve?"
             elif e.cita:
                 pregunta = "¿Para qué día te la paso?"
-            elif dicha:                             # la hora que ya dijo sigue en pie
-                pregunta = f"¿Qué día te queda bien para {e.servicio['nombre'].lower()} a {f.las(dicha)}?"
             else:
                 pregunta = self._una("¿Para qué día te anoto?", "¿Qué día te queda bien?")
             return self._preguntar(e, "dia", aviso + pregunta, self._botones_dias(dias, ahora))
@@ -981,8 +994,9 @@ class Agente:
                 texto = f"{aviso}Lo primero que tengo{con_quien} es el {f.dia(e.dia)}. ¿A qué hora te sirve?"
             else:
                 texto = f"{aviso}El {f.dia(e.dia)} tengo libre{con_quien} a estas horas. ¿Cuál te sirve?"
-            if len(mostradas) < len(posibles):      # no caben todas: que sepa que puede pedir otra
+            if len(mostradas) < len(posibles) and not e.supo_mas:   # no caben todas: que sepa (una vez) que puede pedir otra
                 texto += " Hay más horas entre esas; si quieres otra, escríbemela."
+                e.supo_mas = True
             return self._preguntar(e, "hora", texto, self._horas(mostradas))
 
         cuando = datetime.combine(e.dia, e.hora)
@@ -1013,12 +1027,18 @@ class Agente:
 
         if elegido is None:
             if not e.cualquiera and len(quienes) > 1:
-                # «¿a las 10 no tienes?»: primero se le contesta que sí hay, y con quiénes (si el agente escogió la
-                # hora, ya la dijo en el aviso)
-                nombres = _y([f.pila(b["nombre"]) for b in quienes])
-                hay = (f"{aviso.rstrip()}, con {nombres}. " if f.las(e.hora) in aviso
-                       else f"{aviso}El {f.dia(e.dia)} a {f.las(e.hora)} tengo turno con {nombres}. ")
-                return self._preguntar(e, "barbero", hay + "¿Con quién te quieres atender? Si te da igual, dime «cualquiera».",
+                # la hora solo se nombra si hace falta: si preguntó por ella («¿a las 10 no tienes?») o si la puso el
+                # agente («justo después de mi corte»); si la escogió de los botones, ya la sabe
+                nombres, decir = _y([f.pila(b["nombre"]) for b in quienes]), e.decir_hora
+                e.decir_hora = None
+                if f.las(e.hora) in aviso:          # «La primera hora que tengo es a las 9:00 a. m.»
+                    aviso = f"{aviso.rstrip()}, con {nombres}. "
+                elif decir == "pregunta":
+                    aviso += f"¡Sí! A {f.las(e.hora)} tengo turno con {nombres}. "
+                elif decir:
+                    lado = "después" if decir == "despues" else "antes"
+                    aviso += f"Justo {lado} de tu cita, a {f.las(e.hora)}, tengo turno con {nombres}. "
+                return self._preguntar(e, "barbero", aviso + "¿Con quién te quieres atender? Si te da igual, dime «cualquiera».",
                                        [[(f.pila(b["nombre"]), f"bar:{b['id']}") for b in quienes],
                                         [("Me da igual", "bar:0")]])
             e.barbero = self._habitual(perfil, "barberos", quienes) or quienes[0]
@@ -1363,7 +1383,8 @@ class Agente:
             return [Respuesta(f"{inicio_texto}Lo más pronto que tengo{con_quien} hoy es a estas horas. Toca una y te la agendo:",
                               self._horas(posibles[:4]))]
         cuando = "Tengo" if por_horario else f"El {f.dia(dia)} tengo"   # el día ya lo dijo el horario
-        mas = " Hay más horas entre esas; si quieres otra, escríbemela." if len(posibles) > 9 else ""
+        mas = " Hay más horas entre esas; si quieres otra, escríbemela." if len(posibles) > 9 and not e.supo_mas else ""
+        e.supo_mas = e.supo_mas or bool(mas)
         return [Respuesta(f"{inicio_texto}{cuando} libre{con_quien} a estas horas.{mas} Toca una y te la agendo:",
                           self._horas(_repartidas(posibles, 9)))]
 
