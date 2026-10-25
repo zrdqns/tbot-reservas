@@ -3,10 +3,11 @@
 Cada prueba mira cómo queda la agenda al final, que es lo que importa: ninguna cita creada, movida o
 cancelada por error. El «ahora» es el martes 13 de octubre de 2026 a las 10:00 a. m.
 """
-from datetime import datetime
+from datetime import date, datetime, time
 
 import pytest
 
+from bot import formato as f
 from bot.agente import Agente
 from bot.comprension import entender
 from bot.perfiles import Perfiles
@@ -166,7 +167,7 @@ def test_con_dos_citas_pregunta_cual():
     chat.agenda.agendar(1, 1, 1, "2026-10-17T15:00")
     chat.agenda.agendar(1, 2, 2, "2026-10-20T10:00")
     assert "de tus citas" in chat.digo("quiero cancelar mi cita")
-    assert chat.botones == ["cita:1", "cita:2"]
+    assert chat.botones == ["cita:1", "cita:2", "cita:todas"]      # también puede cancelarlas todas de un toque
     chat.toco("cita:2")
     chat.toco("ok")
     assert [c[-1] for c in chat.citas] == ["PROGRAMADA", "CANCELADA"]
@@ -421,10 +422,11 @@ def test_deja_que_el_agente_escoja_la_hora(respuesta, hora):
     assert f"hora que tengo con Andrés es a las {hora}" in texto and f"miércoles 14 de octubre, {hora}" in texto
 
 
-def test_cualquier_dia_es_el_mas_pronto():
+def test_cualquier_dia_es_el_primero_libre_con_todas_sus_horas():
     chat = Chat(cliente_id=1)
     chat.digo("quiero un corte")
-    assert "Lo más pronto que tengo es el martes 13 de octubre" in chat.digo("cualquier día")
+    assert "Lo primero que tengo es el martes 13 de octubre" in chat.digo("cualquier día")
+    assert chat.botones[0] == "hor:10:30" and chat.botones[-1] == "hor:18:30"     # todo el día, no solo lo primero
 
 
 def test_no_se_no_cancela_la_cita():
@@ -587,3 +589,157 @@ def test_cualquier_barbero_y_el_numero_del_degradado():
     texto = chat.digo("corte clasico con cualquier barbero el lunes a las 3 un 7 degradado que estoy muy mechudo")
     assert "lunes 19 de octubre, 3:00 p. m." in texto and "un 7 degradado" in texto
     assert "arreglada" in texto and "¿Con quién" not in texto
+
+
+# ----------------------------------------------------------------------------- capturas del 24 de octubre en la noche
+
+def dias_ofrecidos(chat):
+    return [date.fromisoformat(d[4:]) for d in chat.botones if d.startswith("dia:")]
+
+
+def test_que_dias_tienes_que_no_sea_el_lunes():
+    chat = Chat(cliente_id=1)
+    texto = chat.digo("Hola buenas tardes que días tienes agenda para un corte que no sea el día lunes. Gracias")
+    assert texto.startswith("¡Buenas tardes, Carlos!") and "sin contar el lunes" in texto
+    assert dias_ofrecidos(chat) and all(d.weekday() != 0 for d in dias_ofrecidos(chat))
+
+
+def test_que_no_sea_el_lunes_en_medio_de_la_reserva_no_es_cancelar():
+    chat = Chat(cliente_id=1)
+    chat.digo("quiero un corte el lunes")
+    texto = chat.digo("Que no sea día lunes")
+    assert "citas programadas" not in texto and "sin contar el lunes" in texto
+    assert all(d.weekday() != 0 for d in dias_ofrecidos(chat))
+
+
+def test_cualquier_dia_menos_uno():
+    chat = Chat(cliente_id=1)                  # hoy es martes
+    texto = chat.digo("Me podrías agendar una cita de corte, que sea para cualquier día menos el día martes")
+    assert "Lo primero que tengo es el miércoles 14 de octubre" in texto and "No encuentro" not in texto
+    assert "Lo primero que tengo es el jueves 15" in Chat(cliente_id=1).digo("un corte cualquier día menos hoy ni mañana")
+
+
+def test_que_dias_tienes_en_la_manana_no_ofrece_los_que_estan_llenos():
+    chat = Chat(cliente_id=1)
+    for barbero in (1, 2):                     # el miércoles en la mañana no queda nada
+        for hora in ("09:00", "09:50", "10:40", "11:30"):
+            chat.agenda.agendar(2, 3, barbero, f"2026-10-14T{hora}")
+    texto = chat.digo("Buenas noches que días tienes agenda en la mañana y que no sea el día lunes para un corte. Gracias")
+    assert "en la mañana tengo turno estos días, sin contar el lunes" in texto
+    assert date(2026, 10, 14) not in dias_ofrecidos(chat) and date(2026, 10, 15) in dias_ofrecidos(chat)
+
+
+def test_que_dias_tienes_disponibles_pide_el_servicio_y_muestra_los_dias():
+    chat = Chat(cliente_id=1)
+    assert "te digo qué días tengo" in chat.digo("Que días tienes disponibles?")
+    assert "Para corte clásico tengo turno estos días" in chat.toco("srv:1")
+    assert dias_ofrecidos(chat)[0] == date(2026, 10, 13)
+
+
+def test_no_ofrece_hoy_si_ya_no_quedan_turnos():
+    chat = Chat(cliente_id=1)
+    chat._ver(chat.agente.texto(YO, "Daniel Vanegas", "quiero un corte", datetime(2026, 10, 13, 18, 45)))
+    assert dias_ofrecidos(chat)[0] == date(2026, 10, 14)
+
+
+def test_a_las_10_no_tienes_contesta_que_si_hay():
+    chat = Chat(cliente_id=1)
+    texto = chat.digo("quiero un corte el jueves")
+    assert "Hay más horas entre esas" in texto and "hor:10:00" not in chat.botones   # 10:00 no cabe entre los botones
+    assert "El jueves 15 de octubre a las 10:00 a. m. tengo turno con Andrés y Julián" in chat.digo("a las 10 no tienes?")
+    assert chat.botones == ["bar:1", "bar:2", "bar:0"]
+
+
+def test_a_la_una_con_su_articulo():
+    assert "jueves 15 de octubre a la 1:00 p. m. tengo turno" in Chat(cliente_id=1).digo("un corte el jueves a la 1 de la tarde")
+    assert (f.las(time(13)), f.las(time(15), corta=True)) == ("la 1:00 p. m.", "las 3:00")
+
+
+def test_barba_el_mismo_dia_del_corte_no_es_corte_y_barba():
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-16T13:00")
+    texto = chat.digo("Me podrías agendar una cita de arreglo de barba para el mismo día del corte")
+    assert "El viernes 16 de octubre ya tienes corte clásico a la 1:00 p. m.: te puedo atender seguido, a la 1:30" in texto
+    assert "hor:13:30" in chat.botones
+    chat.toco("hor:13:30")
+    assert "Arreglo de barba con Andrés" in chat.toco("bar:1")
+    chat.toco("ok")
+    assert chat.citas[-1] == (1, 2, 1, "2026-10-16T13:30", "PROGRAMADA")
+
+
+@pytest.mark.parametrize("mensaje, hora", [("agéndame una barba justo después de mi corte", "1:30 p. m."),
+                                           ("una barba antes del corte porfa", "12:30 p. m.")])
+def test_barba_pegada_al_corte(mensaje, hora):
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-16T13:00")
+    assert f"{hora} tengo turno con" in chat.digo(mensaje)
+    assert f"Arreglo de barba con Julián\n📅 viernes 16 de octubre, {hora}" in chat.toco("bar:2")
+
+
+def test_el_mismo_dia_sin_otra_cita_lo_dice():
+    texto = Chat(cliente_id=1).digo("una barba para el mismo día del corte")
+    assert "No veo otra cita tuya programada" in texto and "Corte y barba" not in texto
+
+
+def test_cancelar_las_dos_del_martes():
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-20T13:00")
+    chat.agenda.agendar(1, 3, 1, "2026-10-20T13:30")
+    chat.agenda.agendar(1, 1, 1, "2026-10-22T15:00")
+    texto = chat.digo("Quiero cancelar las dos citas que tengo agendadas para el martes")
+    assert "estas 2 citas" in texto and "jueves" not in texto
+    assert "cancelé tus 2 citas" in chat.toco("ok")
+    assert [c[-1] for c in chat.citas] == ["CANCELADA", "CANCELADA", "PROGRAMADA"]   # y no agendó otra
+
+
+@pytest.mark.parametrize("mensaje", ["Cancela mis citas", "cancela todo", "cancela la del martes y la del jueves"])
+def test_cancelar_varias(mensaje):
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-20T13:00")
+    chat.agenda.agendar(1, 2, 2, "2026-10-22T15:00")
+    assert "estas 2 citas" in chat.digo(mensaje)
+    chat.toco("ok")
+    assert [c[-1] for c in chat.citas] == ["CANCELADA", "CANCELADA"]
+
+
+def test_boton_para_cancelar_todas():
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-20T13:00")
+    chat.agenda.agendar(1, 2, 2, "2026-10-22T15:00")
+    chat.digo("quiero cancelar una cita")
+    assert "estas 2 citas" in chat.toco("cita:todas")
+    chat.toco("ok")
+    assert [c[-1] for c in chat.citas] == ["CANCELADA", "CANCELADA"]
+
+
+def test_cancela_todo_mientras_arma_la_cita_la_deja():
+    chat = Chat(cliente_id=1)
+    chat.digo("quiero un corte el jueves")
+    assert "no agendé nada" in chat.digo("cancela todo")
+
+
+def test_el_lunes_no_puedo_mejor_el_martes():
+    chat = Chat(cliente_id=1)
+    chat.digo("quiero un corte")
+    texto = chat.digo("el lunes no puedo, mejor el martes")
+    assert "El martes 20 de octubre tengo libre" in texto and "Me nombraste dos fechas" not in texto
+
+
+def test_mas_o_menos_no_descarta_el_dia():
+    assert "jueves 15 de octubre, 3:00 p. m." in Chat(cliente_id=1).digo("un corte con andres más o menos el jueves a las 3")
+
+
+def test_mover_a_cualquier_dia_menos_el_lunes_no_crea_otra_cita():
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-19T15:00")          # lunes
+    texto = chat.digo("cámbiame la cita para cualquier día menos el lunes")
+    assert "Te la cambio así" in texto and "martes 13 de octubre, 3:00 p. m." in texto
+    chat.toco("ok")
+    assert chat.citas == [(1, 1, 1, "2026-10-13T15:00", "PROGRAMADA")]
+
+
+def test_pedir_el_numero_para_ver_citas_no_atrapa_la_conversacion():
+    chat = Chat()
+    chat._ver(chat.agente.comando(YO, "Daniel Vanegas", "miscitas", AHORA))
+    assert chat.ultima.pedir_contacto
+    assert "El jueves 15 de octubre tengo libre" in chat.digo("quiero un corte el jueves")

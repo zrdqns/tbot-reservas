@@ -25,6 +25,12 @@ def hora(t):
     return f"{t.hour % 12 or 12}:{t.minute:02d} {'a. m.' if t.hour < 12 else 'p. m.'}"
 
 
+def las(t, corta=False):
+    """La hora con su artículo: «las 3:00 p. m.», pero «la 1:00 p. m.». Corta: sin a. m. ni p. m."""
+    texto = hora(t)[:-6] if corta else hora(t)
+    return ("la " if t.hour % 12 == 1 else "las ") + texto
+
+
 def precio(valor):
     return "$" + f"{valor:,}".replace(",", ".")
 

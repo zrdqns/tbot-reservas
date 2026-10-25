@@ -130,6 +130,26 @@ jerga y errores de escritura) y corregí lo que fallaba:
 - **Una cita que no existe.** Si pide cambiar una cita y no tiene ninguna, le ofrece agendar una nueva con lo
   que dijo.
 
+En una tercera ronda de pruebas en Telegram aparecieron otras formas de pedir, y las agregué con 42 conversaciones
+más al banco de revisión:
+
+- **Días que no le sirven.** «Que no sea el lunes», «cualquier día menos el martes», «ni lunes ni martes» o «el
+  lunes no puedo» descartan esos días: no se ofrecen y, si la cita iba para uno de ellos, el agente vuelve a
+  mostrar los días. Antes «que no sea el lunes» se leía como cancelar y «día menos» como un barbero.
+- **«¿Qué días tienes?»** Muestra los días con turno libre para ese servicio, esa franja y ese barbero, no todos
+  los días en que se atiende; tampoco ofrece «hoy» si ya no quedan turnos. «Cualquier día» toma el primer día
+  libre con todas sus horas, y al mover una cita, el primer día en que su hora está libre.
+- **La otra cita como referencia.** «Una barba para el mismo día del corte» toma el día de la cita que ya tiene,
+  sin sumar el corte al servicio (antes quedaba como corte y barba). «Justo después de mi corte» o «antes de mi
+  cita del sábado» buscan la hora pegada a esa cita, y si ese día ya tiene otra, el agente ofrece atenderlo seguido.
+- **Cancelar varias.** «Cancela las dos del martes», «cancela mis citas», «ambas» o «la del viernes y la del
+  sábado» las muestran juntas para confirmar, y al preguntar cuál hay un botón para cancelarlas todas. «Todas
+  menos la del sábado» deja esa. «Las citas que tengo agendadas» ya no se toma como una cita nueva por agendar.
+- **«¿A las 10 no tienes?»** Los botones muestran solo algunas horas del día, así que el agente avisa que hay más.
+  Cuando el cliente pide una, le confirma el día, la hora y con quién la tiene antes de preguntarle el barbero.
+- **Detalles.** Devuelve el saludo («¡Buenas noches, Carlos!») y escribe «a la 1:00», no «a las 1:00». Si pidió
+  el número para buscar las citas y el cliente sigue con otra cosa, lo atiende en vez de volver a pedir el número.
+
 En Telegram, al tocar un botón el mensaje queda con la opción escogida («👉 9:00 a. m.»), y mientras el
 agente procesa un texto aparece «escribiendo…».
 
