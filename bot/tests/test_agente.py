@@ -837,3 +837,63 @@ def test_mover_una_cita_dice_de_que_a_que():
     chat.agenda.agendar(1, 1, 1, "2026-10-16T10:00")
     chat.digo("cámbiame la cita con julián")
     assert "¡Listo, te cambié la cita! Ahora quedó así:\nCorte clásico con Julián" in chat.toco("ok")
+
+
+def test_ya_no_la_quiero_para_el_martes_cambiamela_para_el_domingo():
+    """La captura: el domingo no se atiende y el martes lo descartó; antes quedaban «dos fechas» y se perdía el martes
+    sin decir nada."""
+    chat = Chat(cliente_id=1)
+    chat.digo("quiero una cita para el martes a las tres")
+    texto = chat.digo("ya no la quiero para el martes cambiamela para el domingo")
+    assert texto.startswith("Listo, ya no es el martes 20 de octubre 👍") and "Los domingos no atendemos" in texto
+    texto = chat.toco("srv:1")
+    assert "Para corte clásico a las 3:00 p. m. tengo turno estos días, sin contar el martes" in texto
+    assert "dos fechas" not in texto and all(d.weekday() not in (1, 6) for d in dias_ofrecidos(chat))
+
+
+@pytest.mark.parametrize("cambio, motivo", [("mejor el domingo", "Los domingos no atendemos 😕"),
+                                            ("cámbiamela para el domingo", "Los domingos no atendemos 😕"),
+                                            ("mejor ayer", "Ese día ya pasó 😅")])
+def test_un_dia_que_no_se_puede_no_cambia_la_cita(cambio, motivo):
+    chat = Chat(cliente_id=1)
+    chat.digo("corte con andres el jueves a las 3")
+    texto = chat.digo(cambio)
+    assert f"{motivo}, así que no te la cambié de día." in texto and "jueves 15 de octubre, 3:00 p. m." in texto
+    assert chat.botones == ["ok", "cambiar"]
+
+
+@pytest.mark.parametrize("mensaje", ["ya no la quiero para el jueves", "el jueves no me sirve"])
+def test_descartar_el_dia_de_la_cita_que_se_arma(mensaje):
+    chat = Chat(cliente_id=1)
+    chat.digo("corte con andres el jueves a las 3")
+    texto = chat.digo(mensaje)
+    assert texto.startswith("Listo, ya no es el jueves 15 de octubre 👍") and "citas programadas" not in texto
+    assert "a las 3:00 p. m. tengo turno estos días, sin contar el jueves" in texto      # la hora sigue en pie
+    assert dias_ofrecidos(chat) and all(d.weekday() != 3 for d in dias_ofrecidos(chat))
+    assert "viernes 16 de octubre, 3:00 p. m." in chat.toco("dia:2026-10-16")
+    chat = Chat(cliente_id=1)
+    chat.digo("corte con andres el jueves a las 3")
+    assert chat.digo("ya no la quiero para el jueves, mejor el viernes").startswith(
+        "Listo, cambié el día al viernes 16 de octubre 👍")
+
+
+def test_una_hora_que_no_se_atiende_no_cambia_la_cita():
+    chat = Chat(cliente_id=1)
+    chat.digo("corte con andres el jueves a las 3")
+    assert chat.digo("mejor a las 8 de la noche").startswith("No te la cambié de hora. A las 8:00 p. m. ya cerramos")
+    assert "hor:15:00" in chat.botones                              # el botón para dejarla como estaba
+    chat = Chat(cliente_id=1)
+    chat.digo("corte con andres el jueves a las 10")
+    assert "No te la cambié" not in chat.digo("mejor en la tarde")  # pidió otra franja: no es un cambio fallido
+
+
+def test_mover_una_cita_a_un_dia_cerrado_dice_que_sigue_igual():
+    chat = Chat(cliente_id=1)
+    chat.agenda.agendar(1, 1, 1, "2026-10-16T10:00")
+    assert "Los domingos no atendemos 😕, así que tu cita sigue el viernes 16 de octubre." in chat.digo(
+        "cámbiamela para el domingo")
+    assert chat.agenda.escrituras == 0
+
+
+def test_dos_fechas_y_una_no_se_atiende():
+    assert "sábado 17 de octubre, 10:00 a. m." in Chat(cliente_id=1).digo("corte el sábado o el domingo a las 10 con julian")

@@ -109,8 +109,10 @@ SALVO_LA = (rf"{_DESCARTA}(?: (?:la|las|el|los|cita|citas|de|del|para))* (?P<dia
             rf"{_DESCARTA}(?: (?:la|las|cita|citas|de|del|para))* (?:el )?(?P<fecha>\d{{1,2}})\b")
 _Y_OTRO = (rf"(?: ni| y| o)(?:(?: (?:el|los))?(?: dias?)? (?P<dia>{fechas._DIA}s?|manana|hoy|pasado manana)|"
            rf" el (?:dia )?(?P<fecha>\d{{1,2}}(?: de {fechas._MES})?))\b")
-# «el lunes no puedo» mientras agenda; fuera de una reserva puede ser que quiere cancelar, así que solo cuenta ahí
-NO_PUEDE = (rf"\bno (?:puedo|me sirve|me queda)(?: (?:el|los|este))? (?P<dia>{fechas._DIA}s?|manana|hoy|pasado manana)\b|"
+# «el lunes no puedo», «ya no la quiero para el martes» mientras agenda; fuera de una reserva puede ser que quiere
+# cancelar, así que solo cuenta ahí
+NO_PUEDE = (rf"\bno (?:la |lo |le )?(?:puedo|quiero|me sirve|me queda)(?: (?:ir|para|el|los|este|esta))* "
+            rf"(?P<dia>{fechas._DIA}s?|manana|hoy|pasado manana)\b|"
             rf"\b(?P<fecha>{fechas._DIA}|manana|hoy|pasado manana) no (?:puedo|me sirve|me queda)\b")
 # «¿qué días tienes?»: quiere ver los días con turno libre
 VER_DIAS = (r"\b(que|cuales|cual|en que) dias?\b(?! (atienden|abren|trabajan|cierran|descansan))|\bdias? (libres|disponibles)\b|"
@@ -312,8 +314,10 @@ class Agente:
         if evitar and e.intencion != "cancelar" and not re.search(r"\bcancel|\banul|\bborr|\bquit", s):
             # «que no sea el lunes» es parte de pedir (o mover) la cita aunque el clasificador lo lea como cancelar: ese día
             # no es el que pide, y lo que marcó como barbero («día menos») tampoco es un nombre
-            if "reprogramar" not in (intencion, e.intencion):
-                intencion = "reservar"
+            # si ya está agendando, sigue esa cita aunque el clasificador lea «ya no la quiero para el jueves» como mover
+            # otra; si está moviendo una cita (o lo pide), sigue moviéndola
+            nueva_o_en_curso = e.intencion == "reservar" or (e.intencion is None and intencion != "reprogramar")
+            intencion = "reservar" if nueva_o_en_curso else "reprogramar"
             datos["fecha"] = [x for x in datos["fecha"] if not (x.dia and _evitado(evitar, x.dia))]
             datos["barbero"] = [x for x in datos["barbero"] if not re.search(NO_ES_NOMBRE, fechas.limpiar(x))]
         else:
@@ -431,9 +435,17 @@ class Agente:
                                             and not datos["fecha"] and not junto)
         if e.intencion == "reservar" and ver_dias:  # el día que traía no cuenta: quiere ver cuáles hay
             e.ver_dias, e.dia, e.hora, e.quiso, e.pronto, e.primer_dia = True, None, None, None, False, False
+        antes_dia = e.dia
         self._aplicar(e, datos, perfil, ahora)
         if e.intencion in ("reservar", "reprogramar") and e.dia and _evitado(e.evitar, e.dia):
-            e.dia = e.hora = e.quiso = None         # «que no sea el lunes» cuando ya iba para el lunes
+            # «que no sea el lunes» cuando ya iba para el lunes: el día se quita, la hora se intenta en el que escoja
+            e.quiso, e.dia, e.hora = e.hora or e.quiso, None, None
+        if e.intencion in ("reservar", "reprogramar") and antes_dia and e.dia not in (None, antes_dia) \
+                and not _evitado(e.evitar, antes_dia) and (e.dia < ahora.date() or e.dia.weekday() not in config.HORARIO):
+            # «mejor el domingo» y el domingo no se atiende: la cita no cambia y se le dice, en vez de perder el día
+            motivo = "Ese día ya pasó 😅" if e.dia < ahora.date() else f.horario(e.dia.weekday())
+            e.aviso += f"{motivo}, así que no te la cambié de día. "
+            e.dia = antes_dia
         if e.intencion == "reservar":
             if junto:
                 cita, lado, _ = junto
@@ -531,17 +543,22 @@ class Agente:
                   if nuevo is not None and (antes[clave] if antes[clave] is not None else previo.get(clave)) not in (None, nuevo)]
         if e.espera == "confirmar":
             e.previo = None                         # el resumen ya muestra cómo quedó todo
+        quitado = antes["dia"] if antes["dia"] and despues["dia"] is None and _evitado(e.evitar, antes["dia"]) else None
         if partes:
             respuestas[0].texto = f"Listo, cambié {_y(partes)} 👍\n{respuestas[0].texto}"
+        elif quitado:                               # «ya no la quiero para el martes»: queda claro que lo quitó
+            respuestas[0].texto = f"Listo, ya no es el {f.dia(quitado)} 👍\n{respuestas[0].texto}"
         tenia = antes["hora"]
-        if tenia and e.hora is None and e.quiso not in (None, tenia) and e.pregunta == "hora" and antes["dia"] == e.dia:
-            # pidió otra hora y está ocupada: queda claro que no se cambió y puede dejarla como estaba
+        if tenia and e.hora is None and e.pregunta == "hora" and antes["dia"] == e.dia and e.franja is None \
+                and not e.previo:
+            # pidió otra hora y está ocupada o no se atiende: queda claro que no se cambió y puede dejarla como estaba
+            # (con «mejor más tarde» o «en la tarde» queda una franja, y con «Cambiar algo» está escogiendo otra)
             ultima, dato = respuestas[-1], f"hor:{tenia.strftime('%H:%M')}"
             if ultima.texto.endswith("¿Te sirve alguna de estas?"):
                 ultima.texto = (ultima.texto.removesuffix("¿Te sirve alguna de estas?")
                                 + f"No te la cambié. ¿Te sirve alguna de estas, o la dejamos a {f.las(tenia)}?")
             else:
-                ultima.texto += f"\nNo te la cambié: si prefieres, la dejamos a {f.las(tenia)}"
+                ultima.texto = f"No te la cambié de hora. {ultima.texto}"
             if all(d != dato for fila in ultima.botones for _, d in fila):
                 ultima.botones = ultima.botones + [[(f"Dejarla a {f.las(tenia)}", dato)]]
         return respuestas
@@ -652,6 +669,10 @@ class Agente:
                 e.barbero, e.cualquiera = barbero, False
         dias = [x for x in datos["fecha"] if x.dia]
         distintos = list(dict.fromkeys(x.dia for x in dias if not x.hasta))
+        abiertos = [d for d in distintos if d >= hoy and d.weekday() in config.HORARIO]
+        if len(distintos) > 1 and len(abiertos) == 1:
+            # «el sábado o el domingo»: el domingo no se atiende, así que no hay nada que preguntar
+            dias, distintos = [x for x in dias if x.dia == abiertos[0]], abiertos
         if e.intencion == "reservar" and len(distintos) > 1:
             # «para el 16 ... y el 7 con desvanecido»: dos días en la misma petición; se pregunta en vez de adivinar
             e.dia, e.rango, e.opciones = None, None, [("dia", d) for d in distintos]
@@ -732,10 +753,11 @@ class Agente:
         barberos = [b for b in self.api.barberos() if b["activo"]]
         aviso, e.aviso = e.aviso, ""
         hoy = ahora.date()
-        if e.dia is not None and e.dia < hoy:
-            aviso, e.dia = aviso + "Ese día ya pasó 😅 ", None
-        if e.dia is not None and e.dia.weekday() not in config.HORARIO:
-            aviso, e.dia = aviso + f.horario(e.dia.weekday()) + " ", None
+        if e.dia is not None and (e.dia < hoy or e.dia.weekday() not in config.HORARIO):
+            motivo = "Ese día ya pasó 😅" if e.dia < hoy else f.horario(e.dia.weekday())
+            # si está moviendo una cita, que sepa que la cita no cambió
+            sigue = f", así que tu cita sigue el {f.dia(inicio(e.cita).date())}." if e.cita else ""
+            aviso, e.dia = aviso + motivo + sigue + " ", None
         dicha = e.hora or _hora_pedida(e) or e.quiso  # la hora que ya pidió (o la que se reintenta en otro día)
         if e.servicio is None:
             # lo que ya dijo se le repite, para que vea que quedó: «Para el martes 27 de octubre a las 3:00 p. m., ¿qué…?»
@@ -770,11 +792,14 @@ class Agente:
             if not dias:
                 return [Respuesta(f"{aviso}Uy, en las próximas dos semanas no me quedan turnos 😕 Llama a la barbería al "
                                   f"{config.TELEFONO} y te buscan un espacio.")]
+            # si ya dijo la hora, primero los días en que esa hora está libre
+            con_hora = self._dias_libres(e, ahora, horas=[dicha]) if dicha else []
+            dias = con_hora or dias
             if e.ver_dias or e.evitar or e.franja:  # «¿qué días tienes en la mañana, que no sea el lunes?»
                 quien = f" con {f.pila(e.barbero['nombre'])}" if e.barbero and not e.cualquiera else ""
                 sin = f", sin contar {_dias_texto(e.evitar)}" if e.evitar else ""
-                pregunta = (f"Para {e.servicio['nombre'].lower()}{quien}{_en_franja(e.franja)} tengo turno estos "
-                            f"días{sin}. ¿Cuál te sirve?")
+                a_las = f" a {f.las(dicha)}" if con_hora else _en_franja(e.franja)
+                pregunta = f"Para {e.servicio['nombre'].lower()}{quien}{a_las} tengo turno estos días{sin}. ¿Cuál te sirve?"
             elif e.cita:
                 pregunta = "¿Para qué día te la paso?"
             elif dicha:                             # la hora que ya dijo sigue en pie

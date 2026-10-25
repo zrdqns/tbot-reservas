@@ -157,8 +157,11 @@ solo volvía a preguntar y no quedaba claro si había hecho el cambio. Ahora:
   respuesta empieza por «Listo, cambié la hora a las 5:00 p. m. 👍», aunque todavía falte otro dato. Vale igual
   escrito («mejor con Julián», «una hora más tarde», «mejor el viernes a las 5 con Julián») o con los botones de
   «Cambiar algo». Si con la hora nueva cambia quién atiende, también lo dice.
-- Si el cambio no se puede (la hora nueva está ocupada), lo dice: «No te la cambié», con las horas cercanas y un
-  botón para dejarla como estaba.
+- Si el cambio no se puede (la hora nueva está ocupada o fuera del horario), lo dice: «No te la cambié», con las
+  horas cercanas y un botón para dejarla como estaba. Si el día nuevo no se atiende o ya pasó («mejor el domingo»),
+  la cita se queda en el día que tenía y se lo dice, en vez de perderlo.
+- «Ya no la quiero para el martes» o «el jueves no me sirve» quitan ese día («Listo, ya no es el martes 27 de
+  octubre 👍»), conservan la hora y ofrecen los días en que esa hora está libre.
 - Las preguntas repiten lo que ya entendió: «Para el martes 27 de octubre a las 3:00 p. m., ¿qué te vas a hacer?».
 - Al mover una cita, la respuesta final dice de qué a qué: «Ya no es el viernes 16 de octubre a las 10:00 a. m.;
   ahora quedó así:».
