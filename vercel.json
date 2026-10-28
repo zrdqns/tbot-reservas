@@ -2,13 +2,5 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
   "buildCommand": "mkdir -p publico && echo 'TBot Reservas corre en Telegram.' > publico/index.html",
-  "outputDirectory": "publico",
-  "daemons": {
-    "tbot": {
-      "root": "./",
-      "entrypoint": "Dockerfile",
-      "instances": { "iad1": 1 },
-      "terminationGracePeriodSeconds": 15
-    }
-  }
+  "outputDirectory": "publico"
 }

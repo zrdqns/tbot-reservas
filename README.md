@@ -27,7 +27,6 @@ solo la primera vez. Las pruebas corren con `.venv\Scripts\python.exe -m pytest 
 
 ## Despliegue
 
-El bot corre en Vercel como daemon y usa los microservicios desplegados y la base de datos de Supabase (ver
-[bot/README.md](bot/README.md#en-vercel)). Cada push a `main` que cambie el bot o el modelo se publica solo.
-Mientras esté desplegado no hay que encenderlo en el computador: Telegram entrega los mensajes a un solo
-proceso a la vez.
+El bot se enciende a mano en el computador y usa los microservicios desplegados en Vercel y la base de datos de
+Supabase (ver [bot/README.md](bot/README.md#en-vercel)). Estuvo como daemon en Vercel, pero el plan gratuito solo
+da 420 GB-hora de memoria al mes para daemons y un proceso encendido todo el día los gasta en unos nueve días.

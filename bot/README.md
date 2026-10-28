@@ -27,14 +27,16 @@ Otras órdenes:
 
 ## En Vercel
 
-El bot también corre en Vercel como daemon, un proceso que no se apaga y le pregunta a Telegram por
-mensajes nuevos (proyecto `tbot-reservas`). Habla con los microservicios desplegados
-(`barberia-api-citas.vercel.app` y `barberia-api-catalogo.vercel.app`) y guarda los perfiles y los
-mensajes en el esquema `bot` de la misma base de Supabase, porque el disco del contenedor se borra en
-cada despliegue (`almacen.py`).
+El bot corrió en Vercel como daemon, un proceso que no se apaga y le pregunta a Telegram por mensajes nuevos
+(proyecto `tbot-reservas`). El plan gratuito solo da 420 GB-hora de memoria al mes para daemons y un proceso
+encendido todo el día los gastó en unos nueve días, así que el daemon se quitó de `vercel.json` y ahora el bot se
+enciende a mano en el computador, con las mismas variables que tenía allá: habla con los microservicios
+desplegados (`barberia-api-citas.vercel.app` y `barberia-api-catalogo.vercel.app`) y guarda los perfiles y los
+mensajes en el esquema `bot` de la misma base de Supabase (`almacen.py`).
 
-- La imagen sale del `Dockerfile` de la raíz del proyecto y `vercel.json` declara el daemon. El modelo
-  viaja como `modelo/modelo_tbot.zip`, porque Vercel no sube archivos de más de 100 MB.
+- Para volver a Vercel basta con devolver a `vercel.json` la sección `daemons` (entrypoint `Dockerfile`, una
+  instancia en `iad1`). La imagen sale del `Dockerfile` de la raíz del proyecto y el modelo viaja como
+  `modelo/modelo_tbot.zip`, porque Vercel no sube archivos de más de 100 MB.
 - `.vercelignore` deja subir solo el código del bot, el modelo y el tokenizador del corpus: nada de `.env`,
   `bot/datos`, informes ni corpus.
 - Las claves van como variables de entorno del proyecto: `TELEGRAM_TOKEN`, `GROQ_API_KEY`, `DATABASE_URL`,
@@ -45,8 +47,8 @@ cada despliegue (`almacen.py`).
   Telegram se cae un instante, el aviso se omite y el envío se reintenta, en vez de perder el mensaje.
 - Las conversaciones a medio armar viven en memoria: un despliegue nuevo las reinicia (las citas y los
   perfiles no, están en la base de datos).
-- **No hay que encender el bot en el computador mientras corre en Vercel.** Telegram entrega los mensajes a
-  un solo proceso a la vez; si se prenden los dos, se pelean por ellos.
+- **El bot solo puede estar encendido en un lugar a la vez.** Telegram entrega los mensajes a un solo proceso;
+  si se prenden dos, se pelean por ellos.
 
 ## Cómo está armado
 
