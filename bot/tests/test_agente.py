@@ -592,6 +592,14 @@ def test_cualquier_barbero_y_el_numero_del_degradado():
     assert "arreglada" in texto and "¿Con quién" not in texto
 
 
+def test_cualquier_barbero_aunque_el_clasificador_marque_solo_barbero():
+    """Captura del 3 de noviembre: marcaba «barbero» como nombre y respondía «No encuentro a «barbero»»."""
+    for frase in ["con cualquier barbero", "con el peluquero que sea", "me da igual el barbero", "no importa el barbero"]:
+        chat = Chat(cliente_id=1)
+        texto = chat.digo(f"agendame una cita para el martes a las 4 {frase}, quiero un corte clasico")
+        assert "No encuentro" not in texto and "¿Con quién" not in texto and "¿Te la agendo así?" in texto, frase
+
+
 # ----------------------------------------------------------------------------- capturas del 24 de octubre en la noche
 
 def dias_ofrecidos(chat):

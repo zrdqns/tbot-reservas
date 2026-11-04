@@ -91,8 +91,13 @@ DESCUENTO = r"\bdescuentos?\b|\bpromo(cion|ciones)?\b|\bofertas?\b|\bcupon\b|\b2
 DOMICILIO = r"\bdomicilio\b|\ba (la |mi )?casa\b|\bvan a (la casa|domicilio)\b"
 VARIAS = r"\b(dos|2|tres|3) citas\b|\buna para mi y otra\b|\bpara mi y (para )?(mi|el|la)\b"
 # «con cualquier barbero»: sin preferencia aunque el clasificador no lo marque
-BARBERO_IGUAL = (r"\bcon (cualquiera|cualquier barbero|el que (este|sea|haya)( libre)?|quien sea|el que me toque)\b|"
-                 r"\bcualquier barbero\b|\bcualquiera de los (dos|barberos)\b|\bel barbero que sea\b")
+_BARBERO = r"(barber[oa]|peluquer[oa]|estilista)"
+BARBERO_IGUAL = (rf"\bcon (cualquiera|cualquier {_BARBERO}|el que (este|sea|haya)( libre)?|quien sea|el que me toque)\b|"
+                 rf"\bcualquier {_BARBERO}\b|\bcualquiera de los (dos|barberos)\b|\bel {_BARBERO} que sea\b|"
+                 rf"\b(me da igual|no importa|da lo mismo)( el| quien| cual| que)? {_BARBERO}\b|"
+                 rf"\b{_BARBERO} (me da igual|no importa|da lo mismo)\b")
+# lo que el clasificador a veces marca como barbero en «con cualquier barbero»: no nombra a nadie
+GENERICO = rf"((el|un|una|la) )?{_BARBERO}|que (sea|este|haya)( libre)?"
 # «un 7 degradado», «desvanecido al 2»: el número de la guarda va con el estilo en la nota para el barbero
 _ESTILO = r"(degradado|desvanecido|fade|taper|rapado)"
 NUMERO_ESTILO = (rf"\b(?:(?:el|un|una) )?\d{{1,2}} (?:con )?(?:el |un )?{_ESTILO}\b|"
@@ -309,8 +314,9 @@ class Agente:
         if not datos["fecha"] and (m := re.search(r"\b(en|dentro de) \w+ (dias?|semanas?)\b", s)) \
                 and (rescatada := fechas.fecha(m.group(0), ahora.date())):
             datos["fecha"].append(rescatada)        # «corte en ocho días»: el clasificador lo dejó dentro del servicio
-        if not datos["barbero"] and re.search(BARBERO_IGUAL, s):
-            datos["barbero"].append("cualquiera")
+        if re.search(BARBERO_IGUAL, s):
+            datos["barbero"] = [x for x in datos["barbero"] if not re.fullmatch(GENERICO, fechas.limpiar(x))] \
+                or ["cualquiera"]
         for m in re.finditer(NUMERO_ESTILO, s):
             frase, estilo = m.group(0), m.group(1) or m.group(2)
             if not any(frase in fechas.limpiar(x) for x in datos["servicio"]):
