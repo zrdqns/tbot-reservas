@@ -15,7 +15,7 @@ Está en Telegram como [@tbot_reservas_barberia_bot](https://t.me/tbot_reservas_
 
 El corpus y los conjuntos de evaluación también están en
 [Google Drive](https://drive.google.com/drive/folders/13CE5FX7xPDhZwVOx0EO4CKg-UwjZjUGE), junto con el
-[video de presentación](https://drive.google.com/file/d/1usk32vbJ3oGDcsXQ7mXmWGeZcX-o0cbf/view).
+[video de presentación](https://drive.google.com/file/d/1PZ35j_t8C61ZvlkmDbQH_Nu6VtbnAG0n/view).
 
 ## Cómo ejecutarlo en el computador
 
