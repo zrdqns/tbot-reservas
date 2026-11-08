@@ -13,6 +13,9 @@ Está en Telegram como [@tbot_reservas_barberia_bot](https://t.me/tbot_reservas_
 | `modelo/` | El cuaderno con que entrené el clasificador en Colab y el modelo exportado a ONNX |
 | [`evaluacion/`](evaluacion/README.md) | Medición del clasificador, del normalizador de fechas y simulación de conversaciones |
 
+El corpus y los conjuntos de evaluación también están en
+[Google Drive](https://drive.google.com/drive/folders/13CE5FX7xPDhZwVOx0EO4CKg-UwjZjUGE).
+
 ## Cómo ejecutarlo en el computador
 
 ```
