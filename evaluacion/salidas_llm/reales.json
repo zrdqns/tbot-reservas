@@ -1,0 +1,927 @@
+{
+ "real-007": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "lunes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 3"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "Andrés"
+   }
+  ]
+ },
+ "real-008": {
+  "n": 2,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "real-009": {
+  "n": 3,
+  "intencion": "cancelar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "martes"
+   }
+  ]
+ },
+ "real-010": {
+  "n": 4,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "real-011": {
+  "n": 5,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 17"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 3pm"
+   }
+  ]
+ },
+ "real-012": {
+  "n": 6,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "real-013": {
+  "n": 7,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "real-014": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": []
+ },
+ "real-015": {
+  "n": 9,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte clasico"
+   }
+  ]
+ },
+ "real-016": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 20"
+   }
+  ]
+ },
+ "real-017": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "2pm"
+   }
+  ]
+ },
+ "real-018": {
+  "n": 2,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "andres"
+   }
+  ]
+ },
+ "real-019": {
+  "n": 3,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "real-020": {
+  "n": 4,
+  "intencion": "reservar",
+  "ranuras": []
+ },
+ "real-021": {
+  "n": 5,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "1am"
+   }
+  ]
+ },
+ "real-022": {
+  "n": 6,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 16"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la madrugada"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "solo las puntas y el 7 con desvanecido"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 4"
+   }
+  ]
+ },
+ "real-023": {
+  "n": 7,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 16"
+   }
+  ]
+ },
+ "real-024": {
+  "n": 8,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "real-025": {
+  "n": 9,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "real-026": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 16"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la madrugada"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "solo las puntas y el 7 con desvanecido"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 09:52 AM"
+   }
+  ]
+ },
+ "real-027": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "sabado"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 3pm"
+   }
+  ]
+ },
+ "real-028": {
+  "n": 2,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "a las 10"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "cualquier barbero"
+   }
+  ]
+ },
+ "real-029": {
+  "n": 3,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   }
+  ]
+ },
+ "real-030": {
+  "n": 4,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   }
+  ]
+ },
+ "real-031": {
+  "n": 5,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "real-032": {
+  "n": 6,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "real-033": {
+  "n": 7,
+  "intencion": "reservar",
+  "ranuras": []
+ },
+ "real-034": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte clasico"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "un 7 degradado"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "cualquier barbero"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 3"
+   }
+  ]
+ },
+ "real-035": {
+  "n": 9,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   }
+  ]
+ },
+ "real-036": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "a las 2"
+   }
+  ]
+ },
+ "real-037": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "cualquiera"
+   }
+  ]
+ },
+ "real-038": {
+  "n": 2,
+  "intencion": "afirmar",
+  "ranuras": []
+ },
+ "real-039": {
+  "n": 3,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "real-040": {
+  "n": 4,
+  "intencion": "reservar",
+  "ranuras": []
+ },
+ "real-041": {
+  "n": 5,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el martes"
+   }
+  ]
+ },
+ "real-042": {
+  "n": 6,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "10 de la mañana"
+   }
+  ]
+ },
+ "real-043": {
+  "n": 7,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "real-044": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "cortarme el cabello"
+   }
+  ]
+ },
+ "real-045": {
+  "n": 9,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el martes"
+   }
+  ]
+ },
+ "real-046": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "a las 10"
+   }
+  ]
+ },
+ "real-047": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "este martes"
+   },
+   {
+    "tipo": "franja",
+    "valor": "en la tarde"
+   }
+  ]
+ },
+ "real-048": {
+  "n": 2,
+  "intencion": "consultar_servicios",
+  "ranuras": []
+ },
+ "real-049": {
+  "n": 3,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "arreglo de barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el mismo día del corte"
+   }
+  ]
+ },
+ "real-050": {
+  "n": 4,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "real-051": {
+  "n": 5,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "real-052": {
+  "n": 6,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "real-053": {
+  "n": 7,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "real-054": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "cualquier día menos el día lunes"
+   }
+  ]
+ },
+ "real-055": {
+  "n": 9,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "franja",
+    "valor": "en la mañana"
+   }
+  ]
+ },
+ "real-056": {
+  "n": 10,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "real-057": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el día martes"
+   }
+  ]
+ },
+ "real-058": {
+  "n": 2,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el mismo día que tengo el corte"
+   }
+  ]
+ },
+ "real-059": {
+  "n": 3,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "barba"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el mismo día que tengo el corte"
+   }
+  ]
+ },
+ "real-060": {
+  "n": 4,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el mismo dia que tengo el corte de barba"
+   }
+  ]
+ },
+ "real-061": {
+  "n": 5,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "real-062": {
+  "n": 6,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 2"
+   }
+  ]
+ },
+ "real-063": {
+  "n": 7,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte y barba"
+   }
+  ]
+ },
+ "real-064": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el martes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 3"
+   }
+  ]
+ },
+ "real-065": {
+  "n": 9,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "a las 5"
+   }
+  ]
+ },
+ "real-066": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el martes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las tres"
+   }
+  ]
+ },
+ "real-067": {
+  "n": 1,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el martes"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el domingo"
+   }
+  ]
+ },
+ "real-068": {
+  "n": 2,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   }
+  ]
+ },
+ "real-069": {
+  "n": 3,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "4 pm"
+   }
+  ]
+ },
+ "real-070": {
+  "n": 4,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el martes"
+   }
+  ]
+ },
+ "real-071": {
+  "n": 5,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 3"
+   }
+  ]
+ },
+ "real-072": {
+  "n": 6,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el martes"
+   }
+  ]
+ },
+ "real-073": {
+  "n": 7,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "corte y barba"
+   }
+  ]
+ },
+ "real-074": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el martes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 7"
+   }
+  ]
+ },
+ "real-075": {
+  "n": 9,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el martes"
+   },
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   }
+  ]
+ },
+ "real-076": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "7 pm"
+   }
+  ]
+ },
+ "real-077": {
+  "n": 1,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "hora",
+    "valor": "6:30 pm"
+   }
+  ]
+ },
+ "real-078": {
+  "n": 2,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "real-079": {
+  "n": 3,
+  "intencion": "cancelar",
+  "ranuras": []
+ },
+ "real-080": {
+  "n": 4,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "real-081": {
+  "n": 5,
+  "intencion": "fuera_de_alcance",
+  "ranuras": []
+ },
+ "real-082": {
+  "n": 6,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "real-083": {
+  "n": 7,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el miércoles"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 4 de la tarde"
+   }
+  ]
+ },
+ "real-084": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "corte"
+   }
+  ]
+ },
+ "real-085": {
+  "n": 9,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "servicio",
+    "valor": "cortarme el pelo"
+   }
+  ]
+ },
+ "real-086": {
+  "n": 10,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "real-087": {
+  "n": 1,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "real-088": {
+  "n": 2,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el lunes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 4"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "andres"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "corte clasico"
+   }
+  ]
+ },
+ "real-089": {
+  "n": 3,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 2 de noviembre"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 4pm"
+   }
+  ]
+ },
+ "real-090": {
+  "n": 4,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": [
+   {
+    "tipo": "barbero",
+    "valor": "andres"
+   }
+  ]
+ },
+ "real-091": {
+  "n": 5,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "real-092": {
+  "n": 6,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "real-093": {
+  "n": 7,
+  "intencion": "consultar_citas",
+  "ranuras": []
+ },
+ "real-094": {
+  "n": 8,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "mañana"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 6"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "cualquier barbero"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "corte clasico"
+   }
+  ]
+ },
+ "real-095": {
+  "n": 9,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ },
+ "real-096": {
+  "n": 10,
+  "intencion": "reservar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el martes"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 4"
+   },
+   {
+    "tipo": "barbero",
+    "valor": "cualquier barbero"
+   },
+   {
+    "tipo": "servicio",
+    "valor": "corte clasico"
+   }
+  ]
+ },
+ "real-097": {
+  "n": 1,
+  "intencion": "reprogramar",
+  "ranuras": [
+   {
+    "tipo": "fecha",
+    "valor": "el 4"
+   },
+   {
+    "tipo": "hora",
+    "valor": "a las 6pm"
+   }
+  ]
+ },
+ "real-098": {
+  "n": 2,
+  "intencion": "consultar_disponibilidad",
+  "ranuras": []
+ }
+}

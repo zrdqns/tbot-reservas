@@ -25,14 +25,14 @@ Otras órdenes:
 | `python -m bot.configurar` | Poner en Telegram la descripción y el menú de comandos |
 | `python -m pytest bot/tests` | Pruebas del normalizador de fechas y de las conversaciones |
 
-## En Vercel
+## Despliegue
 
 El bot corrió en Vercel como daemon, un proceso que no se apaga y le pregunta a Telegram por mensajes nuevos
 (proyecto `tbot-reservas`). El plan gratuito solo da 420 GB-hora de memoria al mes para daemons y un proceso
 encendido todo el día los gastó en unos nueve días, así que el daemon se quitó de `vercel.json` y ahora el bot se
-enciende a mano en el computador, con las mismas variables que tenía allá: habla con los microservicios
-desplegados (`barberia-api-citas.vercel.app` y `barberia-api-catalogo.vercel.app`) y guarda los perfiles y los
-mensajes en el esquema `bot` de la misma base de Supabase (`almacen.py`).
+enciende a mano en el computador, junto con los dos microservicios de la barbería (`API_CITAS_URL` y
+`API_CATALOGO_URL` apuntan a `localhost:8080` y `localhost:8081`). Con `DATABASE_URL` guarda los perfiles y los
+mensajes en el esquema `bot` de la base de Supabase de la barbería (`almacen.py`); sin ella, en `bot/datos/`.
 
 - Para volver a Vercel basta con devolver a `vercel.json` la sección `daemons` (entrypoint `Dockerfile`, una
   instancia en `iad1`). La imagen sale del `Dockerfile` de la raíz del proyecto y el modelo viaja como
@@ -62,7 +62,7 @@ Cada archivo es uno de los bloques de la arquitectura del informe (Fig. 1).
 | `respaldo.py` | Comprensión | LLM que interpreta los mensajes que el clasificador no entiende |
 | `agente.py` | Estado y política | Marco de la conversación y reglas que deciden el siguiente paso |
 | `perfiles.py` | Estado | Perfil de cada cliente: nombre, cuenta y lo que más pide |
-| `almacen.py` | Estado | Los mismos perfiles y el registro de mensajes, en la base de datos (en Vercel) |
+| `almacen.py` | Estado | Los mismos perfiles y el registro de mensajes, en la base de datos de Supabase |
 | `barberia.py` | Acción | Cliente de la API, búsqueda en el catálogo y turnos libres |
 | `config.py` | | Direcciones de la API, horario de respaldo y umbral de confianza |
 

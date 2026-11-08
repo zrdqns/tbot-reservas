@@ -13,6 +13,7 @@ informe. El entrenamiento del clasificador y la comparación entre modelos está
 | Tarea completa, acción y latencia | `guiones.py`: 70 guiones, cinco repeticiones | `python -m evaluacion.simular` |
 | Clasificador frente a un LLM sin ejemplos | Los 370 mensajes de prueba | `python -m evaluacion.comparar_llm clasificador` |
 | Normalizador frente a un LLM sin reglas | Las mismas 200 expresiones | `python -m evaluacion.comparar_llm fechas` |
+| Comprensión con mensajes de personas | `mensajes_reales.txt`: 92 mensajes escritos al bot en Telegram | `python -m evaluacion.evaluar_reales` |
 
 Hay dos versiones. La primera es la que se armó con el corpus de 2 000 mensajes. La segunda salió de
 probar el bot en Telegram: el corpus pasó a 2 600 mensajes, la prueba incluye 16 mensajes reales de esas
@@ -141,7 +142,8 @@ conversaciones que motivaron los cambios.
   que el corpus. Los únicos mensajes reales son 16, escritos al bot por mí y por un profesor.
 - **La agenda es una copia en memoria** de la API, con sus mismas reglas (`bot/tests/agenda_falsa.py`).
   Contra la API real probé aparte que el agente crea, mueve y cancela citas.
-- La medida que falta es la prueba con compañeros del curso.
+- La prueba con personas está en la última sección: compañeros del curso usaron el bot en Telegram y sus
+  mensajes quedaron como un conjunto aparte.
 
 ## Clasificador frente a un LLM sin ejemplos
 
@@ -196,3 +198,33 @@ se equivoca con el calendario: para «el domingo» dio el sábado 17, para «el 
 sábado, y en «el miércoles de la próxima semana» se corrió un día. Son 11 fechas equivocadas de 100, y en
 una reserva una fecha corrida un día es una cita equivocada. Por eso las fechas se quedan con las reglas,
 como proponía el informe.
+
+## Mensajes de personas
+
+Entre el 10 de octubre y el 4 de noviembre, compañeros del curso, un profesor y yo le escribimos al bot en
+Telegram. Cada vez que alguien me mostraba una conversación que salía mal, la reproducía con la agenda falsa, la
+corregía y la dejaba como prueba en `bot/tests/test_agente.py` (de 165 pruebas a 340). El registro guarda el texto
+de cada mensaje sin el nombre ni la cuenta de quien lo escribió.
+
+`mensajes_reales.txt` tiene los 92 mensajes distintos de ese registro que no están en el corpus, anotados a mano
+con la guía y leyendo cada mensaje solo, sin la conversación. Dejé fuera ocho respuestas que eran solo un número y
+un mensaje copiado con la hora de Telegram.
+
+| Sistema | Intención | F1 de ranuras | Mensaje completo |
+|---|---|---|---|
+| Clasificador (BETO ajustado) | 87,0 % | 88,4 % | 75,0 % |
+| LLM sin ejemplos | 88,0 % | 88,3 % | 71,7 % |
+| Híbrido: clasificador y, si duda, LLM | 87,0 % | 87,9 % | 73,9 % |
+
+- Con mensajes de personas el clasificador baja de 89,5 % a 75,0 % de mensaje completo. Es la distancia entre la
+  prueba sintética y el uso real que el informe anticipaba.
+- El clasificador duda en solo 5 de los 92 mensajes (5,4 %), así que el LLM casi no interviene; en esos cinco
+  arregla uno y daña dos. Los errores que quedan llegan con confianza alta, y el umbral no los atrapa.
+- La mayoría de los errores son mensajes que dependen de la conversación: «andres» como respuesta (el modelo lo
+  toma por nombre del cliente), «que no sea día lunes», «para el mismo día que tengo el corte», «cambia el lunes
+  por el martes» mientras todavía arma la cita. Esos casos los resuelve la política con la pregunta que acababa de
+  hacer y la cita en curso, que es donde están ahora las pruebas de regresión.
+- La otra fuente de error es la frontera entre reservar y consultar: «¿a las 10 no tienes?», «¿para el domingo
+  tienes?» o «¿qué días tienes para un corte que no sea el lunes?». Son preguntas que también piden una cita, y
+  la guía las pone de un lado o del otro según tengan o no un verbo de agendar.
+

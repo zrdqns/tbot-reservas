@@ -1,0 +1,99 @@
+# Mensajes reales: lo que escribieron al bot en Telegram mis compañeros, un profesor y yo entre el 10 de octubre y
+# el 4 de noviembre de 2026 (tabla bot.mensaje, sin nombres ni cuentas). Son los 92 mensajes distintos que no están
+# en el corpus. Quedaron fuera 8 respuestas que eran solo un número («25», «8», «32»), porque lo que significan
+# depende de la pregunta anterior del bot, que el registro no guarda, y un mensaje copiado con la hora de Telegram.
+# Anotados a mano con corpus/guia_anotacion.md, leyendo cada mensaje solo, sin la conversación.
+# Formato: intención, espacio y el mensaje con las ranuras entre corchetes.
+
+reservar quiero un [servicio : corte] [fecha : el lunes] [hora : a las 3 de la tarde] con [barbero : Andrés]
+negar ninguno
+cancelar cancela mi cita del [fecha : martes]
+cancelar cancela la cita
+reservar agendame una cita para [fecha : el 17] [hora : a las 3pm]
+reservar [hora : 9 am]
+consultar_citas que citas tengo?
+reservar agendame una cita
+reservar [servicio : corte clasico]
+reservar para [fecha : el 20]
+reservar [hora : 2pm]
+reservar [barbero : andres]
+afirmar confirmar
+reservar quiero reservar una cita
+reservar [hora : 1am]
+reservar oe bro estoy muy mechudo dame una cita para [fecha : el 16] [franja : en la madrugada], quiero [servicio : solo las puntas] y [servicio : el 7 con desvanecido] [hora : a las 4]
+reservar si abren en esos rangos de tiempo por que no la puedes programar la cita para [fecha : el 16]?
+cancelar cancela la cita quiero programar otra
+afirmar si
+reservar oe bro estoy muy mechudo dame una cita para [fecha : el 16] [franja : en la madrugada], quiero [servicio : solo las puntas] y [servicio : el 7 con desvanecido] [hora : a las 09:52 AM]
+reservar agendame una cita para [fecha : sabado] [hora : a las 3pm]
+reservar [hora : a las 10] con [barbero : cualquier barbero]
+reprogramar cancelala quiero una cita para [fecha : el lunes] no se que horas tengas disponible para ese dia me puedes decir?
+reservar quiero una cita para [fecha : el lunes] no se que horas tengas disponible para ese dia me puedes decir?
+cancelar cancela
+afirmar 'si
+reservar agendar
+reservar [servicio : corte clasico] con [barbero : cualquier barbero] [fecha : el lunes] [hora : a las 3] [servicio : un 7 degradado] que estoy muy mechudo
+reservar bro estoy muy mechudo agendame una cita porfa para [fecha : el lunes], si me puedes decir que horas tienes disponibles para ese dia
+reservar [hora : a las 2]
+reservar con [barbero : cualquiera]
+afirmar esta perfecta
+cancelar cancelame todas las citas
+reservar Buenas tardes necesito una cita para mi hijo dia y hora de su disponibilidad
+reservar para [fecha : el martes]
+reservar [hora : 10 de la mañana]
+cancelar Cancela mis citas
+reservar Quiero una cita para [servicio : cortarme el cabello]
+reservar [fecha : el martes]
+consultar_disponibilidad [hora : a las 10] no tienes?
+reservar Hola buenas noches, necesito una cita de [servicio : corte] para [fecha : este martes] [franja : en la tarde]. Gracias
+consultar_servicios Que otros servicios tienes?
+reservar Me podrías agendar una cita de [servicio : arreglo de barba] para el mismo día del corte
+cancelar Quiero cancelar las dos citas que tengo agendadas para [fecha : el martes]
+cancelar Me cancela la otra cita que tengo porfavor
+consultar_disponibilidad Hola buenas tardes que días tienes agenda para un [servicio : corte] que no sea el día lunes. Gracias
+reservar Que no sea día lunes
+reservar Me podrías agendar una cita de [servicio : corte], que sea para cualquier día menos el día lunes
+consultar_disponibilidad Buenas noches que días tienes agenda [franja : en la mañana] y que no sea el día lunes para un [servicio : corte]. Gracias
+consultar_disponibilidad Que días tienes disponibles?
+reservar Necesito agendar un cita para [servicio : barba] [fecha : el día martes]
+reservar Perdón la cita para el mismo día que tengo el corte
+reservar No la cita para la [servicio : barba] me la puedes agendar para el mismo día que tengo el corte
+reservar Me puedes agendar un [servicio : corte] para el mismo dia que tengo el corte de barba
+cancelar Necesito que me canceles las dos citas que tengo
+reservar quiero una cita para [fecha : mañana] [hora : a las 2 de la tarde]
+reservar ya no quiero ese servicio quiero [servicio : corte y barba], puedes cambiarlo?
+reservar agendame una cita para [fecha : el martes] [hora : a las 3]
+reprogramar cambiame la hora [hora : a las 5]
+reservar quiero una cita para [fecha : el martes] [hora : a las tres]
+reprogramar ya no la quiero para [fecha : el martes] cambiamela para [fecha : el domingo]
+reservar agéndame una cita para [fecha : el lunes] a las
+reservar [hora : 4 pm]
+reprogramar cambia [fecha : el lunes] por [fecha : el martes]
+reservar quiero una cita para [fecha : el lunes] [hora : a las 3]
+reprogramar cambiame la cita del [fecha : lunes] para [fecha : el martes]
+reprogramar cambia el [servicio : corte] por [servicio : corte y barba]
+reservar quiero una cita para [fecha : el martes] [hora : a las 7]
+reprogramar cambiala del [fecha : martes] al [fecha : lunes]
+reservar [hora : 7 pm]
+reservar [hora : 6:30 pm]
+reservar quiero una cita dime que dias tienes disponible menos el domingo
+cancelar cancela las dos
+fuera_de_alcance dios lo bendiga, gracias
+fuera_de_alcance dios lo bendiga
+consultar_citas Hola, que citas tengo programadas?
+reservar agéndame una para [fecha : el miércoles] [hora : a las 4 de la tarde]
+reservar un [servicio : corte]
+reservar buenas tardes para agendar una cita para [servicio : cortarme el pelo]
+consultar_disponibilidad para [fecha : el domingo] tienes?
+consultar_disponibilidad Para [fecha : dentro de 4 dias], tienes?
+reservar programala para [fecha : el lunes] [hora : a las 4] con [barbero : andres] un [servicio : corte clasico]
+consultar_disponibilidad tienes disponible una para [fecha : el 2 de noviembre] [hora : a las 4pm]
+consultar_disponibilidad y con [barbero : andres]?
+consultar_citas Hola, que citas tengo proximas?
+consultar_citas Hola, que citas tengo disponible?
+consultar_citas que citas tengo
+reservar Agéndame una cita para [fecha : mañana] [hora : a las 6] con [barbero : cualquier barbero] y [servicio : corte clasico]
+consultar_citas dime que citas tengo disponible
+reservar agendame una cita para [fecha : el martes] [hora : a las 4] con [barbero : cualquier barbero], quiero un [servicio : corte clasico]
+reprogramar Cambia la fecha para [fecha : el 4] [hora : a las 6pm]
+consultar_citas hola, que citas tengo disponible

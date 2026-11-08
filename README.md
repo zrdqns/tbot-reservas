@@ -27,6 +27,7 @@ solo la primera vez. Las pruebas corren con `.venv\Scripts\python.exe -m pytest 
 
 ## Despliegue
 
-El bot se enciende a mano en el computador y usa los microservicios desplegados en Vercel y la base de datos de
-Supabase (ver [bot/README.md](bot/README.md#en-vercel)). Estuvo como daemon en Vercel, pero el plan gratuito solo
-da 420 GB-hora de memoria al mes para daemons y un proceso encendido todo el día los gasta en unos nueve días.
+El bot se enciende a mano en el computador, junto con los dos microservicios de la barbería, y guarda los perfiles
+y el registro de mensajes en la base de datos de Supabase (ver [bot/README.md](bot/README.md#despliegue)). Estuvo
+como daemon en Vercel, pero el plan gratuito solo da 420 GB-hora de memoria al mes para daemons y un proceso
+encendido todo el día los gasta en unos nueve días.
