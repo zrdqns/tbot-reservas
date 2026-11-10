@@ -12,11 +12,15 @@ from .agente import Agente
 from .barberia import Barberia
 from .comprension import entender
 from .perfiles import Perfiles
+from .herramientas import Herramientas
 from .respaldo import interpretar
 
 
 def main():
-    agente, yo, botones = Agente(Barberia(), entender, Perfiles(), respaldo=interpretar), 1, []
+    herramientas = Herramientas()
+    print("Servidores MCP conectados." if herramientas.iniciar() else "Sin servidores MCP: el LLM va sin herramientas.")
+    agente, yo, botones = Agente(Barberia(), entender, Perfiles(),
+                                 respaldo=lambda t, c="": interpretar(t, c, herramientas)), 1, []
     if not agente.api.leer_horario():
         print("api-citas no respondió: uso el horario de config.py.")
     print("Escribe como un cliente. Línea vacía para salir.")

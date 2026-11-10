@@ -60,6 +60,9 @@ Cada archivo es uno de los bloques de la arquitectura del informe (Fig. 1).
 | `comprension.py` | Comprensión | Clasificador de intención y ranuras (BETO ajustado, en ONNX) |
 | `fechas.py` | Comprensión | Normalizador de fechas, horas y franjas por reglas |
 | `respaldo.py` | Comprensión | LLM que interpreta los mensajes que el clasificador no entiende |
+| `herramientas.py` | Comprensión | Cliente MCP: conecta los dos servidores y se los ofrece al LLM como herramientas |
+| `servidores/barberia_mcp.py` | Herramienta | Servidor MCP «barberia»: servicios, barberos, horario y turnos libres (solo lectura) |
+| `servidores/calendario_mcp.py` | Herramienta | Servidor MCP «calendario»: hoy en Colombia y las reglas de fechas y horas |
 | `agente.py` | Estado y política | Marco de la conversación y reglas que deciden el siguiente paso |
 | `perfiles.py` | Estado | Perfil de cada cliente: nombre, cuenta y lo que más pide |
 | `almacen.py` | Estado | Los mismos perfiles y el registro de mensajes, en la base de datos de Supabase |
@@ -74,9 +77,34 @@ La política sigue cuatro reglas:
   cita, y solo se llega a ella con el botón de confirmar o un «sí». Después informa lo que devolvió la API.
 - **Si el clasificador duda, pregunta al LLM; si tampoco, ofrece opciones.** Cuando la confianza baja de
   0,95 o el mensaje parece fuera de alcance, pasa al LLM de respaldo, que devuelve el mismo marco de
-  intención y ranuras. El LLM no tiene acceso a la agenda: lo que dice sigue el camino de siempre, con
+  intención y ranuras. El LLM no puede escribir en la agenda (sus herramientas MCP solo leen): lo que dice sigue el camino de siempre, con
   normalizador, catálogo y confirmación. Si no responde o tampoco lo entiende, el agente pregunta «¿Quieres
   que te agende una cita?» o muestra el menú con las acciones posibles y la opción de hablar con el barbero.
+
+## El LLM con dos servidores MCP
+
+Desde noviembre de 2026 el LLM de respaldo tiene herramientas, conectadas con el Model Context Protocol (MCP).
+Son dos servidores propios que corren como procesos aparte y hablan MCP por stdio; `herramientas.py` los lanza al
+encender el bot, mantiene las conexiones abiertas y le pasa al LLM la lista de herramientas.
+
+| Servidor | Herramientas | De dónde saca los datos |
+|---|---|---|
+| `barberia` | `servicios`, `barberos`, `horario`, `turnos_libres(fecha, servicio, barbero)` | Las APIs de la barbería |
+| `calendario` | `hoy`, `fecha(expresion)`, `hora(expresion)` | La hora de Colombia y las reglas de `fechas.py` |
+
+- **Cuándo se usan.** Cuando el clasificador duda, el LLM puede consultarlas para leer mejor el mensaje (saber que
+  «andres» es un barbero) y, si era una pregunta sobre la barbería, contestar con datos reales: «¿el de la barba
+  trabaja mañana temprano?», «¿cuál es el servicio más barato?», «¿cuánto me sale un corte para mí y otro para mi
+  hijo?». Una consulta con una comparación o un descriptor que las respuestas fijas no leen («el más barato», «el de
+  la barba», «para mí y…») también pasa al LLM aunque el clasificador esté seguro. Si el LLM no contesta, queda la
+  respuesta fija de siempre.
+- **Qué no pueden hacer.** Son de solo lectura: no hay herramienta para crear, mover ni cancelar citas, ni para ver
+  clientes. Agendar sigue siendo solo de la política, con confirmación. Si el LLM escribe que agendó algo, el agente
+  descarta esa respuesta, y también descarta las respuestas que no salieron de una herramienta.
+- **Si algo falla.** Si un servidor no arranca o Groq no responde, el LLM trabaja sin herramientas o el agente sigue
+  con sus respuestas fijas.
+- **Probarlos.** `python -m bot.servidores.barberia_mcp --demo` usa la agenda de prueba en vez de las APIs; con
+  `TBOT_AHORA=2026-10-13T10:00` el «hoy» queda fijo. Las pruebas están en `tests/test_mcp.py`.
 
 ## Cómo habla y qué entiende
 

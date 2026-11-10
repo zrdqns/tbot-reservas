@@ -24,6 +24,7 @@ from .agente import Agente
 from .barberia import Barberia
 from .comprension import entender
 from .perfiles import Perfiles
+from .herramientas import Herramientas
 from .respaldo import interpretar
 
 if os.environ.get("DATABASE_URL"):
@@ -31,7 +32,10 @@ if os.environ.get("DATABASE_URL"):
     perfiles, registro = PerfilesBD(os.environ["DATABASE_URL"]), RegistroBD(os.environ["DATABASE_URL"])
 else:
     perfiles, registro = Perfiles(config.DATOS / "perfiles.json"), config.DATOS / "mensajes.jsonl"
-agente = Agente(Barberia(), entender, perfiles, registro, respaldo=interpretar)
+# Los dos servidores MCP (barbería y calendario) que el LLM de respaldo usa como herramientas; se conectan en main()
+herramientas = Herramientas()
+agente = Agente(Barberia(), entender, perfiles, registro,
+                respaldo=lambda texto, contexto="": interpretar(texto, contexto, herramientas))
 PRIVADO = filters.ChatType.PRIVATE
 TURNO = threading.Lock()
 
@@ -177,8 +181,12 @@ def main():
     app.add_error_handler(al_error)
     app.job_queue.run_repeating(leer_horario, interval=1800, first=0)
     app.job_queue.run_repeating(recordar, interval=1800, first=20)
+    herramientas.iniciar()          # si los servidores MCP no arrancan, el LLM trabaja sin herramientas
     logging.info("TBot atendiendo. Ctrl+C para detenerlo.")
-    app.run_polling()
+    try:
+        app.run_polling()
+    finally:
+        herramientas.cerrar()
 
 
 if __name__ == "__main__":

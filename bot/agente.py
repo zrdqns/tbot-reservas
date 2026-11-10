@@ -137,6 +137,11 @@ VER_DIAS = (r"\b(que|cuales|cual|en que) dias?\b(?! (atienden|abren|trabajan|cie
             r"\bcuando (tienes|tiene|tienen|hay) (cupo|turno|espacio|agenda|disponib|libre)")
 # «cancela las dos citas», «cancela mis citas»: todas las que nombra, no una
 TODAS = r"\btodas\b|\btodo\b|\bambas\b|\blas (dos|2|tres|3|cuatro|4) (citas|que tengo)\b|(?<!una de )\bmis citas\b"
+# Una consulta con una comparación o un descriptor que las respuestas fijas no leen («el más barato», «el de la barba»,
+# «para mí y mi hijo»): la contesta el LLM con las herramientas MCP; si no puede, sigue la respuesta fija
+ABIERTA = (r"\bmas (barat|car|rapid|demor|economic|cort|larg)|\bmenos (demor|tiempo)|\bel (que|de) (sabe|hace|la barba|"
+           r"las barbas|los cortes|el degradado)|\bespecialista|\bcual de (los|las|ellos)\b|\bquien (sabe|hace|es el)|"
+           r"\bpara (mi|dos|tres|\w+ personas) y\b|\by (mi|otro para)|\ben total\b|\bentre (los|las) dos\b")
 # «para el mismo día del corte», «justo después de mi cita»: la otra cita del cliente es la referencia
 MISMO_DIA = r"\b(?:el |ese )?mismo dia\b|\bla misma fecha\b"
 PEGADA = (r"\b(?:justo |inmediatamente |de una )?(?P<lado>despues|seguid[oa]|enseguida|antes) (?:de|del) (?:mi |la |el |esa )?"
@@ -363,10 +368,19 @@ class Agente:
                 and not solo_numero:
             datos, intencion, dudoso, con_datos = directa, "reservar", False, True
         descartado = False
+        if not dudoso and self.respaldo and intencion in ("consultar_servicios", "consultar_disponibilidad") \
+                and re.search(ABIERTA, s):
+            abierta = self.respaldo(texto, self._contexto(e))
+            if abierta and abierta.get("respuesta"):
+                return self._y_seguimos(uid, nombre, e, perfil, [Respuesta(abierta["respuesta"])], ahora)
         if dudoso and not solo_numero and self.respaldo and not (self._cortesia(texto) and not con_datos):
             # El clasificador duda: el mensaje pasa al LLM, que devuelve el mismo marco. Lo que diga sigue el
             # camino de siempre: normalizador, catálogo y confirmación antes de escribir.
             segundo = self.respaldo(texto, self._contexto(e))
+            if segundo and segundo.get("respuesta"):
+                # una pregunta sobre la barbería que el LLM contestó con las herramientas MCP (catálogo, turnos,
+                # calendario): se le contesta y, si estaba agendando, se retoma donde iba. El LLM no agenda nada.
+                return self._y_seguimos(uid, nombre, e, perfil, [Respuesta(segundo["respuesta"])], ahora)
             descartado = bool(segundo) and segundo["intencion"] == "fuera_de_alcance"
             if segundo and not descartado:
                 intencion, datos, dudoso = segundo["intencion"], self._leer(segundo["ranuras"], ahora), False
