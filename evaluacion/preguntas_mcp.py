@@ -103,9 +103,15 @@ def main():
 
     bien_con = bien_sin = 0
     usadas, segundos, filas, aciertos = [], [], [], []
+    catalogo = [json.dumps(agenda().servicios())]
     for pregunta, deben, no_deben in PREGUNTAS:
         s = salidas[pregunta]
         r_con = s["con_mcp"].get("respuesta")
+        # la verificación de precios del agente, sobre la respuesta grabada: si consultó los servicios, los precios que
+        # diga tienen que salir del catálogo; si no los consultó, no puede dar precios
+        usados = s["con_mcp"].get("herramientas", [])
+        if r_con and not respaldo.precios_respaldados(r_con, catalogo if "barberia__servicios" in usados else []):
+            r_con = None
         r_sin = s["sin_mcp"].get("respuesta")
         ok_con = correcta(r_con, deben, no_deben) if deben is not None else not r_con
         ok_sin = correcta(r_sin, deben, no_deben) if deben is not None else not r_sin

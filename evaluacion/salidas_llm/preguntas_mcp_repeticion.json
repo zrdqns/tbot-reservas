@@ -1,0 +1,239 @@
+{
+ "¿cuánto vale el corte y barba?": {
+  "con_mcp": {
+   "intencion": "consultar_servicios",
+   "confianza": 1.0,
+   "ranuras": [],
+   "herramientas": [
+    "barberia__servicios"
+   ],
+   "respuesta": "El corte y barba cuesta $38.000 y dura unos 50 minutos."
+  },
+  "segundos": 3.18,
+  "sin_mcp": {
+   "intencion": "consultar_servicios",
+   "respuesta": "El corte y la barba cuestan $X, ¿te gustaría agendar una cita?"
+  }
+ },
+ "¿qué precio tiene arreglarme la barba?": {
+  "con_mcp": {
+   "intencion": "consultar_servicios",
+   "confianza": 1.0,
+   "ranuras": [
+    {
+     "tipo": "servicio",
+     "valor": "arreglarme la barba"
+    }
+   ],
+   "herramientas": [
+    "barberia__servicios"
+   ],
+   "respuesta": "El arreglo de barba cuesta $18.000 y dura unos 20 minutos."
+  },
+  "segundos": 1.5,
+  "sin_mcp": {
+   "intencion": "consultar_servicios",
+   "respuesta": "El precio del arreglo de barba es de $15.000."
+  }
+ },
+ "¿hacen tinte?": {
+  "con_mcp": {
+   "intencion": "consultar_servicios",
+   "confianza": 1.0,
+   "ranuras": [],
+   "herramientas": [
+    "barberia__servicios"
+   ],
+   "respuesta": "Sí, hacemos tinte. El precio depende del tipo de tinte y la longitud del cabello, pero te puedo dar un estimado de $45.000. ¿Te gustaría agendar?"
+  },
+  "segundos": 1.61,
+  "sin_mcp": {
+   "intencion": "consultar_servicios",
+   "respuesta": "Sí, ofrecemos servicios de tinte. ¿Te gustaría agendar una cita?"
+  }
+ },
+ "¿atienden el domingo?": {
+  "con_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "confianza": 1.0,
+   "ranuras": [],
+   "herramientas": [
+    "barberia__horario"
+   ],
+   "respuesta": "No, los domingos estamos cerrados. Te esperamos de lunes a sábado de 9:00 a 19:00."
+  },
+  "segundos": 1.74,
+  "sin_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "respuesta": "Sí, atendemos los domingos. ¿Te gustaría reservar un horario?"
+  }
+ },
+ "¿hasta qué hora abren el sábado?": {
+  "con_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "confianza": 1.0,
+   "ranuras": [],
+   "herramientas": [
+    "barberia__horario"
+   ],
+   "respuesta": "Abrimos hasta las 7:00 p. m. los sábados."
+  },
+  "segundos": 1.69,
+  "sin_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "respuesta": "Abrimos hasta las 7 pm los sábados."
+  }
+ },
+ "¿cuál de los barberos es el de barba?": {
+  "con_mcp": {
+   "intencion": "consultar_servicios",
+   "confianza": 1.0,
+   "ranuras": [],
+   "herramientas": [
+    "barberia__barberos"
+   ],
+   "respuesta": "Julián Mora es el que se especializa en barba y afeitado."
+  },
+  "segundos": 2.06,
+  "sin_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "respuesta": "Nuestro barbero especializado en barba es Juan."
+  }
+ },
+ "¿qué barberos hay?": {
+  "con_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "confianza": 1.0,
+   "ranuras": [],
+   "herramientas": [
+    "barberia__barberos"
+   ],
+   "respuesta": "Tenemos a Andrés Rojas, especialista en cortes clásicos, y a Julián Mora, experto en barba y afeitado."
+  },
+  "segundos": 1.83,
+  "sin_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "respuesta": "Tenemos a Juan, Carlos y Luis disponibles."
+  }
+ },
+ "¿Andrés tiene turno el viernes a las 3?": {
+  "con_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "confianza": 1.0,
+   "ranuras": [
+    {
+     "tipo": "barbero",
+     "valor": "Andrés"
+    },
+    {
+     "tipo": "fecha",
+     "valor": "el viernes"
+    },
+    {
+     "tipo": "hora",
+     "valor": "a las 3"
+    }
+   ],
+   "herramientas": [
+    "calendario__fecha",
+    "barberia__turnos_libres"
+   ],
+   "respuesta": "No, Andrés no tiene turno a las 3 p. m. el viernes. Puedes elegir otro horario disponible."
+  },
+  "segundos": 2.7,
+  "sin_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "respuesta": "Sí, Andrés tiene turno disponible el viernes a las 3."
+  }
+ },
+ "¿Julián tiene turno el viernes a las 3?": {
+  "con_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "confianza": 1.0,
+   "ranuras": [
+    {
+     "tipo": "barbero",
+     "valor": "Julián"
+    },
+    {
+     "tipo": "fecha",
+     "valor": "el viernes"
+    },
+    {
+     "tipo": "hora",
+     "valor": "a las 3"
+    }
+   ],
+   "herramientas": [
+    "barberia__barberos",
+    "calendario__fecha",
+    "barberia__turnos_libres"
+   ],
+   "respuesta": "Sí, Julián tiene turno disponible a las 3:00 p. m. del viernes."
+  },
+  "segundos": 3.93,
+  "sin_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "respuesta": "Sí, Julián tiene turno disponible el viernes a las 3."
+  }
+ },
+ "¿cuánto me sale un corte para mí y otro para mi hijo?": {
+  "con_mcp": {
+   "intencion": "consultar_servicios",
+   "confianza": 1.0,
+   "ranuras": [
+    {
+     "tipo": "servicio",
+     "valor": "corte"
+    }
+   ],
+   "herramientas": [
+    "barberia__servicios"
+   ],
+   "respuesta": "Un corte clásico cuesta $25.000 y si lo haces para ti y tu hijo serían $50.000 en total."
+  },
+  "segundos": 2.99,
+  "sin_mcp": {
+   "intencion": "consultar_servicios",
+   "respuesta": "Un corte básico cuesta $15.000 y el de niños $10.000, pero hay paquetes y promociones disponibles."
+  }
+ },
+ "¿cuánto se demora el corte y barba?": {
+  "con_mcp": {
+   "intencion": "consultar_servicios",
+   "confianza": 1.0,
+   "ranuras": [],
+   "herramientas": [
+    "barberia__servicios"
+   ],
+   "respuesta": "El corte clásico tarda 30 min y la barba 20 min; juntos son 50 min y cuestan $38.000."
+  },
+  "segundos": 2.24,
+  "sin_mcp": {
+   "intencion": "consultar_servicios",
+   "respuesta": "El corte y barba tarda aproximadamente 45 minutos."
+  }
+ },
+ "¿el 20 abren?": {
+  "con_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "confianza": 1.0,
+   "ranuras": [
+    {
+     "tipo": "fecha",
+     "valor": "el 20"
+    }
+   ],
+   "herramientas": [
+    "barberia__horario",
+    "calendario__fecha"
+   ],
+   "respuesta": "Sí, el 20 (martes) abrimos de 9:00 a 19:00. ¡Te esperamos!"
+  },
+  "segundos": 3.05,
+  "sin_mcp": {
+   "intencion": "consultar_disponibilidad",
+   "respuesta": "Sí, abrimos ese día."
+  }
+ }
+}

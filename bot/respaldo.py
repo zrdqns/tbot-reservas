@@ -162,6 +162,23 @@ RESPONDER = {"type": "function", "function": {
 PROMETE = re.compile(r"\b(te )?(agend[eé]|reserv[eé]|cancel[eé]|cambi[eé]|qued[oó] (agendad|reservad|lista))", re.I)
 
 
+PRECIO_DICHO = re.compile(r"\$\s?(\d{1,3}(?:[.,]\d{3})+|\d{4,6})|\b(\d{1,3}(?:[.,]\d{3})+|\d{4,6})\s*pesos|\b(\d{1,3})\s*mil\b", re.I)
+PRECIO_DATO = re.compile(r'"precio":\s*(\d+)')
+
+
+def precios_respaldados(respuesta, resultados):
+    """Cada precio que el LLM le dice al cliente tiene que salir de una herramienta: un precio del catálogo o la suma
+    de hasta tres («$50.000» por dos cortes de $25.000). Un precio inventado descarta la respuesta."""
+    precios = {int(p) for texto in resultados for p in PRECIO_DATO.findall(texto)}
+    validos = {a + b + c for a in precios | {0} for b in precios | {0} for c in precios | {0}} - {0}
+    for m in PRECIO_DICHO.finditer(respuesta):
+        cifra, en_pesos, en_miles = m.groups()
+        valor = int(en_miles) * 1000 if en_miles else int(re.sub(r"[.,]", "", cifra or en_pesos))
+        if valor not in validos:
+            return False
+    return True
+
+
 def _entrega_rechazada(error):
     """gpt-oss a veces entrega el resultado «llamando» a una herramienta que no existe («json», «response») y Groq
     rechaza la llamada con tool_use_failed; el rechazo trae lo que generó, y si es el resultado se aprovecha."""
@@ -226,7 +243,9 @@ def con_herramientas(texto, usuario, herramientas, espera=8, reintentos=1, tope_
         return None
     marco["herramientas"] = usadas
     respuesta = crudo.get("respuesta")
+    resultados = [m["content"] for m in mensajes if m["role"] == "tool"]
     if isinstance(respuesta, str) and respuesta.strip() and usadas and not PROMETE.search(respuesta) \
+            and precios_respaldados(respuesta, resultados) \
             and marco["intencion"] in ("consultar_disponibilidad", "consultar_servicios", "fuera_de_alcance"):
         marco["respuesta"] = respuesta.strip()[:700]
     return marco

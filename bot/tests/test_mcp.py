@@ -115,6 +115,26 @@ def test_sin_consultar_no_hay_respuesta(herramientas, monkeypatch):
     assert "respuesta" not in respaldo.interpretar("cuánto vale?", "", herramientas)      # un precio inventado
 
 
+def test_un_precio_que_no_salio_de_las_herramientas_se_descarta(herramientas, monkeypatch):
+    # pasó en la evaluación: consultó los servicios (sin tinte) y aun así contestó con un precio inventado
+    grabado([
+        {"content": "", "tool_calls": [llamada("barberia__servicios", {})]},
+        {"content": "", "tool_calls": [llamada("responder", {"intencion": "consultar_servicios", "ranuras": [],
+                                                              "respuesta": "Sí, hacemos tinte por $45.000."}, 2)]},
+    ], monkeypatch)
+    assert "respuesta" not in respaldo.interpretar("¿hacen tinte?", "", herramientas)
+
+
+@pytest.mark.parametrize("respuesta, vale", [
+    ("El corte y barba vale $38.000.", True), ("Para los dos sale $50.000 en total.", True),
+    ("Corte y barba para ti y tu hijo: 76.000 pesos.", True), ("La barba sale en 18 mil.", True),
+    ("El tinte vale $45.000.", False), ("Te sale en 30 mil.", False), ("Abrimos a las 9:00 a. m.", True)])
+def test_precios_respaldados(respuesta, vale):
+    resultados = ['[{"nombre": "Corte clásico", "precio": 25000}, {"nombre": "Arreglo de barba", "precio": 18000}, '
+                  '{"nombre": "Corte y barba", "precio": 38000}]']
+    assert respaldo.precios_respaldados(respuesta, resultados) is vale
+
+
 def test_nunca_dice_que_agendo(herramientas, monkeypatch):
     grabado([
         {"content": "", "tool_calls": [llamada("barberia__turnos_libres", {"fecha": "2026-10-16"})]},

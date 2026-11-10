@@ -14,6 +14,7 @@ informe. El entrenamiento del clasificador y la comparación entre modelos está
 | Clasificador frente a un LLM sin ejemplos | Los 370 mensajes de prueba | `python -m evaluacion.comparar_llm clasificador` |
 | Normalizador frente a un LLM sin reglas | Las mismas 200 expresiones | `python -m evaluacion.comparar_llm fechas` |
 | Comprensión con mensajes de personas | `mensajes_reales.txt`: 92 mensajes escritos al bot en Telegram | `python -m evaluacion.evaluar_reales` |
+| El LLM con los dos servidores MCP | 20 preguntas abiertas con respuesta conocida | `python -m evaluacion.preguntas_mcp` |
 
 Hay dos versiones. La primera es la que se armó con el corpus de 2 000 mensajes. La segunda salió de
 probar el bot en Telegram: el corpus pasó a 2 600 mensajes, la prueba incluye 16 mensajes reales de esas
@@ -227,4 +228,33 @@ un mensaje copiado con la hora de Telegram.
 - La otra fuente de error es la frontera entre reservar y consultar: «¿a las 10 no tienes?», «¿para el domingo
   tienes?» o «¿qué días tienes para un corte que no sea el lunes?». Son preguntas que también piden una cita, y
   la guía las pone de un lado o del otro según tengan o no un verbo de agendar.
+
+## El LLM con los dos servidores MCP
+
+Desde noviembre de 2026 el LLM de respaldo consulta dos servidores MCP de solo lectura: «barberia» (servicios,
+barberos, horario y turnos libres) y «calendario» (hoy y las reglas de fechas). `preguntas_mcp.py` le hace 20
+preguntas abiertas sobre la barbería, con la agenda de prueba, dos citas puestas y el «ahora» fijo en el martes 13 de
+octubre de 2026 a las 10:00 a. m., así que la respuesta correcta se conoce. En tres de ellas lo correcto es no contestar
+(«¿venden cera?», «¿dónde quedan?» y una que pide agendar). El mismo LLM responde también sin herramientas, con la
+instrucción de contestar las preguntas sobre la barbería.
+
+| Tipo de pregunta | Preguntas | Con los dos MCP | Sin herramientas |
+|---|---|---|---|
+| Servicios y precios | 6 | 5 | 0 |
+| Barberos | 3 | 2 | 0 |
+| Horario y fechas | 5 | 5 | 3 |
+| Turnos libres | 3 | 3 | 2 |
+| No debe contestar | 3 | 3 | 3 |
+| **Total** | 20 | 18 | 8 |
+
+- Sin herramientas inventa: los barberos «Juan, Carlos y Luis», «sí, atendemos los domingos», un corte de $15.000.
+- Con herramientas hace 1,1 consultas por pregunta y tarda 1,8 s de mediana. Falló una suma («un corte para mí y otro
+  para mi hijo») y una pregunta por un barbero inactivo, que no contestó.
+- Al repetir 12 de las preguntas (`salidas_llm/preguntas_mcp_repeticion.json`) salieron otra vez 11 de 12, pero en una
+  el LLM consultó los servicios y aun así contestó «sí, hacemos tinte… $45.000». Desde entonces el agente descarta
+  una respuesta con un precio que no salga del catálogo que devolvió la herramienta (o de una suma de esos precios);
+  la tabla ya aplica esa verificación sobre las respuestas grabadas. La repetición se cortó porque el plan gratuito
+  de Groq da 200 000 tokens al día y una pregunta con herramientas gasta unos 5 000.
+- Las respuestas están en `salidas_llm/preguntas_mcp.json`; volver a correr la evaluación no gasta tokens salvo con
+  `--de-nuevo`.
 
