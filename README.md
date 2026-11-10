@@ -8,7 +8,7 @@ Está en Telegram como [@tbot_reservas_barberia_bot](https://t.me/tbot_reservas_
 
 | Carpeta | Qué hay |
 |---|---|
-| [`bot/`](bot/README.md) | El agente: comprensión, estado de la conversación, política y conexión con Telegram |
+| [`bot/`](bot/README.md) | El agente: comprensión, estado de la conversación, política, conexión con Telegram y los dos servidores MCP (barbería y calendario) que usa el LLM |
 | [`corpus/`](corpus/README.md) | Los 2 600 mensajes anotados con intención y ranuras, y el generador que los arma |
 | `modelo/` | El cuaderno con que entrené el clasificador en Colab y el modelo exportado a ONNX |
 | [`evaluacion/`](evaluacion/README.md) | Medición del clasificador, del normalizador de fechas y simulación de conversaciones |
